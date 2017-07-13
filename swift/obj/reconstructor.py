@@ -23,7 +23,6 @@ import itertools
 from collections import defaultdict
 import six
 import six.moves.cPickle as pickle
-import shutil
 
 from eventlet import (GreenPile, GreenPool, Timeout, sleep, tpool, spawn)
 from eventlet.support.greenlets import GreenletExit
@@ -1045,15 +1044,17 @@ class ObjectReconstructor(Daemon):
                 tmp_path = join(dev_path, get_tmp_dir(int(policy)))
                 unlink_older_than(tmp_path, time.time() -
                                   df_mgr.reclaim_age)
-                if not os.path.exists(obj_path):
+
+                if not df_mgr.exists(obj_path):
                     try:
-                        mkdirs(obj_path)
+                        df_mgr.mkdirs(obj_path)
                     except Exception:
                         self.logger.exception(
                             'Unable to create %s' % obj_path)
                     continue
                 try:
-                    partitions = os.listdir(obj_path)
+                    partitions = df_mgr.listdir(obj_path)
+                # TODO: catch other exceptions ? (what does vfile raise)
                 except OSError:
                     self.logger.exception(
                         'Unable to list partitions in %r' % obj_path)
@@ -1069,7 +1070,7 @@ class ObjectReconstructor(Daemon):
                     if not partition.isdigit():
                         self.logger.warning(
                             'Unexpected entity in data dir: %r' % part_path)
-                        self.delete_partition(part_path)
+                        self.delete_partition(df_mgr, part_path)
                         self.reconstruction_part_count += 1
                         continue
                     partition = int(partition)
@@ -1126,13 +1127,13 @@ class ObjectReconstructor(Daemon):
         self.last_reconstruction_count = -1
         self.handoffs_remaining = 0
 
-    def delete_partition(self, path):
-        def kill_it(path):
-            shutil.rmtree(path, ignore_errors=True)
-            remove_file(path)
+    def delete_partition(self, df_mgr, path):
+        def kill_it(df_mgr, path):
+            df_mgr.rmtree(path, ignore_errors=True)
+            df_mgr.remove_file(path)
 
         self.logger.info(_("Removing partition: %s"), path)
-        tpool.execute(kill_it, path)
+        tpool.execute(kill_it, df_mgr, path)
 
     def reconstruct(self, **kwargs):
         """Run a reconstruction pass"""
@@ -1162,6 +1163,7 @@ class ObjectReconstructor(Daemon):
                     # Therefore we know this part a) doesn't belong on
                     # this node and b) doesn't have any suffixes in it.
                     self.run_pool.spawn(self.delete_partition,
+                                        part_info['policy'].diskfile_manager,
                                         part_info['part_path'])
                 for job in jobs:
                     self.run_pool.spawn(self.process_job, job)
