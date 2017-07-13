@@ -805,12 +805,13 @@ def disable_fallocate():
     _sys_fallocate = FallocateWrapper(noop=True)
 
 
-def fallocate(fd, size):
+def fallocate(fd, size, offset=0):
     """
     Pre-allocate disk space for a file.
 
     :param fd: file descriptor
     :param size: size to allocate (in bytes)
+    :param offset: start allocating at offset (in bytes)
     """
     global _sys_fallocate
     if _sys_fallocate is None:
@@ -818,7 +819,7 @@ def fallocate(fd, size):
     if size < 0:
         size = 0
     # 1 means "FALLOC_FL_KEEP_SIZE", which means it pre-allocates invisibly
-    ret = _sys_fallocate(fd, 1, 0, ctypes.c_uint64(size))
+    ret = _sys_fallocate(fd, 1, ctypes.c_uint64(offset), ctypes.c_uint64(size))
     err = ctypes.get_errno()
     if ret and err not in (0, errno.ENOSYS, errno.EOPNOTSUPP,
                            errno.EINVAL):
