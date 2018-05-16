@@ -30,9 +30,9 @@ from eventlet.support.greenlets import GreenletExit
 from swift import gettext_ as _
 from swift.common.utils import (
     whataremyips, unlink_older_than, compute_eta, get_logger,
-    dump_recon_cache, mkdirs, config_true_value,
-    tpool_reraise, GreenAsyncPile, Timestamp, remove_file,
-    load_recon_cache, parse_override_options, distribute_evenly)
+    dump_recon_cache, config_true_value,
+    GreenAsyncPile, Timestamp, load_recon_cache,
+    parse_override_options, distribute_evenly)
 from swift.common.header_key_dict import HeaderKeyDict
 from swift.common.bufferedhttp import http_connect
 from swift.common.daemon import Daemon
@@ -241,6 +241,7 @@ class ObjectReconstructor(Daemon):
 
         :returns: False if any ec ring has changed
         """
+        sleep(10)
         now = time.time()
         if now > self._next_rcache_update:
             self._next_rcache_update = now + self.stats_interval
@@ -1054,7 +1055,6 @@ class ObjectReconstructor(Daemon):
                     continue
                 try:
                     partitions = df_mgr.listdir(obj_path)
-                # TODO: catch other exceptions ? (what does vfile raise)
                 except OSError:
                     self.logger.exception(
                         'Unable to list partitions in %r' % obj_path)
@@ -1163,7 +1163,7 @@ class ObjectReconstructor(Daemon):
                     # Therefore we know this part a) doesn't belong on
                     # this node and b) doesn't have any suffixes in it.
                     self.run_pool.spawn(self.delete_partition,
-                                        part_info['policy'].diskfile_manager,
+                                        self._df_router[part_info['policy']],
                                         part_info['part_path'])
                 for job in jobs:
                     self.run_pool.spawn(self.process_job, job)

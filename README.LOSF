@@ -1,0 +1,50 @@
+LOSF is work in progress.
+
+Getting started with LOSF on SAIO
+
+requirements: use a separate XFS partition for swift data. It may work with other filesystems
+which support hole punching, but has not been tested.
+
+- Compile the golang code
+  Follow instructions in go/losf-rpc/README.md
+
+- Install python modules and regenerate entry_points.txt
+pip install --upgrade .
+
+- Enable LOSF per policy in swift.conf
+  In /etc/swift.conf:
+
+In storage policy 0, add a diskfile line:
+
+[storage-policy:0]
+diskfile = egg:swift#replication.kv
+
+In storage policy 2, add a diskfile line:
+[storage-policy:2]
+diskfile = egg:swift#erasure_coding.kv
+
+- Start the regular swift processes
+  run "startmain" as usual
+If you get this error:
+ImportError: Entry point ('swift.diskfile', 'replication.kv') not found
+You want to check the entry_points.txt is correct. You should find:
+
+[swift.diskfile]
+erasure_coding.fs = swift.obj.diskfile:ECDiskFileManager
+erasure_coding.kv = swift.obj.kvfile:ECKVFileManager
+replication.fs = swift.obj.diskfile:DiskFileManager
+replication.kv = swift.obj.kvfile:KVFileManager
+
+- Start the RPC server processes
+  There is one process per disk. You can use the script in losf-scripts
+start_kvs.sh
+(this script requires the "daemon" package)
+
+- Run the volume_check tool to clear the RPC
+When the RPC server starts and does not find a database, it will create an empty one but mark
+itself as dirty. (maybe the DB files are lost, and we should recover information from existing
+volumes). 
+run the start_check.sh script from the losf-scripts, which will do it.
+
+Done! You can upload data, and check that it gets stored in "volumes" rather than the usual files.
+The functests should pass.

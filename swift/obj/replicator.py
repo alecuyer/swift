@@ -284,6 +284,7 @@ class ObjectReplicator(Daemon):
         # We update recon here because this is the only function we have in
         # a multiprocess replicator that gets called periodically in the
         # parent process.
+        sleep(10)
         if time.time() >= self._next_rcache_update:
             update = self.aggregate_recon_update()
             dump_recon_cache(update, self.rcache, self.logger)
@@ -475,7 +476,7 @@ class ObjectReplicator(Daemon):
         :param job: a dict containing info about the partition to be replicated
         """
 
-        df_mgr = job['policy'].diskfile_manager
+        df_mgr = self._df_router[job['policy']]
 
         def tpool_get_suffixes(path):
             return [suff for suff in df_mgr.listdir(path)
@@ -577,7 +578,7 @@ class ObjectReplicator(Daemon):
         tpool.execute(df_mgr.rmtree, path)
 
     def delete_handoff_objs(self, job, delete_objs):
-        df_mgr = job['policy'].diskfile_manager
+        df_mgr = self._df_router[job['policy']]
         success_paths = []
         error_paths = []
         for object_hash in delete_objs:
@@ -926,7 +927,7 @@ class ObjectReplicator(Daemon):
                                      override_partitions=override_partitions,
                                      override_policies=override_policies)
             for job in jobs:
-                df_mgr = job['policy'].diskfile_manager
+                df_mgr = self._df_router[job['policy']]
                 dev_stats = self.stats_for_dev[job['device']]
                 num_jobs += 1
                 current_nodes = job['nodes']
