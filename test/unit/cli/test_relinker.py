@@ -22,11 +22,11 @@ from swift.cli import relinker
 from swift.common import exceptions, ring, utils
 from swift.common import storage_policy
 from swift.common.storage_policy import (
-    StoragePolicy, StoragePolicyCollection, POLICIES)
+    StoragePolicy, StoragePolicyCollection, POLICIES, ECStoragePolicy)
 
 from swift.obj.diskfile import write_metadata
 
-from test.unit import FakeLogger, skip_if_no_xattrs
+from test.unit import FakeLogger, skip_if_no_xattrs, DEFAULT_TEST_EC_TYPE
 
 
 class TestRelinker(unittest.TestCase):
@@ -151,13 +151,18 @@ class TestRelinker(unittest.TestCase):
     def test_cleanup_non_durable_fragment(self):
         self._common_test_cleanup()
 
-        # Actually all fragments are non-durable and raise and DiskFileNotExist
-        # in EC in this test. However, if the counterpart exists in the new
-        # location, this is ok - it will be fixed by the reconstructor later on
-        storage_policy._POLICIES[0].policy_type = 'erasure_coding'
+        # Switch the policy type so that actually all fragments are non-durable
+        # and raise a DiskFileNotExist in EC in this test. However, if the
+        # counterpart exists in the new location, this is ok - it will be fixed
+        # by the reconstructor later on
+        test_policies = [ECStoragePolicy(
+            0, name='platin', is_default=True, ec_type=DEFAULT_TEST_EC_TYPE,
+            ec_ndata=4, ec_nparity=2)]
+        storage_policy._POLICIES = StoragePolicyCollection(test_policies)
 
         self.assertEqual(
-            0, relinker.cleanup(self.testdir, self.devices, True, self.logger))
+            0, relinker.cleanup(self.testdir, self.devices, True,
+                                self.logger))
         self.assertEqual(self.logger.get_lines_for_level('warning'), [])
 
     def test_cleanup_quarantined(self):

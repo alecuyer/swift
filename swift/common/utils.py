@@ -60,6 +60,7 @@ import eventlet.greenthread
 import eventlet.patcher
 import eventlet.semaphore
 from eventlet import GreenPool, sleep, Timeout, tpool
+import pkg_resources
 from eventlet.green import socket, threading
 from eventlet.hubs import trampoline
 import eventlet.queue
@@ -5120,6 +5121,25 @@ def replace_partition_in_path(path, part_power):
     path_components[-4] = "%d" % part
 
     return os.sep.join(path_components)
+
+
+def load_pkg_resource(group, uri):
+    if '#' in uri:
+        uri, name = uri.split('#', 1)
+    else:
+        name = uri
+        uri = 'egg:swift'
+
+    if ':' in uri:
+        scheme, dist = uri.split(':', 1)
+        scheme = scheme.lower()
+    else:
+        scheme = 'egg'
+        dist = uri
+
+    if scheme != 'egg':
+        raise TypeError('Unhandled URI scheme: %r' % scheme)
+    return pkg_resources.load_entry_point(dist, group, name)
 
 
 class PipeMutex(object):

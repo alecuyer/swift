@@ -324,6 +324,12 @@ Each policy section contains the following options:
       policy types.
     - The default value is ``replication``.
     - When defining an EC policy use the value ``erasure_coding``.
+* ``diskfile = <entry point>`` (optional)
+    - The option ``diskfile`` is used to load an alternate diskfile
+      implementation. The entry_point must exist in entry_points.txt in
+      the swift.diskfile section.
+    - The default value is ``replication.fs`` or ``erasure_coding.fs``
+      depending on the policy type.
 
 The EC policy type has additional required options. See
 :ref:`using_ec_policy` for details.
@@ -347,6 +353,7 @@ this example configuration.::
         [storage-policy:1]
         name = silver
         policy_type = replication
+        diskfile = replication.fs
         deprecated = yes
 
 

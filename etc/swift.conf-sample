@@ -26,10 +26,14 @@ swift_hash_path_prefix = changeme
 #
 # A 'policy_type' argument is also supported but is not mandatory.  Default
 # policy type 'replication' is used when 'policy_type' is unspecified.
+# A 'diskfile' optional argument lets you specify an alternate diskfile
+# implementation. The default is "replication.fs", or "erasure_coding.fs",
+# depending on the policy type.
 [storage-policy:0]
 name = Policy-0
 default = yes
 #policy_type = replication
+#diskfile = replication.fs
 aliases = yellow, orange
 
 # the following section would declare a policy called 'silver', the number of

@@ -594,29 +594,12 @@ def strip_self(f):
 
 class DiskFileRouter(object):
 
-    policy_type_to_manager_cls = {}
-
-    @classmethod
-    def register(cls, policy_type):
-        """
-        Decorator for Storage Policy implementations to register
-        their DiskFile implementation.
-        """
-        def register_wrapper(diskfile_cls):
-            if policy_type in cls.policy_type_to_manager_cls:
-                raise PolicyError(
-                    '%r is already registered for the policy_type %r' % (
-                        cls.policy_type_to_manager_cls[policy_type],
-                        policy_type))
-            cls.policy_type_to_manager_cls[policy_type] = diskfile_cls
-            return diskfile_cls
-        return register_wrapper
-
     def __init__(self, *args, **kwargs):
         self.policy_to_manager = {}
         for policy in POLICIES:
-            manager_cls = self.policy_type_to_manager_cls[policy.policy_type]
-            self.policy_to_manager[int(policy)] = manager_cls(*args, **kwargs)
+            # create diskfile managers now to provoke any errors
+            self.policy_to_manager[int(policy)] = \
+                policy.get_diskfile_manager(*args, **kwargs)
 
     def __getitem__(self, policy):
         return self.policy_to_manager[int(policy)]
@@ -646,6 +629,10 @@ class BaseDiskFileManager(object):
     """
 
     diskfile_cls = None  # must be set by subclasses
+
+    @classmethod
+    def check_policy(cls, policy):
+        raise NotImplementedError
 
     invalidate_hash = strip_self(invalidate_hash)
     consolidate_hashes = strip_self(consolidate_hashes)
@@ -2751,9 +2738,13 @@ class DiskFile(BaseDiskFile):
         return self._ondisk_info
 
 
-@DiskFileRouter.register(REPL_POLICY)
 class DiskFileManager(BaseDiskFileManager):
     diskfile_cls = DiskFile
+
+    @classmethod
+    def check_policy(cls, policy):
+        if policy.policy_type != REPL_POLICY:
+            raise ValueError('Invalid policy_type: %s' % policy.policy_type)
 
     def _process_ondisk_files(self, exts, results, **kwargs):
         """
@@ -3109,9 +3100,13 @@ class ECDiskFile(BaseDiskFile):
         self.manager.invalidate_hash(dirname(self._datadir))
 
 
-@DiskFileRouter.register(EC_POLICY)
 class ECDiskFileManager(BaseDiskFileManager):
     diskfile_cls = ECDiskFile
+
+    @classmethod
+    def check_policy(cls, policy):
+        if policy.policy_type != EC_POLICY:
+            raise ValueError('Invalid policy_type: %s' % policy.policy_type)
 
     def validate_fragment_index(self, frag_index):
         """
