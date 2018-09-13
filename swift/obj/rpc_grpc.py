@@ -74,51 +74,51 @@ def rpc(func):
 
 
 @rpc
-def get_next_offset(socket_path, datafile_index, repair_tool=False):
+def get_next_offset(socket_path, volume_index, repair_tool=False):
     """
-    Returns the next offset to use in the datafile
+    Returns the next offset to use in the volume
     """
-    datafile = fmgr_pb2.GetNextOffsetInfo(datafile_index=int(datafile_index), repair_tool=repair_tool)
-    response = connections.connections[socket_path].stub.GetNextOffset(datafile)
+    volume = fmgr_pb2.GetNextOffsetInfo(volume_index=int(volume_index), repair_tool=repair_tool)
+    response = connections.connections[socket_path].stub.GetNextOffset(volume)
     return response.offset
 
 
 @rpc
-def register_volume(socket_path, partition, datafile_type, datafile_index,
+def register_volume(socket_path, partition, volume_type, volume_index,
                     first_obj_offset, state, repair_tool=False):
-    datafile = fmgr_pb2.NewDataFileInfo(partition=int(partition),
-                                        type=int(datafile_type),
-                                        datafile_index=int(datafile_index),
+    volume = fmgr_pb2.NewVolumeInfo(partition=int(partition),
+                                        type=int(volume_type),
+                                        volume_index=int(volume_index),
                                         offset=first_obj_offset, state=state, repair_tool=repair_tool)
-    response = connections.connections[socket_path].stub.RegisterDataFile(
-        datafile)
+    response = connections.connections[socket_path].stub.RegisterVolume(
+        volume)
     return response
 
 
 @rpc
-def unregister_volume(socket_path, datafile_index):
-    index = fmgr_pb2.DataFileIndex(index=datafile_index)
-    response = connections.connections[socket_path].stub.UnregisterDataFile(
+def unregister_volume(socket_path, volume_index):
+    index = fmgr_pb2.VolumeIndex(index=volume_index)
+    response = connections.connections[socket_path].stub.UnregisterVolume(
         index)
     return response
 
 
 @rpc
-def update_volume_state(socket_path, datafile_index, new_state, repair_tool=False):
-    state_update = fmgr_pb2.NewDataFileState(datafile_index=int(datafile_index),
+def update_volume_state(socket_path, volume_index, new_state, repair_tool=False):
+    state_update = fmgr_pb2.NewVolumeState(volume_index=int(volume_index),
                                              state=new_state, repair_tool=repair_tool)
 
-    response = connections.connections[socket_path].stub.UpdateDataFileState(
+    response = connections.connections[socket_path].stub.UpdateVolumeState(
         state_update)
     return response
 
 
 @rpc
-def register_object(socket_path, name, datafile_index, offset, next_offset, repair_tool=False):
+def register_object(socket_path, name, volume_index, offset, next_offset, repair_tool=False):
     """
     register a vfile
     """
-    obj = fmgr_pb2.NewObjectInfo(name=str(name), datafile_index=int(datafile_index),
+    obj = fmgr_pb2.NewObjectInfo(name=str(name), volume_index=int(volume_index),
                                  offset=int(offset),
                                  next_offset=int(next_offset),
                                  repair_tool=repair_tool)
@@ -127,10 +127,10 @@ def register_object(socket_path, name, datafile_index, offset, next_offset, repa
 
 
 @rpc
-def unregister_object(socket_path, name, datafile_index, offset, length):
+def unregister_object(socket_path, name, volume_index, offset, length):
     obj = fmgr_pb2.UnregisterObjectInfo(
         name=str(name),
-        datafile_index=int(datafile_index),
+        volume_index=int(volume_index),
         offset=int(offset),
         length=int(length))
     response = connections.connections[socket_path].stub.UnregisterObject(obj)
@@ -218,8 +218,8 @@ def list_prefix(socket_path, prefix, repair_tool=False):
 
 @rpc
 def list_objects_by_volume(socket_path, volume_index, repair_tool=False):
-    index = fmgr_pb2.DataFileIndex(index=volume_index, repair_tool=repair_tool)
-    response = connections.connections[socket_path].stub.LoadObjectsByDataFile(
+    index = fmgr_pb2.VolumeIndex(index=volume_index, repair_tool=repair_tool)
+    response = connections.connections[socket_path].stub.LoadObjectsByVolume(
         index)
     return response
 
@@ -277,17 +277,17 @@ def list_suffix(socket_path, partition, suffix, partition_bits):
 # WIP: list volumes
 @rpc
 def list_volumes(socket_path, partition, type, repair_tool=False):
-    list_info = fmgr_pb2.ListDataFilesInfo(partition=int(partition), type=type, repair_tool=repair_tool)
-    response = connections.connections[socket_path].stub.ListDataFiles(
+    list_info = fmgr_pb2.ListVolumesInfo(partition=int(partition), type=type, repair_tool=repair_tool)
+    response = connections.connections[socket_path].stub.ListVolumes(
         list_info)
-    return response.datafiles
+    return response.volumes
 
 
 # get volume by index
 @rpc
 def get_volume(socket_path, index, repair_tool=False):
-    dfIndex = fmgr_pb2.DataFileIndex(index=index, repair_tool=repair_tool)
-    response = connections.connections[socket_path].stub.GetDataFile(dfIndex)
+    volume_idx = fmgr_pb2.VolumeIndex(index=index, repair_tool=repair_tool)
+    response = connections.connections[socket_path].stub.GetVolume(volume_idx)
     return response
 
 

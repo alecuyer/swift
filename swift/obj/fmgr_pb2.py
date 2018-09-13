@@ -20,13 +20,13 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='fmgr.proto',
   package='filemgr',
   syntax='proto3',
-  serialized_pb=_b('\n\nfmgr.proto\x12\x07\x66ilemgr\",\n\x12ListPartitionsInfo\x12\x16\n\x0epartition_bits\x18\x01 \x01(\r\">\n\x11ListPartitionInfo\x12\x11\n\tpartition\x18\x01 \x01(\r\x12\x16\n\x0epartition_bits\x18\x02 \x01(\r\"K\n\x0eListSuffixInfo\x12\x11\n\tpartition\x18\x01 \x01(\r\x12\x0e\n\x06suffix\x18\x02 \x01(\x0c\x12\x16\n\x0epartition_bits\x18\x03 \x01(\r\"\x1b\n\nDirEntries\x12\r\n\x05\x65ntry\x18\x01 \x03(\t\"0\n\x1aListQuarantinedOHashesInfo\x12\x12\n\nfrom_entry\x18\x01 \x01(\x0c\"7\n\x12QuarantinedObjects\x12\r\n\x05\x65ntry\x18\x01 \x03(\t\x12\x12\n\nlast_entry\x18\x02 \x01(\t\"3\n\rDataFileIndex\x12\r\n\x05index\x18\x02 \x01(\r\x12\x13\n\x0brepair_tool\x18\x03 \x01(\x08\"y\n\x08\x44\x61taFile\x12\x16\n\x0e\x64\x61tafile_index\x18\x01 \x01(\r\x12\x15\n\rdatafile_type\x18\x02 \x01(\r\x12\x16\n\x0e\x64\x61tafile_state\x18\x03 \x01(\r\x12\x11\n\tpartition\x18\x04 \x01(\r\x12\x13\n\x0bnext_offset\x18\x05 \x01(\x04\"o\n\x11GetNextOffsetInfo\x12\x16\n\x0e\x64\x61tafile_index\x18\x01 \x01(\r\x12\x15\n\rdatafile_type\x18\x02 \x01(\r\x12\x16\n\x0e\x64\x61tafile_state\x18\x03 \x01(\r\x12\x13\n\x0brepair_tool\x18\x04 \x01(\x08\"`\n\x11ListDataFilesInfo\x12\x11\n\tpartition\x18\x01 \x01(\r\x12#\n\x04type\x18\x02 \x01(\x0e\x32\x15.filemgr.DataFileType\x12\x13\n\x0brepair_tool\x18\x03 \x01(\x08\"1\n\tDataFiles\x12$\n\tdatafiles\x18\x01 \x03(\x0b\x32\x11.filemgr.DataFile\"$\n\x12\x44\x61taFileNextOffset\x12\x0e\n\x06offset\x18\x01 \x01(\x04\"\xad\x01\n\x0fNewDataFileInfo\x12\x11\n\tpartition\x18\x01 \x01(\r\x12#\n\x04type\x18\x02 \x01(\x0e\x32\x15.filemgr.DataFileType\x12\x16\n\x0e\x64\x61tafile_index\x18\x03 \x01(\r\x12\x0e\n\x06offset\x18\x04 \x01(\x04\x12%\n\x05state\x18\x05 \x01(\x0e\x32\x16.filemgr.DataFileState\x12\x13\n\x0brepair_tool\x18\x06 \x01(\x08\"f\n\x10NewDataFileState\x12\x16\n\x0e\x64\x61tafile_index\x18\x01 \x01(\r\x12%\n\x05state\x18\x02 \x01(\x0e\x32\x16.filemgr.DataFileState\x12\x13\n\x0brepair_tool\x18\x03 \x01(\x08\"\x12\n\x10NewDataFileReply\"\x10\n\x0e\x44\x65lObjectReply\"\r\n\x0bRenameReply\"o\n\rNewObjectInfo\x12\x0c\n\x04name\x18\x01 \x01(\x0c\x12\x16\n\x0e\x64\x61tafile_index\x18\x02 \x01(\r\x12\x0e\n\x06offset\x18\x03 \x01(\x04\x12\x13\n\x0bnext_offset\x18\x04 \x01(\x04\x12\x13\n\x0brepair_tool\x18\x05 \x01(\x08\"\x10\n\x0eNewObjectReply\"\\\n\x14UnregisterObjectInfo\x12\x0c\n\x04name\x18\x01 \x01(\x0c\x12\x16\n\x0e\x64\x61tafile_index\x18\x02 \x01(\r\x12\x0e\n\x06offset\x18\x03 \x01(\x04\x12\x0e\n\x06length\x18\x04 \x01(\x04\"/\n\nObjectName\x12\x0c\n\x04name\x18\x01 \x01(\x0c\x12\x13\n\x0brepair_tool\x18\x02 \x01(\x08\"K\n\x0eLoadObjectInfo\x12\x0c\n\x04name\x18\x01 \x01(\x0c\x12\x16\n\x0eis_quarantined\x18\x02 \x01(\x08\x12\x13\n\x0brepair_tool\x18\x03 \x01(\x08\"A\n\nRenameInfo\x12\x0c\n\x04name\x18\x01 \x01(\x0c\x12\x10\n\x08new_name\x18\x02 \x01(\x0c\x12\x13\n\x0brepair_tool\x18\x03 \x01(\x08\">\n\x06Object\x12\x0c\n\x04name\x18\x01 \x01(\x0c\x12\x16\n\x0e\x64\x61tafile_index\x18\x02 \x01(\r\x12\x0e\n\x06offset\x18\x03 \x01(\x04\"7\n\x13LoadObjectsResponse\x12 \n\x07objects\x18\x01 \x03(\x0b\x32\x0f.filemgr.Object\"3\n\x0cObjectPrefix\x12\x0e\n\x06prefix\x18\x01 \x01(\x0c\x12\x13\n\x0brepair_tool\x18\x02 \x01(\x08\"\x07\n\x05\x45mpty\"\x0e\n\x0cGetStatsInfo\"@\n\x10PartitionContent\x12,\n\x0c\x66ile_entries\x18\x01 \x03(\x0b\x32\x16.filemgr.FullPathEntry\"@\n\rFullPathEntry\x12\x0e\n\x06suffix\x18\x01 \x01(\x0c\x12\r\n\x05ohash\x18\x02 \x01(\x0c\x12\x10\n\x08\x66ilename\x18\x03 \x01(\x0c\"\x1a\n\x07KvState\x12\x0f\n\x07isClean\x18\x01 \x01(\x08\"c\n\x07KVStats\x12*\n\x05stats\x18\x01 \x03(\x0b\x32\x1b.filemgr.KVStats.StatsEntry\x1a,\n\nStatsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x04:\x02\x38\x01*P\n\x0c\x44\x61taFileType\x12\x12\n\x0eVOLUME_DEFAULT\x10\x00\x12\x14\n\x10VOLUME_TOMBSTONE\x10\x01\x12\x16\n\x12VOLUME_X_DELETE_AT\x10\x02*T\n\rDataFileState\x12\x0c\n\x08STATE_RW\x10\x00\x12\x18\n\x14STATE_COMPACTION_SRC\x10\x01\x12\x1b\n\x17STATE_COMPACTION_TARGET\x10\x02\x32\xdf\x0c\n\x07\x46ileMgr\x12I\n\x10RegisterDataFile\x12\x18.filemgr.NewDataFileInfo\x1a\x19.filemgr.NewDataFileReply\"\x00\x12>\n\x12UnregisterDataFile\x12\x16.filemgr.DataFileIndex\x1a\x0e.filemgr.Empty\"\x00\x12\x43\n\x0eRegisterObject\x12\x16.filemgr.NewObjectInfo\x1a\x17.filemgr.NewObjectReply\"\x00\x12L\n\x10UnregisterObject\x12\x1d.filemgr.UnregisterObjectInfo\x1a\x17.filemgr.DelObjectReply\"\x00\x12;\n\x0cRenameObject\x12\x13.filemgr.RenameInfo\x1a\x14.filemgr.RenameReply\"\x00\x12\x41\n\rQuarantineDir\x12\x15.filemgr.ObjectPrefix\x1a\x17.filemgr.DelObjectReply\"\x00\x12\x39\n\x10QuarantineObject\x12\x13.filemgr.ObjectName\x1a\x0e.filemgr.Empty\"\x00\x12;\n\x12UnquarantineObject\x12\x13.filemgr.ObjectName\x1a\x0e.filemgr.Empty\"\x00\x12L\n\x13LoadObjectsByPrefix\x12\x15.filemgr.ObjectPrefix\x1a\x1c.filemgr.LoadObjectsResponse\"\x00\x12\x41\n\rListDataFiles\x12\x1a.filemgr.ListDataFilesInfo\x1a\x12.filemgr.DataFiles\"\x00\x12:\n\x0bGetDataFile\x12\x16.filemgr.DataFileIndex\x1a\x11.filemgr.DataFile\"\x00\x12\x44\n\x0eListPartitions\x12\x1b.filemgr.ListPartitionsInfo\x1a\x13.filemgr.DirEntries\"\x00\x12\x42\n\rListPartition\x12\x1a.filemgr.ListPartitionInfo\x1a\x13.filemgr.DirEntries\"\x00\x12<\n\nListSuffix\x12\x17.filemgr.ListSuffixInfo\x1a\x13.filemgr.DirEntries\"\x00\x12Q\n\x16ListPartitionRecursive\x12\x1a.filemgr.ListPartitionInfo\x1a\x19.filemgr.PartitionContent\"\x00\x12\\\n\x16ListQuarantinedOHashes\x12#.filemgr.ListQuarantinedOHashesInfo\x1a\x1b.filemgr.QuarantinedObjects\"\x00\x12M\n\x14ListQuarantinedOHash\x12\x15.filemgr.ObjectPrefix\x1a\x1c.filemgr.LoadObjectsResponse\"\x00\x12\x38\n\nLoadObject\x12\x17.filemgr.LoadObjectInfo\x1a\x0f.filemgr.Object\"\x00\x12J\n\rGetNextOffset\x12\x1a.filemgr.GetNextOffsetInfo\x1a\x1b.filemgr.DataFileNextOffset\"\x00\x12\x35\n\x08GetStats\x12\x15.filemgr.GetStatsInfo\x1a\x10.filemgr.KVStats\"\x00\x12\x44\n\x15LoadObjectsByDataFile\x12\x16.filemgr.DataFileIndex\x1a\x0f.filemgr.Object\"\x00\x30\x01\x12\x42\n\x13UpdateDataFileState\x12\x19.filemgr.NewDataFileState\x1a\x0e.filemgr.Empty\"\x00\x12\x30\n\nSetKvState\x12\x10.filemgr.KvState\x1a\x0e.filemgr.Empty\"\x00\x12\x30\n\nGetKvState\x12\x0e.filemgr.Empty\x1a\x10.filemgr.KvState\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\nfmgr.proto\x12\x07\x66ilemgr\",\n\x12ListPartitionsInfo\x12\x16\n\x0epartition_bits\x18\x01 \x01(\r\">\n\x11ListPartitionInfo\x12\x11\n\tpartition\x18\x01 \x01(\r\x12\x16\n\x0epartition_bits\x18\x02 \x01(\r\"K\n\x0eListSuffixInfo\x12\x11\n\tpartition\x18\x01 \x01(\r\x12\x0e\n\x06suffix\x18\x02 \x01(\x0c\x12\x16\n\x0epartition_bits\x18\x03 \x01(\r\"\x1b\n\nDirEntries\x12\r\n\x05\x65ntry\x18\x01 \x03(\t\"0\n\x1aListQuarantinedOHashesInfo\x12\x12\n\nfrom_entry\x18\x01 \x01(\x0c\"7\n\x12QuarantinedObjects\x12\r\n\x05\x65ntry\x18\x01 \x03(\t\x12\x12\n\nlast_entry\x18\x02 \x01(\t\"1\n\x0bVolumeIndex\x12\r\n\x05index\x18\x02 \x01(\r\x12\x13\n\x0brepair_tool\x18\x03 \x01(\x08\"q\n\x06Volume\x12\x14\n\x0cvolume_index\x18\x01 \x01(\r\x12\x13\n\x0bvolume_type\x18\x02 \x01(\r\x12\x14\n\x0cvolume_state\x18\x03 \x01(\r\x12\x11\n\tpartition\x18\x04 \x01(\r\x12\x13\n\x0bnext_offset\x18\x05 \x01(\x04\"i\n\x11GetNextOffsetInfo\x12\x14\n\x0cvolume_index\x18\x01 \x01(\r\x12\x13\n\x0bvolume_type\x18\x02 \x01(\r\x12\x14\n\x0cvolume_state\x18\x03 \x01(\r\x12\x13\n\x0brepair_tool\x18\x04 \x01(\x08\"\\\n\x0fListVolumesInfo\x12\x11\n\tpartition\x18\x01 \x01(\r\x12!\n\x04type\x18\x02 \x01(\x0e\x32\x13.filemgr.VolumeType\x12\x13\n\x0brepair_tool\x18\x03 \x01(\x08\"+\n\x07Volumes\x12 \n\x07volumes\x18\x01 \x03(\x0b\x32\x0f.filemgr.Volume\"\"\n\x10VolumeNextOffset\x12\x0e\n\x06offset\x18\x01 \x01(\x04\"\xa5\x01\n\rNewVolumeInfo\x12\x11\n\tpartition\x18\x01 \x01(\r\x12!\n\x04type\x18\x02 \x01(\x0e\x32\x13.filemgr.VolumeType\x12\x14\n\x0cvolume_index\x18\x03 \x01(\r\x12\x0e\n\x06offset\x18\x04 \x01(\x04\x12#\n\x05state\x18\x05 \x01(\x0e\x32\x14.filemgr.VolumeState\x12\x13\n\x0brepair_tool\x18\x06 \x01(\x08\"`\n\x0eNewVolumeState\x12\x14\n\x0cvolume_index\x18\x01 \x01(\r\x12#\n\x05state\x18\x02 \x01(\x0e\x32\x14.filemgr.VolumeState\x12\x13\n\x0brepair_tool\x18\x03 \x01(\x08\"\x10\n\x0eNewVolumeReply\"\x10\n\x0e\x44\x65lObjectReply\"\r\n\x0bRenameReply\"m\n\rNewObjectInfo\x12\x0c\n\x04name\x18\x01 \x01(\x0c\x12\x14\n\x0cvolume_index\x18\x02 \x01(\r\x12\x0e\n\x06offset\x18\x03 \x01(\x04\x12\x13\n\x0bnext_offset\x18\x04 \x01(\x04\x12\x13\n\x0brepair_tool\x18\x05 \x01(\x08\"\x10\n\x0eNewObjectReply\"Z\n\x14UnregisterObjectInfo\x12\x0c\n\x04name\x18\x01 \x01(\x0c\x12\x14\n\x0cvolume_index\x18\x02 \x01(\r\x12\x0e\n\x06offset\x18\x03 \x01(\x04\x12\x0e\n\x06length\x18\x04 \x01(\x04\"/\n\nObjectName\x12\x0c\n\x04name\x18\x01 \x01(\x0c\x12\x13\n\x0brepair_tool\x18\x02 \x01(\x08\"K\n\x0eLoadObjectInfo\x12\x0c\n\x04name\x18\x01 \x01(\x0c\x12\x16\n\x0eis_quarantined\x18\x02 \x01(\x08\x12\x13\n\x0brepair_tool\x18\x03 \x01(\x08\"A\n\nRenameInfo\x12\x0c\n\x04name\x18\x01 \x01(\x0c\x12\x10\n\x08new_name\x18\x02 \x01(\x0c\x12\x13\n\x0brepair_tool\x18\x03 \x01(\x08\"<\n\x06Object\x12\x0c\n\x04name\x18\x01 \x01(\x0c\x12\x14\n\x0cvolume_index\x18\x02 \x01(\r\x12\x0e\n\x06offset\x18\x03 \x01(\x04\"7\n\x13LoadObjectsResponse\x12 \n\x07objects\x18\x01 \x03(\x0b\x32\x0f.filemgr.Object\"3\n\x0cObjectPrefix\x12\x0e\n\x06prefix\x18\x01 \x01(\x0c\x12\x13\n\x0brepair_tool\x18\x02 \x01(\x08\"\x07\n\x05\x45mpty\"\x0e\n\x0cGetStatsInfo\"@\n\x10PartitionContent\x12,\n\x0c\x66ile_entries\x18\x01 \x03(\x0b\x32\x16.filemgr.FullPathEntry\"@\n\rFullPathEntry\x12\x0e\n\x06suffix\x18\x01 \x01(\x0c\x12\r\n\x05ohash\x18\x02 \x01(\x0c\x12\x10\n\x08\x66ilename\x18\x03 \x01(\x0c\"\x1a\n\x07KvState\x12\x0f\n\x07isClean\x18\x01 \x01(\x08\"c\n\x07KVStats\x12*\n\x05stats\x18\x01 \x03(\x0b\x32\x1b.filemgr.KVStats.StatsEntry\x1a,\n\nStatsEntry\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\x04:\x02\x38\x01*N\n\nVolumeType\x12\x12\n\x0eVOLUME_DEFAULT\x10\x00\x12\x14\n\x10VOLUME_TOMBSTONE\x10\x01\x12\x16\n\x12VOLUME_X_DELETE_AT\x10\x02*R\n\x0bVolumeState\x12\x0c\n\x08STATE_RW\x10\x00\x12\x18\n\x14STATE_COMPACTION_SRC\x10\x01\x12\x1b\n\x17STATE_COMPACTION_TARGET\x10\x02\x32\xbf\x0c\n\x07\x46ileMgr\x12\x43\n\x0eRegisterVolume\x12\x16.filemgr.NewVolumeInfo\x1a\x17.filemgr.NewVolumeReply\"\x00\x12:\n\x10UnregisterVolume\x12\x14.filemgr.VolumeIndex\x1a\x0e.filemgr.Empty\"\x00\x12\x43\n\x0eRegisterObject\x12\x16.filemgr.NewObjectInfo\x1a\x17.filemgr.NewObjectReply\"\x00\x12L\n\x10UnregisterObject\x12\x1d.filemgr.UnregisterObjectInfo\x1a\x17.filemgr.DelObjectReply\"\x00\x12;\n\x0cRenameObject\x12\x13.filemgr.RenameInfo\x1a\x14.filemgr.RenameReply\"\x00\x12\x41\n\rQuarantineDir\x12\x15.filemgr.ObjectPrefix\x1a\x17.filemgr.DelObjectReply\"\x00\x12\x39\n\x10QuarantineObject\x12\x13.filemgr.ObjectName\x1a\x0e.filemgr.Empty\"\x00\x12;\n\x12UnquarantineObject\x12\x13.filemgr.ObjectName\x1a\x0e.filemgr.Empty\"\x00\x12L\n\x13LoadObjectsByPrefix\x12\x15.filemgr.ObjectPrefix\x1a\x1c.filemgr.LoadObjectsResponse\"\x00\x12;\n\x0bListVolumes\x12\x18.filemgr.ListVolumesInfo\x1a\x10.filemgr.Volumes\"\x00\x12\x34\n\tGetVolume\x12\x14.filemgr.VolumeIndex\x1a\x0f.filemgr.Volume\"\x00\x12\x44\n\x0eListPartitions\x12\x1b.filemgr.ListPartitionsInfo\x1a\x13.filemgr.DirEntries\"\x00\x12\x42\n\rListPartition\x12\x1a.filemgr.ListPartitionInfo\x1a\x13.filemgr.DirEntries\"\x00\x12<\n\nListSuffix\x12\x17.filemgr.ListSuffixInfo\x1a\x13.filemgr.DirEntries\"\x00\x12Q\n\x16ListPartitionRecursive\x12\x1a.filemgr.ListPartitionInfo\x1a\x19.filemgr.PartitionContent\"\x00\x12\\\n\x16ListQuarantinedOHashes\x12#.filemgr.ListQuarantinedOHashesInfo\x1a\x1b.filemgr.QuarantinedObjects\"\x00\x12M\n\x14ListQuarantinedOHash\x12\x15.filemgr.ObjectPrefix\x1a\x1c.filemgr.LoadObjectsResponse\"\x00\x12\x38\n\nLoadObject\x12\x17.filemgr.LoadObjectInfo\x1a\x0f.filemgr.Object\"\x00\x12H\n\rGetNextOffset\x12\x1a.filemgr.GetNextOffsetInfo\x1a\x19.filemgr.VolumeNextOffset\"\x00\x12\x35\n\x08GetStats\x12\x15.filemgr.GetStatsInfo\x1a\x10.filemgr.KVStats\"\x00\x12@\n\x13LoadObjectsByVolume\x12\x14.filemgr.VolumeIndex\x1a\x0f.filemgr.Object\"\x00\x30\x01\x12>\n\x11UpdateVolumeState\x12\x17.filemgr.NewVolumeState\x1a\x0e.filemgr.Empty\"\x00\x12\x30\n\nSetKvState\x12\x10.filemgr.KvState\x1a\x0e.filemgr.Empty\"\x00\x12\x30\n\nGetKvState\x12\x0e.filemgr.Empty\x1a\x10.filemgr.KvState\"\x00\x62\x06proto3')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
-_DATAFILETYPE = _descriptor.EnumDescriptor(
-  name='DataFileType',
-  full_name='filemgr.DataFileType',
+_VOLUMETYPE = _descriptor.EnumDescriptor(
+  name='VolumeType',
+  full_name='filemgr.VolumeType',
   filename=None,
   file=DESCRIPTOR,
   values=[
@@ -45,15 +45,15 @@ _DATAFILETYPE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=2033,
-  serialized_end=2113,
+  serialized_start=1983,
+  serialized_end=2061,
 )
-_sym_db.RegisterEnumDescriptor(_DATAFILETYPE)
+_sym_db.RegisterEnumDescriptor(_VOLUMETYPE)
 
-DataFileType = enum_type_wrapper.EnumTypeWrapper(_DATAFILETYPE)
-_DATAFILESTATE = _descriptor.EnumDescriptor(
-  name='DataFileState',
-  full_name='filemgr.DataFileState',
+VolumeType = enum_type_wrapper.EnumTypeWrapper(_VOLUMETYPE)
+_VOLUMESTATE = _descriptor.EnumDescriptor(
+  name='VolumeState',
+  full_name='filemgr.VolumeState',
   filename=None,
   file=DESCRIPTOR,
   values=[
@@ -72,12 +72,12 @@ _DATAFILESTATE = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=2115,
-  serialized_end=2199,
+  serialized_start=2063,
+  serialized_end=2145,
 )
-_sym_db.RegisterEnumDescriptor(_DATAFILESTATE)
+_sym_db.RegisterEnumDescriptor(_VOLUMESTATE)
 
-DataFileState = enum_type_wrapper.EnumTypeWrapper(_DATAFILESTATE)
+VolumeState = enum_type_wrapper.EnumTypeWrapper(_VOLUMESTATE)
 VOLUME_DEFAULT = 0
 VOLUME_TOMBSTONE = 1
 VOLUME_X_DELETE_AT = 2
@@ -301,22 +301,22 @@ _QUARANTINEDOBJECTS = _descriptor.Descriptor(
 )
 
 
-_DATAFILEINDEX = _descriptor.Descriptor(
-  name='DataFileIndex',
-  full_name='filemgr.DataFileIndex',
+_VOLUMEINDEX = _descriptor.Descriptor(
+  name='VolumeIndex',
+  full_name='filemgr.VolumeIndex',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='index', full_name='filemgr.DataFileIndex.index', index=0,
+      name='index', full_name='filemgr.VolumeIndex.index', index=0,
       number=2, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='repair_tool', full_name='filemgr.DataFileIndex.repair_tool', index=1,
+      name='repair_tool', full_name='filemgr.VolumeIndex.repair_tool', index=1,
       number=3, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
@@ -335,47 +335,47 @@ _DATAFILEINDEX = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=346,
-  serialized_end=397,
+  serialized_end=395,
 )
 
 
-_DATAFILE = _descriptor.Descriptor(
-  name='DataFile',
-  full_name='filemgr.DataFile',
+_VOLUME = _descriptor.Descriptor(
+  name='Volume',
+  full_name='filemgr.Volume',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='datafile_index', full_name='filemgr.DataFile.datafile_index', index=0,
+      name='volume_index', full_name='filemgr.Volume.volume_index', index=0,
       number=1, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='datafile_type', full_name='filemgr.DataFile.datafile_type', index=1,
+      name='volume_type', full_name='filemgr.Volume.volume_type', index=1,
       number=2, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='datafile_state', full_name='filemgr.DataFile.datafile_state', index=2,
+      name='volume_state', full_name='filemgr.Volume.volume_state', index=2,
       number=3, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='partition', full_name='filemgr.DataFile.partition', index=3,
+      name='partition', full_name='filemgr.Volume.partition', index=3,
       number=4, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='next_offset', full_name='filemgr.DataFile.next_offset', index=4,
+      name='next_offset', full_name='filemgr.Volume.next_offset', index=4,
       number=5, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -393,8 +393,8 @@ _DATAFILE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=399,
-  serialized_end=520,
+  serialized_start=397,
+  serialized_end=510,
 )
 
 
@@ -406,21 +406,21 @@ _GETNEXTOFFSETINFO = _descriptor.Descriptor(
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='datafile_index', full_name='filemgr.GetNextOffsetInfo.datafile_index', index=0,
+      name='volume_index', full_name='filemgr.GetNextOffsetInfo.volume_index', index=0,
       number=1, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='datafile_type', full_name='filemgr.GetNextOffsetInfo.datafile_type', index=1,
+      name='volume_type', full_name='filemgr.GetNextOffsetInfo.volume_type', index=1,
       number=2, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='datafile_state', full_name='filemgr.GetNextOffsetInfo.datafile_state', index=2,
+      name='volume_state', full_name='filemgr.GetNextOffsetInfo.volume_state', index=2,
       number=3, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -445,34 +445,34 @@ _GETNEXTOFFSETINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=522,
-  serialized_end=633,
+  serialized_start=512,
+  serialized_end=617,
 )
 
 
-_LISTDATAFILESINFO = _descriptor.Descriptor(
-  name='ListDataFilesInfo',
-  full_name='filemgr.ListDataFilesInfo',
+_LISTVOLUMESINFO = _descriptor.Descriptor(
+  name='ListVolumesInfo',
+  full_name='filemgr.ListVolumesInfo',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='partition', full_name='filemgr.ListDataFilesInfo.partition', index=0,
+      name='partition', full_name='filemgr.ListVolumesInfo.partition', index=0,
       number=1, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='type', full_name='filemgr.ListDataFilesInfo.type', index=1,
+      name='type', full_name='filemgr.ListVolumesInfo.type', index=1,
       number=2, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='repair_tool', full_name='filemgr.ListDataFilesInfo.repair_tool', index=2,
+      name='repair_tool', full_name='filemgr.ListVolumesInfo.repair_tool', index=2,
       number=3, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
@@ -490,20 +490,20 @@ _LISTDATAFILESINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=635,
-  serialized_end=731,
+  serialized_start=619,
+  serialized_end=711,
 )
 
 
-_DATAFILES = _descriptor.Descriptor(
-  name='DataFiles',
-  full_name='filemgr.DataFiles',
+_VOLUMES = _descriptor.Descriptor(
+  name='Volumes',
+  full_name='filemgr.Volumes',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='datafiles', full_name='filemgr.DataFiles.datafiles', index=0,
+      name='volumes', full_name='filemgr.Volumes.volumes', index=0,
       number=1, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -521,20 +521,20 @@ _DATAFILES = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=733,
-  serialized_end=782,
+  serialized_start=713,
+  serialized_end=756,
 )
 
 
-_DATAFILENEXTOFFSET = _descriptor.Descriptor(
-  name='DataFileNextOffset',
-  full_name='filemgr.DataFileNextOffset',
+_VOLUMENEXTOFFSET = _descriptor.Descriptor(
+  name='VolumeNextOffset',
+  full_name='filemgr.VolumeNextOffset',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='offset', full_name='filemgr.DataFileNextOffset.offset', index=0,
+      name='offset', full_name='filemgr.VolumeNextOffset.offset', index=0,
       number=1, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -552,55 +552,55 @@ _DATAFILENEXTOFFSET = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=784,
-  serialized_end=820,
+  serialized_start=758,
+  serialized_end=792,
 )
 
 
-_NEWDATAFILEINFO = _descriptor.Descriptor(
-  name='NewDataFileInfo',
-  full_name='filemgr.NewDataFileInfo',
+_NEWVOLUMEINFO = _descriptor.Descriptor(
+  name='NewVolumeInfo',
+  full_name='filemgr.NewVolumeInfo',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='partition', full_name='filemgr.NewDataFileInfo.partition', index=0,
+      name='partition', full_name='filemgr.NewVolumeInfo.partition', index=0,
       number=1, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='type', full_name='filemgr.NewDataFileInfo.type', index=1,
+      name='type', full_name='filemgr.NewVolumeInfo.type', index=1,
       number=2, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='datafile_index', full_name='filemgr.NewDataFileInfo.datafile_index', index=2,
+      name='volume_index', full_name='filemgr.NewVolumeInfo.volume_index', index=2,
       number=3, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='offset', full_name='filemgr.NewDataFileInfo.offset', index=3,
+      name='offset', full_name='filemgr.NewVolumeInfo.offset', index=3,
       number=4, type=4, cpp_type=4, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='state', full_name='filemgr.NewDataFileInfo.state', index=4,
+      name='state', full_name='filemgr.NewVolumeInfo.state', index=4,
       number=5, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='repair_tool', full_name='filemgr.NewDataFileInfo.repair_tool', index=5,
+      name='repair_tool', full_name='filemgr.NewVolumeInfo.repair_tool', index=5,
       number=6, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
@@ -618,34 +618,34 @@ _NEWDATAFILEINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=823,
-  serialized_end=996,
+  serialized_start=795,
+  serialized_end=960,
 )
 
 
-_NEWDATAFILESTATE = _descriptor.Descriptor(
-  name='NewDataFileState',
-  full_name='filemgr.NewDataFileState',
+_NEWVOLUMESTATE = _descriptor.Descriptor(
+  name='NewVolumeState',
+  full_name='filemgr.NewVolumeState',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='datafile_index', full_name='filemgr.NewDataFileState.datafile_index', index=0,
+      name='volume_index', full_name='filemgr.NewVolumeState.volume_index', index=0,
       number=1, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='state', full_name='filemgr.NewDataFileState.state', index=1,
+      name='state', full_name='filemgr.NewVolumeState.state', index=1,
       number=2, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='repair_tool', full_name='filemgr.NewDataFileState.repair_tool', index=2,
+      name='repair_tool', full_name='filemgr.NewVolumeState.repair_tool', index=2,
       number=3, type=8, cpp_type=7, label=1,
       has_default_value=False, default_value=False,
       message_type=None, enum_type=None, containing_type=None,
@@ -663,14 +663,14 @@ _NEWDATAFILESTATE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=998,
-  serialized_end=1100,
+  serialized_start=962,
+  serialized_end=1058,
 )
 
 
-_NEWDATAFILEREPLY = _descriptor.Descriptor(
-  name='NewDataFileReply',
-  full_name='filemgr.NewDataFileReply',
+_NEWVOLUMEREPLY = _descriptor.Descriptor(
+  name='NewVolumeReply',
+  full_name='filemgr.NewVolumeReply',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
@@ -687,8 +687,8 @@ _NEWDATAFILEREPLY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1102,
-  serialized_end=1120,
+  serialized_start=1060,
+  serialized_end=1076,
 )
 
 
@@ -711,8 +711,8 @@ _DELOBJECTREPLY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1122,
-  serialized_end=1138,
+  serialized_start=1078,
+  serialized_end=1094,
 )
 
 
@@ -735,8 +735,8 @@ _RENAMEREPLY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1140,
-  serialized_end=1153,
+  serialized_start=1096,
+  serialized_end=1109,
 )
 
 
@@ -755,7 +755,7 @@ _NEWOBJECTINFO = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='datafile_index', full_name='filemgr.NewObjectInfo.datafile_index', index=1,
+      name='volume_index', full_name='filemgr.NewObjectInfo.volume_index', index=1,
       number=2, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -794,8 +794,8 @@ _NEWOBJECTINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1155,
-  serialized_end=1266,
+  serialized_start=1111,
+  serialized_end=1220,
 )
 
 
@@ -818,8 +818,8 @@ _NEWOBJECTREPLY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1268,
-  serialized_end=1284,
+  serialized_start=1222,
+  serialized_end=1238,
 )
 
 
@@ -838,7 +838,7 @@ _UNREGISTEROBJECTINFO = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='datafile_index', full_name='filemgr.UnregisterObjectInfo.datafile_index', index=1,
+      name='volume_index', full_name='filemgr.UnregisterObjectInfo.volume_index', index=1,
       number=2, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -870,8 +870,8 @@ _UNREGISTEROBJECTINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1286,
-  serialized_end=1378,
+  serialized_start=1240,
+  serialized_end=1330,
 )
 
 
@@ -908,8 +908,8 @@ _OBJECTNAME = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1380,
-  serialized_end=1427,
+  serialized_start=1332,
+  serialized_end=1379,
 )
 
 
@@ -953,8 +953,8 @@ _LOADOBJECTINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1429,
-  serialized_end=1504,
+  serialized_start=1381,
+  serialized_end=1456,
 )
 
 
@@ -998,8 +998,8 @@ _RENAMEINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1506,
-  serialized_end=1571,
+  serialized_start=1458,
+  serialized_end=1523,
 )
 
 
@@ -1018,7 +1018,7 @@ _OBJECT = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='datafile_index', full_name='filemgr.Object.datafile_index', index=1,
+      name='volume_index', full_name='filemgr.Object.volume_index', index=1,
       number=2, type=13, cpp_type=3, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -1043,8 +1043,8 @@ _OBJECT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1573,
-  serialized_end=1635,
+  serialized_start=1525,
+  serialized_end=1585,
 )
 
 
@@ -1074,8 +1074,8 @@ _LOADOBJECTSRESPONSE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1637,
-  serialized_end=1692,
+  serialized_start=1587,
+  serialized_end=1642,
 )
 
 
@@ -1112,8 +1112,8 @@ _OBJECTPREFIX = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1694,
-  serialized_end=1745,
+  serialized_start=1644,
+  serialized_end=1695,
 )
 
 
@@ -1136,8 +1136,8 @@ _EMPTY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1747,
-  serialized_end=1754,
+  serialized_start=1697,
+  serialized_end=1704,
 )
 
 
@@ -1160,8 +1160,8 @@ _GETSTATSINFO = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1756,
-  serialized_end=1770,
+  serialized_start=1706,
+  serialized_end=1720,
 )
 
 
@@ -1191,8 +1191,8 @@ _PARTITIONCONTENT = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1772,
-  serialized_end=1836,
+  serialized_start=1722,
+  serialized_end=1786,
 )
 
 
@@ -1236,8 +1236,8 @@ _FULLPATHENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1838,
-  serialized_end=1902,
+  serialized_start=1788,
+  serialized_end=1852,
 )
 
 
@@ -1267,8 +1267,8 @@ _KVSTATE = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1904,
-  serialized_end=1930,
+  serialized_start=1854,
+  serialized_end=1880,
 )
 
 
@@ -1305,8 +1305,8 @@ _KVSTATS_STATSENTRY = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1987,
-  serialized_end=2031,
+  serialized_start=1937,
+  serialized_end=1981,
 )
 
 _KVSTATS = _descriptor.Descriptor(
@@ -1335,15 +1335,15 @@ _KVSTATS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=1932,
-  serialized_end=2031,
+  serialized_start=1882,
+  serialized_end=1981,
 )
 
-_LISTDATAFILESINFO.fields_by_name['type'].enum_type = _DATAFILETYPE
-_DATAFILES.fields_by_name['datafiles'].message_type = _DATAFILE
-_NEWDATAFILEINFO.fields_by_name['type'].enum_type = _DATAFILETYPE
-_NEWDATAFILEINFO.fields_by_name['state'].enum_type = _DATAFILESTATE
-_NEWDATAFILESTATE.fields_by_name['state'].enum_type = _DATAFILESTATE
+_LISTVOLUMESINFO.fields_by_name['type'].enum_type = _VOLUMETYPE
+_VOLUMES.fields_by_name['volumes'].message_type = _VOLUME
+_NEWVOLUMEINFO.fields_by_name['type'].enum_type = _VOLUMETYPE
+_NEWVOLUMEINFO.fields_by_name['state'].enum_type = _VOLUMESTATE
+_NEWVOLUMESTATE.fields_by_name['state'].enum_type = _VOLUMESTATE
 _LOADOBJECTSRESPONSE.fields_by_name['objects'].message_type = _OBJECT
 _PARTITIONCONTENT.fields_by_name['file_entries'].message_type = _FULLPATHENTRY
 _KVSTATS_STATSENTRY.containing_type = _KVSTATS
@@ -1354,15 +1354,15 @@ DESCRIPTOR.message_types_by_name['ListSuffixInfo'] = _LISTSUFFIXINFO
 DESCRIPTOR.message_types_by_name['DirEntries'] = _DIRENTRIES
 DESCRIPTOR.message_types_by_name['ListQuarantinedOHashesInfo'] = _LISTQUARANTINEDOHASHESINFO
 DESCRIPTOR.message_types_by_name['QuarantinedObjects'] = _QUARANTINEDOBJECTS
-DESCRIPTOR.message_types_by_name['DataFileIndex'] = _DATAFILEINDEX
-DESCRIPTOR.message_types_by_name['DataFile'] = _DATAFILE
+DESCRIPTOR.message_types_by_name['VolumeIndex'] = _VOLUMEINDEX
+DESCRIPTOR.message_types_by_name['Volume'] = _VOLUME
 DESCRIPTOR.message_types_by_name['GetNextOffsetInfo'] = _GETNEXTOFFSETINFO
-DESCRIPTOR.message_types_by_name['ListDataFilesInfo'] = _LISTDATAFILESINFO
-DESCRIPTOR.message_types_by_name['DataFiles'] = _DATAFILES
-DESCRIPTOR.message_types_by_name['DataFileNextOffset'] = _DATAFILENEXTOFFSET
-DESCRIPTOR.message_types_by_name['NewDataFileInfo'] = _NEWDATAFILEINFO
-DESCRIPTOR.message_types_by_name['NewDataFileState'] = _NEWDATAFILESTATE
-DESCRIPTOR.message_types_by_name['NewDataFileReply'] = _NEWDATAFILEREPLY
+DESCRIPTOR.message_types_by_name['ListVolumesInfo'] = _LISTVOLUMESINFO
+DESCRIPTOR.message_types_by_name['Volumes'] = _VOLUMES
+DESCRIPTOR.message_types_by_name['VolumeNextOffset'] = _VOLUMENEXTOFFSET
+DESCRIPTOR.message_types_by_name['NewVolumeInfo'] = _NEWVOLUMEINFO
+DESCRIPTOR.message_types_by_name['NewVolumeState'] = _NEWVOLUMESTATE
+DESCRIPTOR.message_types_by_name['NewVolumeReply'] = _NEWVOLUMEREPLY
 DESCRIPTOR.message_types_by_name['DelObjectReply'] = _DELOBJECTREPLY
 DESCRIPTOR.message_types_by_name['RenameReply'] = _RENAMEREPLY
 DESCRIPTOR.message_types_by_name['NewObjectInfo'] = _NEWOBJECTINFO
@@ -1380,8 +1380,8 @@ DESCRIPTOR.message_types_by_name['PartitionContent'] = _PARTITIONCONTENT
 DESCRIPTOR.message_types_by_name['FullPathEntry'] = _FULLPATHENTRY
 DESCRIPTOR.message_types_by_name['KvState'] = _KVSTATE
 DESCRIPTOR.message_types_by_name['KVStats'] = _KVSTATS
-DESCRIPTOR.enum_types_by_name['DataFileType'] = _DATAFILETYPE
-DESCRIPTOR.enum_types_by_name['DataFileState'] = _DATAFILESTATE
+DESCRIPTOR.enum_types_by_name['VolumeType'] = _VOLUMETYPE
+DESCRIPTOR.enum_types_by_name['VolumeState'] = _VOLUMESTATE
 
 ListPartitionsInfo = _reflection.GeneratedProtocolMessageType('ListPartitionsInfo', (_message.Message,), dict(
   DESCRIPTOR = _LISTPARTITIONSINFO,
@@ -1425,19 +1425,19 @@ QuarantinedObjects = _reflection.GeneratedProtocolMessageType('QuarantinedObject
   ))
 _sym_db.RegisterMessage(QuarantinedObjects)
 
-DataFileIndex = _reflection.GeneratedProtocolMessageType('DataFileIndex', (_message.Message,), dict(
-  DESCRIPTOR = _DATAFILEINDEX,
+VolumeIndex = _reflection.GeneratedProtocolMessageType('VolumeIndex', (_message.Message,), dict(
+  DESCRIPTOR = _VOLUMEINDEX,
   __module__ = 'fmgr_pb2'
-  # @@protoc_insertion_point(class_scope:filemgr.DataFileIndex)
+  # @@protoc_insertion_point(class_scope:filemgr.VolumeIndex)
   ))
-_sym_db.RegisterMessage(DataFileIndex)
+_sym_db.RegisterMessage(VolumeIndex)
 
-DataFile = _reflection.GeneratedProtocolMessageType('DataFile', (_message.Message,), dict(
-  DESCRIPTOR = _DATAFILE,
+Volume = _reflection.GeneratedProtocolMessageType('Volume', (_message.Message,), dict(
+  DESCRIPTOR = _VOLUME,
   __module__ = 'fmgr_pb2'
-  # @@protoc_insertion_point(class_scope:filemgr.DataFile)
+  # @@protoc_insertion_point(class_scope:filemgr.Volume)
   ))
-_sym_db.RegisterMessage(DataFile)
+_sym_db.RegisterMessage(Volume)
 
 GetNextOffsetInfo = _reflection.GeneratedProtocolMessageType('GetNextOffsetInfo', (_message.Message,), dict(
   DESCRIPTOR = _GETNEXTOFFSETINFO,
@@ -1446,47 +1446,47 @@ GetNextOffsetInfo = _reflection.GeneratedProtocolMessageType('GetNextOffsetInfo'
   ))
 _sym_db.RegisterMessage(GetNextOffsetInfo)
 
-ListDataFilesInfo = _reflection.GeneratedProtocolMessageType('ListDataFilesInfo', (_message.Message,), dict(
-  DESCRIPTOR = _LISTDATAFILESINFO,
+ListVolumesInfo = _reflection.GeneratedProtocolMessageType('ListVolumesInfo', (_message.Message,), dict(
+  DESCRIPTOR = _LISTVOLUMESINFO,
   __module__ = 'fmgr_pb2'
-  # @@protoc_insertion_point(class_scope:filemgr.ListDataFilesInfo)
+  # @@protoc_insertion_point(class_scope:filemgr.ListVolumesInfo)
   ))
-_sym_db.RegisterMessage(ListDataFilesInfo)
+_sym_db.RegisterMessage(ListVolumesInfo)
 
-DataFiles = _reflection.GeneratedProtocolMessageType('DataFiles', (_message.Message,), dict(
-  DESCRIPTOR = _DATAFILES,
+Volumes = _reflection.GeneratedProtocolMessageType('Volumes', (_message.Message,), dict(
+  DESCRIPTOR = _VOLUMES,
   __module__ = 'fmgr_pb2'
-  # @@protoc_insertion_point(class_scope:filemgr.DataFiles)
+  # @@protoc_insertion_point(class_scope:filemgr.Volumes)
   ))
-_sym_db.RegisterMessage(DataFiles)
+_sym_db.RegisterMessage(Volumes)
 
-DataFileNextOffset = _reflection.GeneratedProtocolMessageType('DataFileNextOffset', (_message.Message,), dict(
-  DESCRIPTOR = _DATAFILENEXTOFFSET,
+VolumeNextOffset = _reflection.GeneratedProtocolMessageType('VolumeNextOffset', (_message.Message,), dict(
+  DESCRIPTOR = _VOLUMENEXTOFFSET,
   __module__ = 'fmgr_pb2'
-  # @@protoc_insertion_point(class_scope:filemgr.DataFileNextOffset)
+  # @@protoc_insertion_point(class_scope:filemgr.VolumeNextOffset)
   ))
-_sym_db.RegisterMessage(DataFileNextOffset)
+_sym_db.RegisterMessage(VolumeNextOffset)
 
-NewDataFileInfo = _reflection.GeneratedProtocolMessageType('NewDataFileInfo', (_message.Message,), dict(
-  DESCRIPTOR = _NEWDATAFILEINFO,
+NewVolumeInfo = _reflection.GeneratedProtocolMessageType('NewVolumeInfo', (_message.Message,), dict(
+  DESCRIPTOR = _NEWVOLUMEINFO,
   __module__ = 'fmgr_pb2'
-  # @@protoc_insertion_point(class_scope:filemgr.NewDataFileInfo)
+  # @@protoc_insertion_point(class_scope:filemgr.NewVolumeInfo)
   ))
-_sym_db.RegisterMessage(NewDataFileInfo)
+_sym_db.RegisterMessage(NewVolumeInfo)
 
-NewDataFileState = _reflection.GeneratedProtocolMessageType('NewDataFileState', (_message.Message,), dict(
-  DESCRIPTOR = _NEWDATAFILESTATE,
+NewVolumeState = _reflection.GeneratedProtocolMessageType('NewVolumeState', (_message.Message,), dict(
+  DESCRIPTOR = _NEWVOLUMESTATE,
   __module__ = 'fmgr_pb2'
-  # @@protoc_insertion_point(class_scope:filemgr.NewDataFileState)
+  # @@protoc_insertion_point(class_scope:filemgr.NewVolumeState)
   ))
-_sym_db.RegisterMessage(NewDataFileState)
+_sym_db.RegisterMessage(NewVolumeState)
 
-NewDataFileReply = _reflection.GeneratedProtocolMessageType('NewDataFileReply', (_message.Message,), dict(
-  DESCRIPTOR = _NEWDATAFILEREPLY,
+NewVolumeReply = _reflection.GeneratedProtocolMessageType('NewVolumeReply', (_message.Message,), dict(
+  DESCRIPTOR = _NEWVOLUMEREPLY,
   __module__ = 'fmgr_pb2'
-  # @@protoc_insertion_point(class_scope:filemgr.NewDataFileReply)
+  # @@protoc_insertion_point(class_scope:filemgr.NewVolumeReply)
   ))
-_sym_db.RegisterMessage(NewDataFileReply)
+_sym_db.RegisterMessage(NewVolumeReply)
 
 DelObjectReply = _reflection.GeneratedProtocolMessageType('DelObjectReply', (_message.Message,), dict(
   DESCRIPTOR = _DELOBJECTREPLY,
@@ -1622,10 +1622,10 @@ try:
   # THESE ELEMENTS WILL BE DEPRECATED.
   # Please use the generated *_pb2_grpc.py files instead.
   import grpc
-  from grpc.framework.common import cardinality
-  from grpc.framework.interfaces.face import utilities as face_utilities
   from grpc.beta import implementations as beta_implementations
   from grpc.beta import interfaces as beta_interfaces
+  from grpc.framework.common import cardinality
+  from grpc.framework.interfaces.face import utilities as face_utilities
 
 
   class FileMgrStub(object):
@@ -1641,14 +1641,14 @@ try:
       Args:
         channel: A grpc.Channel.
       """
-      self.RegisterDataFile = channel.unary_unary(
-          '/filemgr.FileMgr/RegisterDataFile',
-          request_serializer=NewDataFileInfo.SerializeToString,
-          response_deserializer=NewDataFileReply.FromString,
+      self.RegisterVolume = channel.unary_unary(
+          '/filemgr.FileMgr/RegisterVolume',
+          request_serializer=NewVolumeInfo.SerializeToString,
+          response_deserializer=NewVolumeReply.FromString,
           )
-      self.UnregisterDataFile = channel.unary_unary(
-          '/filemgr.FileMgr/UnregisterDataFile',
-          request_serializer=DataFileIndex.SerializeToString,
+      self.UnregisterVolume = channel.unary_unary(
+          '/filemgr.FileMgr/UnregisterVolume',
+          request_serializer=VolumeIndex.SerializeToString,
           response_deserializer=Empty.FromString,
           )
       self.RegisterObject = channel.unary_unary(
@@ -1686,15 +1686,15 @@ try:
           request_serializer=ObjectPrefix.SerializeToString,
           response_deserializer=LoadObjectsResponse.FromString,
           )
-      self.ListDataFiles = channel.unary_unary(
-          '/filemgr.FileMgr/ListDataFiles',
-          request_serializer=ListDataFilesInfo.SerializeToString,
-          response_deserializer=DataFiles.FromString,
+      self.ListVolumes = channel.unary_unary(
+          '/filemgr.FileMgr/ListVolumes',
+          request_serializer=ListVolumesInfo.SerializeToString,
+          response_deserializer=Volumes.FromString,
           )
-      self.GetDataFile = channel.unary_unary(
-          '/filemgr.FileMgr/GetDataFile',
-          request_serializer=DataFileIndex.SerializeToString,
-          response_deserializer=DataFile.FromString,
+      self.GetVolume = channel.unary_unary(
+          '/filemgr.FileMgr/GetVolume',
+          request_serializer=VolumeIndex.SerializeToString,
+          response_deserializer=Volume.FromString,
           )
       self.ListPartitions = channel.unary_unary(
           '/filemgr.FileMgr/ListPartitions',
@@ -1734,21 +1734,21 @@ try:
       self.GetNextOffset = channel.unary_unary(
           '/filemgr.FileMgr/GetNextOffset',
           request_serializer=GetNextOffsetInfo.SerializeToString,
-          response_deserializer=DataFileNextOffset.FromString,
+          response_deserializer=VolumeNextOffset.FromString,
           )
       self.GetStats = channel.unary_unary(
           '/filemgr.FileMgr/GetStats',
           request_serializer=GetStatsInfo.SerializeToString,
           response_deserializer=KVStats.FromString,
           )
-      self.LoadObjectsByDataFile = channel.unary_stream(
-          '/filemgr.FileMgr/LoadObjectsByDataFile',
-          request_serializer=DataFileIndex.SerializeToString,
+      self.LoadObjectsByVolume = channel.unary_stream(
+          '/filemgr.FileMgr/LoadObjectsByVolume',
+          request_serializer=VolumeIndex.SerializeToString,
           response_deserializer=Object.FromString,
           )
-      self.UpdateDataFileState = channel.unary_unary(
-          '/filemgr.FileMgr/UpdateDataFileState',
-          request_serializer=NewDataFileState.SerializeToString,
+      self.UpdateVolumeState = channel.unary_unary(
+          '/filemgr.FileMgr/UpdateVolumeState',
+          request_serializer=NewVolumeState.SerializeToString,
           response_deserializer=Empty.FromString,
           )
       self.SetKvState = channel.unary_unary(
@@ -1770,15 +1770,15 @@ try:
     The FileMgr service definition.
     """
 
-    def RegisterDataFile(self, request, context):
-      """Register a new DataFile
+    def RegisterVolume(self, request, context):
+      """Register a new Volume
       """
       context.set_code(grpc.StatusCode.UNIMPLEMENTED)
       context.set_details('Method not implemented!')
       raise NotImplementedError('Method not implemented!')
 
-    def UnregisterDataFile(self, request, context):
-      """Unregister a DataFile
+    def UnregisterVolume(self, request, context):
+      """Unregister a Volume
       """
       context.set_code(grpc.StatusCode.UNIMPLEMENTED)
       context.set_details('Method not implemented!')
@@ -1834,15 +1834,15 @@ try:
       context.set_details('Method not implemented!')
       raise NotImplementedError('Method not implemented!')
 
-    def ListDataFiles(self, request, context):
-      """List DataFiles
+    def ListVolumes(self, request, context):
+      """List Volumes
       """
       context.set_code(grpc.StatusCode.UNIMPLEMENTED)
       context.set_details('Method not implemented!')
       raise NotImplementedError('Method not implemented!')
 
-    def GetDataFile(self, request, context):
-      """Get DataFile by index
+    def GetVolume(self, request, context):
+      """Get Volume by index
       """
       context.set_code(grpc.StatusCode.UNIMPLEMENTED)
       context.set_details('Method not implemented!')
@@ -1900,7 +1900,7 @@ try:
       raise NotImplementedError('Method not implemented!')
 
     def GetNextOffset(self, request, context):
-      """Get next offset to write to in a datafile
+      """Get next offset to write to in a volume
       """
       context.set_code(grpc.StatusCode.UNIMPLEMENTED)
       context.set_details('Method not implemented!')
@@ -1913,15 +1913,15 @@ try:
       context.set_details('Method not implemented!')
       raise NotImplementedError('Method not implemented!')
 
-    def LoadObjectsByDataFile(self, request, context):
+    def LoadObjectsByVolume(self, request, context):
       """List objects per volume - used for compaction (no eventlet, ok to use stream)
       """
       context.set_code(grpc.StatusCode.UNIMPLEMENTED)
       context.set_details('Method not implemented!')
       raise NotImplementedError('Method not implemented!')
 
-    def UpdateDataFileState(self, request, context):
-      """Update DataFile state
+    def UpdateVolumeState(self, request, context):
+      """Update Volume state
       """
       context.set_code(grpc.StatusCode.UNIMPLEMENTED)
       context.set_details('Method not implemented!')
@@ -1944,14 +1944,14 @@ try:
 
   def add_FileMgrServicer_to_server(servicer, server):
     rpc_method_handlers = {
-        'RegisterDataFile': grpc.unary_unary_rpc_method_handler(
-            servicer.RegisterDataFile,
-            request_deserializer=NewDataFileInfo.FromString,
-            response_serializer=NewDataFileReply.SerializeToString,
+        'RegisterVolume': grpc.unary_unary_rpc_method_handler(
+            servicer.RegisterVolume,
+            request_deserializer=NewVolumeInfo.FromString,
+            response_serializer=NewVolumeReply.SerializeToString,
         ),
-        'UnregisterDataFile': grpc.unary_unary_rpc_method_handler(
-            servicer.UnregisterDataFile,
-            request_deserializer=DataFileIndex.FromString,
+        'UnregisterVolume': grpc.unary_unary_rpc_method_handler(
+            servicer.UnregisterVolume,
+            request_deserializer=VolumeIndex.FromString,
             response_serializer=Empty.SerializeToString,
         ),
         'RegisterObject': grpc.unary_unary_rpc_method_handler(
@@ -1989,15 +1989,15 @@ try:
             request_deserializer=ObjectPrefix.FromString,
             response_serializer=LoadObjectsResponse.SerializeToString,
         ),
-        'ListDataFiles': grpc.unary_unary_rpc_method_handler(
-            servicer.ListDataFiles,
-            request_deserializer=ListDataFilesInfo.FromString,
-            response_serializer=DataFiles.SerializeToString,
+        'ListVolumes': grpc.unary_unary_rpc_method_handler(
+            servicer.ListVolumes,
+            request_deserializer=ListVolumesInfo.FromString,
+            response_serializer=Volumes.SerializeToString,
         ),
-        'GetDataFile': grpc.unary_unary_rpc_method_handler(
-            servicer.GetDataFile,
-            request_deserializer=DataFileIndex.FromString,
-            response_serializer=DataFile.SerializeToString,
+        'GetVolume': grpc.unary_unary_rpc_method_handler(
+            servicer.GetVolume,
+            request_deserializer=VolumeIndex.FromString,
+            response_serializer=Volume.SerializeToString,
         ),
         'ListPartitions': grpc.unary_unary_rpc_method_handler(
             servicer.ListPartitions,
@@ -2037,21 +2037,21 @@ try:
         'GetNextOffset': grpc.unary_unary_rpc_method_handler(
             servicer.GetNextOffset,
             request_deserializer=GetNextOffsetInfo.FromString,
-            response_serializer=DataFileNextOffset.SerializeToString,
+            response_serializer=VolumeNextOffset.SerializeToString,
         ),
         'GetStats': grpc.unary_unary_rpc_method_handler(
             servicer.GetStats,
             request_deserializer=GetStatsInfo.FromString,
             response_serializer=KVStats.SerializeToString,
         ),
-        'LoadObjectsByDataFile': grpc.unary_stream_rpc_method_handler(
-            servicer.LoadObjectsByDataFile,
-            request_deserializer=DataFileIndex.FromString,
+        'LoadObjectsByVolume': grpc.unary_stream_rpc_method_handler(
+            servicer.LoadObjectsByVolume,
+            request_deserializer=VolumeIndex.FromString,
             response_serializer=Object.SerializeToString,
         ),
-        'UpdateDataFileState': grpc.unary_unary_rpc_method_handler(
-            servicer.UpdateDataFileState,
-            request_deserializer=NewDataFileState.FromString,
+        'UpdateVolumeState': grpc.unary_unary_rpc_method_handler(
+            servicer.UpdateVolumeState,
+            request_deserializer=NewVolumeState.FromString,
             response_serializer=Empty.SerializeToString,
         ),
         'SetKvState': grpc.unary_unary_rpc_method_handler(
@@ -2081,12 +2081,12 @@ try:
 
     The FileMgr service definition.
     """
-    def RegisterDataFile(self, request, context):
-      """Register a new DataFile
+    def RegisterVolume(self, request, context):
+      """Register a new Volume
       """
       context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
-    def UnregisterDataFile(self, request, context):
-      """Unregister a DataFile
+    def UnregisterVolume(self, request, context):
+      """Unregister a Volume
       """
       context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
     def RegisterObject(self, request, context):
@@ -2118,12 +2118,12 @@ try:
       """Get array of object locations
       """
       context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
-    def ListDataFiles(self, request, context):
-      """List DataFiles
+    def ListVolumes(self, request, context):
+      """List Volumes
       """
       context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
-    def GetDataFile(self, request, context):
-      """Get DataFile by index
+    def GetVolume(self, request, context):
+      """Get Volume by index
       """
       context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
     def ListPartitions(self, request, context):
@@ -2157,19 +2157,19 @@ try:
       """
       context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
     def GetNextOffset(self, request, context):
-      """Get next offset to write to in a datafile
+      """Get next offset to write to in a volume
       """
       context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
     def GetStats(self, request, context):
       """Get KVStats
       """
       context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
-    def LoadObjectsByDataFile(self, request, context):
+    def LoadObjectsByVolume(self, request, context):
       """List objects per volume - used for compaction (no eventlet, ok to use stream)
       """
       context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
-    def UpdateDataFileState(self, request, context):
-      """Update DataFile state
+    def UpdateVolumeState(self, request, context):
+      """Update Volume state
       """
       context.code(beta_interfaces.StatusCode.UNIMPLEMENTED)
     def SetKvState(self, request, context):
@@ -2193,16 +2193,16 @@ try:
 
     The FileMgr service definition.
     """
-    def RegisterDataFile(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
-      """Register a new DataFile
+    def RegisterVolume(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
+      """Register a new Volume
       """
       raise NotImplementedError()
-    RegisterDataFile.future = None
-    def UnregisterDataFile(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
-      """Unregister a DataFile
+    RegisterVolume.future = None
+    def UnregisterVolume(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
+      """Unregister a Volume
       """
       raise NotImplementedError()
-    UnregisterDataFile.future = None
+    UnregisterVolume.future = None
     def RegisterObject(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
       """Register a new object
       """
@@ -2239,16 +2239,16 @@ try:
       """
       raise NotImplementedError()
     LoadObjectsByPrefix.future = None
-    def ListDataFiles(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
-      """List DataFiles
+    def ListVolumes(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
+      """List Volumes
       """
       raise NotImplementedError()
-    ListDataFiles.future = None
-    def GetDataFile(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
-      """Get DataFile by index
+    ListVolumes.future = None
+    def GetVolume(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
+      """Get Volume by index
       """
       raise NotImplementedError()
-    GetDataFile.future = None
+    GetVolume.future = None
     def ListPartitions(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
       """List partitions
       """
@@ -2287,7 +2287,7 @@ try:
       raise NotImplementedError()
     LoadObject.future = None
     def GetNextOffset(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
-      """Get next offset to write to in a datafile
+      """Get next offset to write to in a volume
       """
       raise NotImplementedError()
     GetNextOffset.future = None
@@ -2296,15 +2296,15 @@ try:
       """
       raise NotImplementedError()
     GetStats.future = None
-    def LoadObjectsByDataFile(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
+    def LoadObjectsByVolume(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
       """List objects per volume - used for compaction (no eventlet, ok to use stream)
       """
       raise NotImplementedError()
-    def UpdateDataFileState(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
-      """Update DataFile state
+    def UpdateVolumeState(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
+      """Update Volume state
       """
       raise NotImplementedError()
-    UpdateDataFileState.future = None
+    UpdateVolumeState.future = None
     def SetKvState(self, request, timeout, metadata=None, with_call=False, protocol_options=None):
       """Set state (clean: in sync with the volumes)
       """
@@ -2324,82 +2324,82 @@ try:
     file not marked beta) for all further purposes. This function was
     generated only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0"""
     request_deserializers = {
-      ('filemgr.FileMgr', 'GetDataFile'): DataFileIndex.FromString,
       ('filemgr.FileMgr', 'GetKvState'): Empty.FromString,
       ('filemgr.FileMgr', 'GetNextOffset'): GetNextOffsetInfo.FromString,
       ('filemgr.FileMgr', 'GetStats'): GetStatsInfo.FromString,
-      ('filemgr.FileMgr', 'ListDataFiles'): ListDataFilesInfo.FromString,
+      ('filemgr.FileMgr', 'GetVolume'): VolumeIndex.FromString,
       ('filemgr.FileMgr', 'ListPartition'): ListPartitionInfo.FromString,
       ('filemgr.FileMgr', 'ListPartitionRecursive'): ListPartitionInfo.FromString,
       ('filemgr.FileMgr', 'ListPartitions'): ListPartitionsInfo.FromString,
       ('filemgr.FileMgr', 'ListQuarantinedOHash'): ObjectPrefix.FromString,
       ('filemgr.FileMgr', 'ListQuarantinedOHashes'): ListQuarantinedOHashesInfo.FromString,
       ('filemgr.FileMgr', 'ListSuffix'): ListSuffixInfo.FromString,
+      ('filemgr.FileMgr', 'ListVolumes'): ListVolumesInfo.FromString,
       ('filemgr.FileMgr', 'LoadObject'): LoadObjectInfo.FromString,
-      ('filemgr.FileMgr', 'LoadObjectsByDataFile'): DataFileIndex.FromString,
       ('filemgr.FileMgr', 'LoadObjectsByPrefix'): ObjectPrefix.FromString,
+      ('filemgr.FileMgr', 'LoadObjectsByVolume'): VolumeIndex.FromString,
       ('filemgr.FileMgr', 'QuarantineDir'): ObjectPrefix.FromString,
       ('filemgr.FileMgr', 'QuarantineObject'): ObjectName.FromString,
-      ('filemgr.FileMgr', 'RegisterDataFile'): NewDataFileInfo.FromString,
       ('filemgr.FileMgr', 'RegisterObject'): NewObjectInfo.FromString,
+      ('filemgr.FileMgr', 'RegisterVolume'): NewVolumeInfo.FromString,
       ('filemgr.FileMgr', 'RenameObject'): RenameInfo.FromString,
       ('filemgr.FileMgr', 'SetKvState'): KvState.FromString,
       ('filemgr.FileMgr', 'UnquarantineObject'): ObjectName.FromString,
-      ('filemgr.FileMgr', 'UnregisterDataFile'): DataFileIndex.FromString,
       ('filemgr.FileMgr', 'UnregisterObject'): UnregisterObjectInfo.FromString,
-      ('filemgr.FileMgr', 'UpdateDataFileState'): NewDataFileState.FromString,
+      ('filemgr.FileMgr', 'UnregisterVolume'): VolumeIndex.FromString,
+      ('filemgr.FileMgr', 'UpdateVolumeState'): NewVolumeState.FromString,
     }
     response_serializers = {
-      ('filemgr.FileMgr', 'GetDataFile'): DataFile.SerializeToString,
       ('filemgr.FileMgr', 'GetKvState'): KvState.SerializeToString,
-      ('filemgr.FileMgr', 'GetNextOffset'): DataFileNextOffset.SerializeToString,
+      ('filemgr.FileMgr', 'GetNextOffset'): VolumeNextOffset.SerializeToString,
       ('filemgr.FileMgr', 'GetStats'): KVStats.SerializeToString,
-      ('filemgr.FileMgr', 'ListDataFiles'): DataFiles.SerializeToString,
+      ('filemgr.FileMgr', 'GetVolume'): Volume.SerializeToString,
       ('filemgr.FileMgr', 'ListPartition'): DirEntries.SerializeToString,
       ('filemgr.FileMgr', 'ListPartitionRecursive'): PartitionContent.SerializeToString,
       ('filemgr.FileMgr', 'ListPartitions'): DirEntries.SerializeToString,
       ('filemgr.FileMgr', 'ListQuarantinedOHash'): LoadObjectsResponse.SerializeToString,
       ('filemgr.FileMgr', 'ListQuarantinedOHashes'): QuarantinedObjects.SerializeToString,
       ('filemgr.FileMgr', 'ListSuffix'): DirEntries.SerializeToString,
+      ('filemgr.FileMgr', 'ListVolumes'): Volumes.SerializeToString,
       ('filemgr.FileMgr', 'LoadObject'): Object.SerializeToString,
-      ('filemgr.FileMgr', 'LoadObjectsByDataFile'): Object.SerializeToString,
       ('filemgr.FileMgr', 'LoadObjectsByPrefix'): LoadObjectsResponse.SerializeToString,
+      ('filemgr.FileMgr', 'LoadObjectsByVolume'): Object.SerializeToString,
       ('filemgr.FileMgr', 'QuarantineDir'): DelObjectReply.SerializeToString,
       ('filemgr.FileMgr', 'QuarantineObject'): Empty.SerializeToString,
-      ('filemgr.FileMgr', 'RegisterDataFile'): NewDataFileReply.SerializeToString,
       ('filemgr.FileMgr', 'RegisterObject'): NewObjectReply.SerializeToString,
+      ('filemgr.FileMgr', 'RegisterVolume'): NewVolumeReply.SerializeToString,
       ('filemgr.FileMgr', 'RenameObject'): RenameReply.SerializeToString,
       ('filemgr.FileMgr', 'SetKvState'): Empty.SerializeToString,
       ('filemgr.FileMgr', 'UnquarantineObject'): Empty.SerializeToString,
-      ('filemgr.FileMgr', 'UnregisterDataFile'): Empty.SerializeToString,
       ('filemgr.FileMgr', 'UnregisterObject'): DelObjectReply.SerializeToString,
-      ('filemgr.FileMgr', 'UpdateDataFileState'): Empty.SerializeToString,
+      ('filemgr.FileMgr', 'UnregisterVolume'): Empty.SerializeToString,
+      ('filemgr.FileMgr', 'UpdateVolumeState'): Empty.SerializeToString,
     }
     method_implementations = {
-      ('filemgr.FileMgr', 'GetDataFile'): face_utilities.unary_unary_inline(servicer.GetDataFile),
       ('filemgr.FileMgr', 'GetKvState'): face_utilities.unary_unary_inline(servicer.GetKvState),
       ('filemgr.FileMgr', 'GetNextOffset'): face_utilities.unary_unary_inline(servicer.GetNextOffset),
       ('filemgr.FileMgr', 'GetStats'): face_utilities.unary_unary_inline(servicer.GetStats),
-      ('filemgr.FileMgr', 'ListDataFiles'): face_utilities.unary_unary_inline(servicer.ListDataFiles),
+      ('filemgr.FileMgr', 'GetVolume'): face_utilities.unary_unary_inline(servicer.GetVolume),
       ('filemgr.FileMgr', 'ListPartition'): face_utilities.unary_unary_inline(servicer.ListPartition),
       ('filemgr.FileMgr', 'ListPartitionRecursive'): face_utilities.unary_unary_inline(servicer.ListPartitionRecursive),
       ('filemgr.FileMgr', 'ListPartitions'): face_utilities.unary_unary_inline(servicer.ListPartitions),
       ('filemgr.FileMgr', 'ListQuarantinedOHash'): face_utilities.unary_unary_inline(servicer.ListQuarantinedOHash),
       ('filemgr.FileMgr', 'ListQuarantinedOHashes'): face_utilities.unary_unary_inline(servicer.ListQuarantinedOHashes),
       ('filemgr.FileMgr', 'ListSuffix'): face_utilities.unary_unary_inline(servicer.ListSuffix),
+      ('filemgr.FileMgr', 'ListVolumes'): face_utilities.unary_unary_inline(servicer.ListVolumes),
       ('filemgr.FileMgr', 'LoadObject'): face_utilities.unary_unary_inline(servicer.LoadObject),
-      ('filemgr.FileMgr', 'LoadObjectsByDataFile'): face_utilities.unary_stream_inline(servicer.LoadObjectsByDataFile),
       ('filemgr.FileMgr', 'LoadObjectsByPrefix'): face_utilities.unary_unary_inline(servicer.LoadObjectsByPrefix),
+      ('filemgr.FileMgr', 'LoadObjectsByVolume'): face_utilities.unary_stream_inline(servicer.LoadObjectsByVolume),
       ('filemgr.FileMgr', 'QuarantineDir'): face_utilities.unary_unary_inline(servicer.QuarantineDir),
       ('filemgr.FileMgr', 'QuarantineObject'): face_utilities.unary_unary_inline(servicer.QuarantineObject),
-      ('filemgr.FileMgr', 'RegisterDataFile'): face_utilities.unary_unary_inline(servicer.RegisterDataFile),
       ('filemgr.FileMgr', 'RegisterObject'): face_utilities.unary_unary_inline(servicer.RegisterObject),
+      ('filemgr.FileMgr', 'RegisterVolume'): face_utilities.unary_unary_inline(servicer.RegisterVolume),
       ('filemgr.FileMgr', 'RenameObject'): face_utilities.unary_unary_inline(servicer.RenameObject),
       ('filemgr.FileMgr', 'SetKvState'): face_utilities.unary_unary_inline(servicer.SetKvState),
       ('filemgr.FileMgr', 'UnquarantineObject'): face_utilities.unary_unary_inline(servicer.UnquarantineObject),
-      ('filemgr.FileMgr', 'UnregisterDataFile'): face_utilities.unary_unary_inline(servicer.UnregisterDataFile),
       ('filemgr.FileMgr', 'UnregisterObject'): face_utilities.unary_unary_inline(servicer.UnregisterObject),
-      ('filemgr.FileMgr', 'UpdateDataFileState'): face_utilities.unary_unary_inline(servicer.UpdateDataFileState),
+      ('filemgr.FileMgr', 'UnregisterVolume'): face_utilities.unary_unary_inline(servicer.UnregisterVolume),
+      ('filemgr.FileMgr', 'UpdateVolumeState'): face_utilities.unary_unary_inline(servicer.UpdateVolumeState),
     }
     server_options = beta_implementations.server_options(request_deserializers=request_deserializers, response_serializers=response_serializers, thread_pool=pool, thread_pool_size=pool_size, default_timeout=default_timeout, maximum_timeout=maximum_timeout)
     return beta_implementations.server(method_implementations, options=server_options)
@@ -2412,82 +2412,82 @@ try:
     file not marked beta) for all further purposes. This function was
     generated only to ease transition from grpcio<0.15.0 to grpcio>=0.15.0"""
     request_serializers = {
-      ('filemgr.FileMgr', 'GetDataFile'): DataFileIndex.SerializeToString,
       ('filemgr.FileMgr', 'GetKvState'): Empty.SerializeToString,
       ('filemgr.FileMgr', 'GetNextOffset'): GetNextOffsetInfo.SerializeToString,
       ('filemgr.FileMgr', 'GetStats'): GetStatsInfo.SerializeToString,
-      ('filemgr.FileMgr', 'ListDataFiles'): ListDataFilesInfo.SerializeToString,
+      ('filemgr.FileMgr', 'GetVolume'): VolumeIndex.SerializeToString,
       ('filemgr.FileMgr', 'ListPartition'): ListPartitionInfo.SerializeToString,
       ('filemgr.FileMgr', 'ListPartitionRecursive'): ListPartitionInfo.SerializeToString,
       ('filemgr.FileMgr', 'ListPartitions'): ListPartitionsInfo.SerializeToString,
       ('filemgr.FileMgr', 'ListQuarantinedOHash'): ObjectPrefix.SerializeToString,
       ('filemgr.FileMgr', 'ListQuarantinedOHashes'): ListQuarantinedOHashesInfo.SerializeToString,
       ('filemgr.FileMgr', 'ListSuffix'): ListSuffixInfo.SerializeToString,
+      ('filemgr.FileMgr', 'ListVolumes'): ListVolumesInfo.SerializeToString,
       ('filemgr.FileMgr', 'LoadObject'): LoadObjectInfo.SerializeToString,
-      ('filemgr.FileMgr', 'LoadObjectsByDataFile'): DataFileIndex.SerializeToString,
       ('filemgr.FileMgr', 'LoadObjectsByPrefix'): ObjectPrefix.SerializeToString,
+      ('filemgr.FileMgr', 'LoadObjectsByVolume'): VolumeIndex.SerializeToString,
       ('filemgr.FileMgr', 'QuarantineDir'): ObjectPrefix.SerializeToString,
       ('filemgr.FileMgr', 'QuarantineObject'): ObjectName.SerializeToString,
-      ('filemgr.FileMgr', 'RegisterDataFile'): NewDataFileInfo.SerializeToString,
       ('filemgr.FileMgr', 'RegisterObject'): NewObjectInfo.SerializeToString,
+      ('filemgr.FileMgr', 'RegisterVolume'): NewVolumeInfo.SerializeToString,
       ('filemgr.FileMgr', 'RenameObject'): RenameInfo.SerializeToString,
       ('filemgr.FileMgr', 'SetKvState'): KvState.SerializeToString,
       ('filemgr.FileMgr', 'UnquarantineObject'): ObjectName.SerializeToString,
-      ('filemgr.FileMgr', 'UnregisterDataFile'): DataFileIndex.SerializeToString,
       ('filemgr.FileMgr', 'UnregisterObject'): UnregisterObjectInfo.SerializeToString,
-      ('filemgr.FileMgr', 'UpdateDataFileState'): NewDataFileState.SerializeToString,
+      ('filemgr.FileMgr', 'UnregisterVolume'): VolumeIndex.SerializeToString,
+      ('filemgr.FileMgr', 'UpdateVolumeState'): NewVolumeState.SerializeToString,
     }
     response_deserializers = {
-      ('filemgr.FileMgr', 'GetDataFile'): DataFile.FromString,
       ('filemgr.FileMgr', 'GetKvState'): KvState.FromString,
-      ('filemgr.FileMgr', 'GetNextOffset'): DataFileNextOffset.FromString,
+      ('filemgr.FileMgr', 'GetNextOffset'): VolumeNextOffset.FromString,
       ('filemgr.FileMgr', 'GetStats'): KVStats.FromString,
-      ('filemgr.FileMgr', 'ListDataFiles'): DataFiles.FromString,
+      ('filemgr.FileMgr', 'GetVolume'): Volume.FromString,
       ('filemgr.FileMgr', 'ListPartition'): DirEntries.FromString,
       ('filemgr.FileMgr', 'ListPartitionRecursive'): PartitionContent.FromString,
       ('filemgr.FileMgr', 'ListPartitions'): DirEntries.FromString,
       ('filemgr.FileMgr', 'ListQuarantinedOHash'): LoadObjectsResponse.FromString,
       ('filemgr.FileMgr', 'ListQuarantinedOHashes'): QuarantinedObjects.FromString,
       ('filemgr.FileMgr', 'ListSuffix'): DirEntries.FromString,
+      ('filemgr.FileMgr', 'ListVolumes'): Volumes.FromString,
       ('filemgr.FileMgr', 'LoadObject'): Object.FromString,
-      ('filemgr.FileMgr', 'LoadObjectsByDataFile'): Object.FromString,
       ('filemgr.FileMgr', 'LoadObjectsByPrefix'): LoadObjectsResponse.FromString,
+      ('filemgr.FileMgr', 'LoadObjectsByVolume'): Object.FromString,
       ('filemgr.FileMgr', 'QuarantineDir'): DelObjectReply.FromString,
       ('filemgr.FileMgr', 'QuarantineObject'): Empty.FromString,
-      ('filemgr.FileMgr', 'RegisterDataFile'): NewDataFileReply.FromString,
       ('filemgr.FileMgr', 'RegisterObject'): NewObjectReply.FromString,
+      ('filemgr.FileMgr', 'RegisterVolume'): NewVolumeReply.FromString,
       ('filemgr.FileMgr', 'RenameObject'): RenameReply.FromString,
       ('filemgr.FileMgr', 'SetKvState'): Empty.FromString,
       ('filemgr.FileMgr', 'UnquarantineObject'): Empty.FromString,
-      ('filemgr.FileMgr', 'UnregisterDataFile'): Empty.FromString,
       ('filemgr.FileMgr', 'UnregisterObject'): DelObjectReply.FromString,
-      ('filemgr.FileMgr', 'UpdateDataFileState'): Empty.FromString,
+      ('filemgr.FileMgr', 'UnregisterVolume'): Empty.FromString,
+      ('filemgr.FileMgr', 'UpdateVolumeState'): Empty.FromString,
     }
     cardinalities = {
-      'GetDataFile': cardinality.Cardinality.UNARY_UNARY,
       'GetKvState': cardinality.Cardinality.UNARY_UNARY,
       'GetNextOffset': cardinality.Cardinality.UNARY_UNARY,
       'GetStats': cardinality.Cardinality.UNARY_UNARY,
-      'ListDataFiles': cardinality.Cardinality.UNARY_UNARY,
+      'GetVolume': cardinality.Cardinality.UNARY_UNARY,
       'ListPartition': cardinality.Cardinality.UNARY_UNARY,
       'ListPartitionRecursive': cardinality.Cardinality.UNARY_UNARY,
       'ListPartitions': cardinality.Cardinality.UNARY_UNARY,
       'ListQuarantinedOHash': cardinality.Cardinality.UNARY_UNARY,
       'ListQuarantinedOHashes': cardinality.Cardinality.UNARY_UNARY,
       'ListSuffix': cardinality.Cardinality.UNARY_UNARY,
+      'ListVolumes': cardinality.Cardinality.UNARY_UNARY,
       'LoadObject': cardinality.Cardinality.UNARY_UNARY,
-      'LoadObjectsByDataFile': cardinality.Cardinality.UNARY_STREAM,
       'LoadObjectsByPrefix': cardinality.Cardinality.UNARY_UNARY,
+      'LoadObjectsByVolume': cardinality.Cardinality.UNARY_STREAM,
       'QuarantineDir': cardinality.Cardinality.UNARY_UNARY,
       'QuarantineObject': cardinality.Cardinality.UNARY_UNARY,
-      'RegisterDataFile': cardinality.Cardinality.UNARY_UNARY,
       'RegisterObject': cardinality.Cardinality.UNARY_UNARY,
+      'RegisterVolume': cardinality.Cardinality.UNARY_UNARY,
       'RenameObject': cardinality.Cardinality.UNARY_UNARY,
       'SetKvState': cardinality.Cardinality.UNARY_UNARY,
       'UnquarantineObject': cardinality.Cardinality.UNARY_UNARY,
-      'UnregisterDataFile': cardinality.Cardinality.UNARY_UNARY,
       'UnregisterObject': cardinality.Cardinality.UNARY_UNARY,
-      'UpdateDataFileState': cardinality.Cardinality.UNARY_UNARY,
+      'UnregisterVolume': cardinality.Cardinality.UNARY_UNARY,
+      'UpdateVolumeState': cardinality.Cardinality.UNARY_UNARY,
     }
     stub_options = beta_implementations.stub_options(host=host, metadata_transformer=metadata_transformer, request_serializers=request_serializers, response_deserializers=response_deserializers, thread_pool=pool, thread_pool_size=pool_size)
     return beta_implementations.dynamic_stub(channel, 'filemgr.FileMgr', cardinalities, options=stub_options)

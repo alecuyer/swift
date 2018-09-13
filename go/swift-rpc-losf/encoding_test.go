@@ -25,7 +25,7 @@ type dfKeyTest struct {
 	value []byte
 }
 
-func TestDataFileKey(t *testing.T) {
+func TestVolumeKey(t *testing.T) {
 	var dFKeyTests = []dfKeyTest{
 		{0, []byte("\x00")},
 		{1, []byte("\x01")},
@@ -36,13 +36,13 @@ func TestDataFileKey(t *testing.T) {
 
 	for _, tt := range dFKeyTests {
 		// Test encoding
-		val := EncodeDataFileKey(tt.index)
+		val := EncodeVolumeKey(tt.index)
 		if !bytes.Equal(val, tt.value) {
 			t.Errorf("For index: %d, got %x, expected %x", tt.index, val, tt.value)
 		}
 
 		// Test decoding
-		index, err := DecodeDataFileKey(val)
+		index, err := DecodeVolumeKey(val)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -54,7 +54,7 @@ func TestDataFileKey(t *testing.T) {
 
 	// Test overflow
 	m1 := []byte{0x80, 0x80, 0x80, 0x80}
-	_, err := DecodeDataFileKey(m1)
+	_, err := DecodeVolumeKey(m1)
 	if err == nil {
 		t.Errorf("We should fail to decode %x", m1)
 	}
@@ -62,14 +62,14 @@ func TestDataFileKey(t *testing.T) {
 
 type dfValueTest struct {
 	partition    int64
-	dataFileType int32
+	volumeType int32
 	nextOffset   int64
 	usedSpace    int64
 	state        int64
 	value        []byte
 }
 
-func TestDataFileValue(t *testing.T) {
+func TestVolumeValue(t *testing.T) {
 	var dfValueTests = []dfValueTest{
 		{0, 0, 0, 0, 0, []byte("\x00\x00\x00\x00\x00")},
 		{1343, 12, 3345314, 9821637, 2, []byte("\xbf\x0a\x0c\xa2\x97\xcc\x01\xc5\xbb\xd7\x04\x02")},
@@ -83,23 +83,23 @@ func TestDataFileValue(t *testing.T) {
 
 	for _, tt := range dfValueTests {
 		// Test encoding
-		val := EncodeDataFileValue(tt.partition, tt.dataFileType, tt.nextOffset, tt.usedSpace, tt.state)
+		val := EncodeVolumeValue(tt.partition, tt.volumeType, tt.nextOffset, tt.usedSpace, tt.state)
 		if !bytes.Equal(val, tt.value) {
-			t.Errorf("For partition: %d, dataFileType: %d, nextOffset: %d, usedSpace: %d, state: %d "+
+			t.Errorf("For partition: %d, volumeType: %d, nextOffset: %d, usedSpace: %d, state: %d "+
 				"got: %x, expected: %x",
-				tt.partition, tt.dataFileType, tt.nextOffset, tt.usedSpace, tt.state, val, tt.value)
+				tt.partition, tt.volumeType, tt.nextOffset, tt.usedSpace, tt.state, val, tt.value)
 		}
 
 		// Test decoding
-		partition, dataFileType, nextOffset, usedSpace, state, err := DecodeDataFileValue(tt.value)
+		partition, volumeType, nextOffset, usedSpace, state, err := DecodeVolumeValue(tt.value)
 		if err != nil {
 			t.Error(err)
 		}
 		if partition != tt.partition {
 			t.Errorf("Decoding value: %x, expected: %d, got: %d", tt.value, tt.partition, partition)
 		}
-		if dataFileType != tt.dataFileType {
-			t.Errorf("Decoding value: %x, expected: %d, got: %d", tt.value, tt.dataFileType, dataFileType)
+		if volumeType != tt.volumeType {
+			t.Errorf("Decoding value: %x, expected: %d, got: %d", tt.value, tt.volumeType, volumeType)
 		}
 		if nextOffset != tt.nextOffset {
 			t.Errorf("Decoding value: %x, expected: %d, got: %d", tt.value, tt.nextOffset, nextOffset)
@@ -113,7 +113,7 @@ func TestDataFileValue(t *testing.T) {
 	}
 	// Test overflow
 	m1 := []byte{0x80, 0x80, 0x80, 0x80}
-	_, _, _, _, _, err := DecodeDataFileValue(m1)
+	_, _, _, _, _, err := DecodeVolumeValue(m1)
 	if err == nil {
 		t.Errorf("We should fail to decode %x", m1)
 	}
@@ -183,7 +183,7 @@ func TestObjectKey(t *testing.T) {
 }
 
 type objectValueTest struct {
-	dataFileIndex uint32
+	volumeIndex uint32
 	offset        uint64
 	value         []byte
 }
@@ -198,18 +198,18 @@ func TestObjectValue(t *testing.T) {
 
 	for _, tt := range objectValueTests {
 		// Test encoding
-		val := EncodeObjectValue(tt.dataFileIndex, tt.offset)
+		val := EncodeObjectValue(tt.volumeIndex, tt.offset)
 		if !bytes.Equal(val, tt.value) {
-			t.Errorf("For dataFileType: %d, offset: %d, got %x, expected %x", tt.dataFileIndex, tt.offset, val, tt.value)
+			t.Errorf("For volumeType: %d, offset: %d, got %x, expected %x", tt.volumeIndex, tt.offset, val, tt.value)
 		}
 
 		// Test decoding
-		dataFileIndex, offset, err := DecodeObjectValue(val)
+		volumeIndex, offset, err := DecodeObjectValue(val)
 		if err != nil {
 			t.Fatal(err)
 		}
-		if dataFileIndex != tt.dataFileIndex {
-			t.Errorf("Decoding value: %x, expected: %d, got: %d", tt.value, tt.dataFileIndex, dataFileIndex)
+		if volumeIndex != tt.volumeIndex {
+			t.Errorf("Decoding value: %x, expected: %d, got: %d", tt.value, tt.volumeIndex, volumeIndex)
 		}
 		if offset != tt.offset {
 			t.Errorf("Decoding value: %x, expected: %d, got: %d", tt.value, tt.offset, offset)

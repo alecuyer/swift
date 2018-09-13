@@ -32,7 +32,7 @@ func countItems(kv KV, namespace byte) (itemCount uint64) {
 func CollectStats(s *server) (entriesCount map[string]uint64) {
 	entriesCount = make(map[string]uint64)
 
-	entriesCount["datafile_count"] = countItems(s.kv, datafilePrefix)
+	entriesCount["volume_count"] = countItems(s.kv, volumePrefix)
 	entriesCount["object_count"] = countItems(s.kv, objectPrefix)
 	entriesCount["deletequeue_count"] = countItems(s.kv, deleteQueuePrefix)
 	entriesCount["quarantine_count"] = countItems(s.kv, quarantinePrefix)

@@ -119,14 +119,14 @@ def compact_volume(source_volume_path, conf, batchsize, logger):
     source_vh = read_volume_header(source_volume_file)
 
     source_volume_info = rpc.get_volume(socket_path, source_volume_index)
-    if source_volume_info.datafile_state != STATE_RW and source_volume_info.datafile_state != STATE_COMPACTION_SRC:
+    if source_volume_info.volume_state != STATE_RW and source_volume_info.volume_state != STATE_COMPACTION_SRC:
         logger.warn("Volume state is not RW or COMPACTION_SRC, exiting")
         sys.exit(0)
 
     # Create target volume, unless we are resuming a compaction
-    if source_volume_info.datafile_state == STATE_RW:
+    if source_volume_info.volume_state == STATE_RW:
         partition = source_volume_info.partition
-        volume_type = source_volume_info.datafile_type
+        volume_type = source_volume_info.volume_type
 
         # It would be good to reserve the whole space for the volume now. (fallocate)
         # However that information is currently not available in the KV.

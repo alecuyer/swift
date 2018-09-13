@@ -181,7 +181,7 @@ def check_volume(volume_path, socket_path=None, force_full_check=False):
         f.seek(0, os.SEEK_END)
         vol_size = f.tell()
 
-    # check that datafile exists
+    # check that volume exists
     try:
         volume = rpc.get_volume(socket_path, vh.volume_idx, repair_tool=True)
     except RpcError as e:
@@ -257,12 +257,12 @@ Position from RPC: {}".format(obj.name, file_offset, obj.offset)
         raise VolumeCheckException(err_txt)
 
     volume_file_index = vfile.get_volume_index(basename(volume_path))
-    if volume_file_index != obj.datafile_index:
+    if volume_file_index != obj.volume_index:
         txt = "Volume index error, KV volume index: {}, actual index: {}"
-        err_txt = txt.format(obj.datafile_index, volume_file_index)
+        err_txt = txt.format(obj.volume_index, volume_file_index)
         raise VolumeCheckException(err_txt)
 
-        # Check datafile index, Todo
+        # Check volume index, Todo
 
 
 def handle_obj_missing_in_kv(socket_path, volume_path, header, offset, args):

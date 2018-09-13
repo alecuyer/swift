@@ -63,115 +63,115 @@ func teardown(tempdir string) {
 var client pb.FileMgrClient
 
 func populateKV() (err error) {
-	dataFiles := []pb.NewDataFileInfo{
-		{9, 0, 20, 8192, 0, false},
-		{10, 0, 35, 8192, 0, false},
-		{40, 0, 24, 8192, 0, false},
-		{63, 0, 27, 8192, 0, false},
-		{65, 0, 33, 8192, 0, false},
-		{71, 0, 19, 8192, 0, false},
-		{111, 0, 47, 8192, 0, false},
-		{127, 0, 43, 8192, 0, false},
-		{139, 0, 50, 8192, 0, false},
-		{171, 0, 49, 8192, 0, false},
-		{195, 0, 12, 8192, 0, false},
-		{211, 0, 16, 8192, 0, false},
-		{213, 0, 14, 8192, 0, false},
-		{243, 0, 17, 8192, 0, false},
-		{271, 0, 8, 24576, 0, false},
-		{295, 0, 28, 8192, 0, false},
-		{327, 0, 48, 8192, 0, false},
-		{360, 0, 15, 12288, 0, false},
-		{379, 0, 25, 8192, 0, false},
-		{417, 0, 22, 8192, 0, false},
-		{420, 0, 32, 8192, 0, false},
-		{421, 0, 46, 8192, 0, false},
-		{428, 0, 21, 12288, 0, false},
-		{439, 0, 38, 8192, 0, false},
-		{453, 0, 44, 8192, 0, false},
-		{466, 0, 40, 8192, 0, false},
-		{500, 0, 39, 8192, 0, false},
-		{513, 0, 26, 8192, 0, false},
-		{530, 0, 4, 8192, 0, false},
-		{530, 1, 5, 8192, 0, false},
-		{535, 0, 1, 20480, 0, false},
-		{535, 0, 2, 4096, 0, false},
-		{535, 1, 3, 12288, 0, false},
-		{559, 0, 30, 8192, 0, false},
-		{602, 0, 41, 8192, 0, false},
-		{604, 0, 29, 8192, 0, false},
-		{673, 0, 11, 8192, 0, false},
-		{675, 0, 42, 8192, 0, false},
-		{710, 0, 37, 8192, 0, false},
-		{765, 0, 36, 8192, 0, false},
-		{766, 0, 45, 8192, 0, false},
-		{786, 0, 23, 8192, 0, false},
-		{809, 0, 31, 8192, 0, false},
-		{810, 0, 13, 8192, 0, false},
-		{855, 0, 18, 8192, 0, false},
-		{974, 0, 9, 8192, 0, false},
-		{977, 0, 6, 8192, 0, false},
-		{977, 1, 7, 8192, 0, false},
-		{1009, 0, 34, 8192, 0, false},
-		{1019, 0, 10, 8192, 0, false},
+	volumes := []pb.NewVolumeInfo{
+		{Partition: 9, Type: 0, VolumeIndex: 20, Offset: 8192, State: 0, RepairTool: false},
+		{Partition: 10, Type: 0, VolumeIndex: 35, Offset: 8192, State: 0, RepairTool: false},
+		{Partition: 40, Type: 0, VolumeIndex: 24, Offset: 8192, State: 0, RepairTool: false},
+		{Partition: 63, Type: 0, VolumeIndex: 27, Offset: 8192, State: 0, RepairTool: false},
+		{Partition: 65, Type: 0, VolumeIndex: 33, Offset: 8192, State: 0, RepairTool: false},
+		{Partition: 71, Type: 0, VolumeIndex: 19, Offset: 8192, State: 0, RepairTool: false},
+		{Partition: 111, Type: 0, VolumeIndex: 47, Offset: 8192, State: 0, RepairTool: false},
+		{Partition: 127, Type: 0, VolumeIndex: 43, Offset: 8192, State: 0, RepairTool: false},
+		{Partition: 139, Type: 0, VolumeIndex: 50, Offset: 8192, State: 0, RepairTool: false},
+		{Partition: 171, Type: 0, VolumeIndex: 49, Offset: 8192, State: 0, RepairTool: false},
+		{Partition: 195, Type: 0, VolumeIndex: 12, Offset: 8192, State: 0, RepairTool: false},
+		{Partition: 211, Type: 0, VolumeIndex: 16, Offset: 8192, State: 0, RepairTool: false},
+		{Partition: 213, Type: 0, VolumeIndex: 14, Offset: 8192, State: 0, RepairTool: false},
+		{Partition: 243, Type: 0, VolumeIndex: 17, Offset: 8192, State: 0, RepairTool: false},
+		{Partition: 271, Type: 0, VolumeIndex: 8, Offset: 24576, State: 0, RepairTool: false},
+		{Partition: 295, Type: 0, VolumeIndex: 28, Offset: 8192, State: 0, RepairTool: false},
+		{Partition: 327, Type: 0, VolumeIndex: 48, Offset: 8192, State: 0, RepairTool: false},
+		{Partition: 360, Type: 0, VolumeIndex: 15, Offset: 12288, State: 0, RepairTool: false},
+		{Partition: 379, Type: 0, VolumeIndex: 25, Offset: 8192, State: 0, RepairTool: false},
+		{Partition: 417, Type: 0, VolumeIndex: 22, Offset: 8192, State: 0, RepairTool: false},
+		{Partition: 420, Type: 0, VolumeIndex: 32, Offset: 8192, State: 0, RepairTool: false},
+		{Partition: 421, Type: 0, VolumeIndex: 46, Offset: 8192, State: 0, RepairTool: false},
+		{Partition: 428, Type: 0, VolumeIndex: 21, Offset: 12288, State: 0, RepairTool: false},
+		{Partition: 439, Type: 0, VolumeIndex: 38, Offset: 8192, State: 0, RepairTool: false},
+		{Partition: 453, Type: 0, VolumeIndex: 44, Offset: 8192, State: 0, RepairTool: false},
+		{Partition: 466, Type: 0, VolumeIndex: 40, Offset: 8192, State: 0, RepairTool: false},
+		{Partition: 500, Type: 0, VolumeIndex: 39, Offset: 8192, State: 0, RepairTool: false},
+		{Partition: 513, Type: 0, VolumeIndex: 26, Offset: 8192, State: 0, RepairTool: false},
+		{Partition: 530, Type: 0, VolumeIndex: 4, Offset: 8192, State: 0, RepairTool: false},
+		{Partition: 530, Type: 1, VolumeIndex: 5, Offset: 8192, State: 0, RepairTool: false},
+		{Partition: 535, Type: 0, VolumeIndex: 1, Offset: 20480, State: 0, RepairTool: false},
+		{Partition: 535, Type: 0, VolumeIndex: 2, Offset: 4096, State: 0, RepairTool: false},
+		{Partition: 535, Type: 1, VolumeIndex: 3, Offset: 12288, State: 0, RepairTool: false},
+		{Partition: 559, Type: 0, VolumeIndex: 30, Offset: 8192, State: 0, RepairTool: false},
+		{Partition: 602, Type: 0, VolumeIndex: 41, Offset: 8192, State: 0, RepairTool: false},
+		{Partition: 604, Type: 0, VolumeIndex: 29, Offset: 8192, State: 0, RepairTool: false},
+		{Partition: 673, Type: 0, VolumeIndex: 11, Offset: 8192, State: 0, RepairTool: false},
+		{Partition: 675, Type: 0, VolumeIndex: 42, Offset: 8192, State: 0, RepairTool: false},
+		{Partition: 710, Type: 0, VolumeIndex: 37, Offset: 8192, State: 0, RepairTool: false},
+		{Partition: 765, Type: 0, VolumeIndex: 36, Offset: 8192, State: 0, RepairTool: false},
+		{Partition: 766, Type: 0, VolumeIndex: 45, Offset: 8192, State: 0, RepairTool: false},
+		{Partition: 786, Type: 0, VolumeIndex: 23, Offset: 8192, State: 0, RepairTool: false},
+		{Partition: 809, Type: 0, VolumeIndex: 31, Offset: 8192, State: 0, RepairTool: false},
+		{Partition: 810, Type: 0, VolumeIndex: 13, Offset: 8192, State: 0, RepairTool: false},
+		{Partition: 855, Type: 0, VolumeIndex: 18, Offset: 8192, State: 0, RepairTool: false},
+		{Partition: 974, Type: 0, VolumeIndex: 9, Offset: 8192, State: 0, RepairTool: false},
+		{Partition: 977, Type: 0, VolumeIndex: 6, Offset: 8192, State: 0, RepairTool: false},
+		{Partition: 977, Type: 1, VolumeIndex: 7, Offset: 8192, State: 0, RepairTool: false},
+		{Partition: 1009, Type: 0, VolumeIndex: 34, Offset: 8192, State: 0, RepairTool: false},
+		{Partition: 1019, Type: 0, VolumeIndex: 10, Offset: 8192, State: 0, RepairTool: false},
 	}
 
 	objects := []pb.NewObjectInfo{
-		{[]byte("85fd12f8961e33cbf7229a94118524fa1515589781.45671.ts"), 3, 8192, 12288, false},
-		{[]byte("84afc1659c7e8271951fe370d6eee0f81515590332.51834.ts"), 5, 4096, 8192, false},
-		{[]byte("f45bf9000f39092b9de5a74256e3eebe1515590648.06511.ts"), 7, 4096, 8192, false},
-		{[]byte("43c8adc53dbb40d27add4f614fc49e5e1515595691.35618#0#d.data"), 8, 20480, 24576, false},
-		{[]byte("f3804523d91d294dab1500145b43395b1515596136.42189#4#d.data"), 9, 4096, 8192, false},
-		{[]byte("fefe1ba1120cd6cd501927401d6b2ecc1515750800.13517#2#d.data"), 10, 4096, 8192, false},
-		{[]byte("a8766d2608b77dc6cb0bfe3fe6782c731515750800.18975#0#d.data"), 11, 4096, 8192, false},
-		{[]byte("30f12368ca25d11fb1a80d10e64b15431515750800.19224#4#d.data"), 12, 4096, 8192, false},
-		{[]byte("ca9576ada218f74cb8f11648ecec439c1515750800.21553#2#d.data"), 13, 4096, 8192, false},
-		{[]byte("3549df7ef11006af6852587bf16d82971515750800.22096#2#d.data"), 14, 4096, 8192, false},
-		{[]byte("5a0a70e36a057a9982d1dc9188069b511515750803.50544#0#d.data"), 15, 8192, 12288, false},
-		{[]byte("5a1801fea97614f8c5f58511905773d01515750800.40035#0#d.data"), 15, 4096, 8192, false},
-		{[]byte("34c46ce96897a24374d126d7d7eab2fb1515750800.42545#0#d.data"), 16, 4096, 8192, false},
-		{[]byte("3cf60143ea488c84da9e1603158203a11515750800.93160#0#d.data"), 17, 4096, 8192, false},
-		{[]byte("d5c64e9cb0b093441fb6b500141aa0531515750800.94069#2#d.data"), 18, 4096, 8192, false},
-		{[]byte("11f5db768b6f9a37cf894af99b15c0d11515750801.05135#4#d.data"), 19, 4096, 8192, false},
-		{[]byte("02573d31b770cda8e0effd7762e8a0751515750801.09785#2#d.data"), 20, 4096, 8192, false},
-		{[]byte("6b08eabf5667557c72dc6570aa1fb8451515750801.08639#4#d.data"), 21, 4096, 8192, false},
-		{[]byte("6b08eabf5667557c72dc6570aa1fb8451515750856.77219.meta"), 21, 8192, 12288, false},
-		{[]byte("6b08eabf5667557c72dc6570abcfb8451515643210.72429#4#d.data"), 22, 8192, 12288, false},
-		{[]byte("687ba0410f4323c66397a85292077b101515750801.10244#0#d.data"), 22, 4096, 8192, false},
-		{[]byte("c4aaea9b28c425f45eb64d4d5b0b3f621515750801.19478#2#d.data"), 23, 4096, 8192, false},
-		{[]byte("0a0898eb861579d1240adbb1c9f0c92b1515750801.20636#2#d.data"), 24, 4096, 8192, false},
-		{[]byte("5efd43142db5913180ba865ef529eccd1515750801.64704#4#d.data"), 25, 4096, 8192, false},
-		{[]byte("806a35f1e974f93161b2da51760f22701515750801.68309#2#d.data"), 26, 4096, 8192, false},
-		{[]byte("0fdceb7af49cdd0cb1262acbdc88ae881515750801.93565#0#d.data"), 27, 4096, 8192, false},
-		{[]byte("49d4fa294d2c97f08596148bf4615bfa1515750801.93739#4#d.data"), 28, 4096, 8192, false},
-		{[]byte("971b4d05733f475d447d7f8b050bb0071515750802.09721#2#d.data"), 29, 4096, 8192, false},
-		{[]byte("8bc66b3ae033db15ceb3729d89a07ece1515750802.51062#0#d.data"), 30, 4096, 8192, false},
-		{[]byte("ca53beae1aeb4deacd17409e32305a2c1515750802.63996#2#d.data"), 31, 4096, 8192, false},
-		{[]byte("69375433763d9d511114e8ac869c916c1515750802.63846#0#d.data"), 32, 4096, 8192, false},
-		{[]byte("105de5f388ab4b72e56bc93f36ad388a1515750802.73393#2#d.data"), 33, 4096, 8192, false},
-		{[]byte("105de5f388ab4b72e56bc93f36ad388a1515873948.27383#2#d.meta"), 33, 8192, 12288, false},
-		{[]byte("fc6916fd1e6a0267afac88c395b876ac1515750802.83459#2#d.data"), 34, 4096, 8192, false},
-		{[]byte("02b10d6bfb205fe0f34f9bd82336dc711515750802.93662#2#d.data"), 35, 4096, 8192, false},
-		{[]byte("bf43763a98208f15da803e76bf52e7d11515750803.01357#0#d.data"), 36, 4096, 8192, false},
-		{[]byte("b1abadfed91b1cb4392dd2ec29e171ac1515750803.07767#4#d.data"), 37, 4096, 8192, false},
-		{[]byte("6de30d74634d088f1f5923336af2b3ae1515750803.36199#4#d.data"), 38, 4096, 8192, false},
-		{[]byte("7d234bbd1137d509105245ac78427b9f1515750803.49022#4#d.data"), 39, 4096, 8192, false},
-		{[]byte("749057975c1bac830360530bdcd741591515750803.49647#0#d.data"), 40, 4096, 8192, false},
-		{[]byte("9692991e77c9742cbc24469391d499981515750803.56295#0#d.data"), 41, 4096, 8192, false},
-		{[]byte("a8dbd473e360787caff0b97aca33373f1515750803.68428#2#d.data"), 42, 4096, 8192, false},
-		{[]byte("1ff88cb2b6b64f1fd3b6097f20203ee01515750803.73746#4#d.data"), 43, 4096, 8192, false},
-		{[]byte("71572f46094d7ac440f5e2a3c72da17b1515750803.75628#2#d.data"), 44, 4096, 8192, false},
-		{[]byte("bf8e83d954478d66ac1dba7eaa832c721515750803.81141#4#d.data"), 45, 4096, 8192, false},
-		{[]byte("69724f682fe12b4a4306bceeb75825431515750804.10112#2#d.data"), 46, 4096, 8192, false},
-		{[]byte("1bf38645ccc5f158c96480f1e0861a141515750804.31472#0#d.data"), 47, 4096, 8192, false},
-		{[]byte("51fecf0e0bb30920fd0d83ee8fba29f71515750804.32492#2#d.data"), 48, 4096, 8192, false},
-		{[]byte("2acbf85061e46b3bb3adb8930cb7414d1515750804.46622#2#d.data"), 49, 4096, 8192, false},
-		{[]byte("22e4a97f1d4f2b6d4150bb9b481e4c971515750804.51987#0#d.data"), 50, 4096, 8192, false},
+		{Name: []byte("85fd12f8961e33cbf7229a94118524fa1515589781.45671.ts"), VolumeIndex: 3, Offset: 8192, NextOffset: 12288, RepairTool: false},
+		{Name: []byte("84afc1659c7e8271951fe370d6eee0f81515590332.51834.ts"), VolumeIndex: 5, Offset: 4096, NextOffset: 8192, RepairTool: false},
+		{Name: []byte("f45bf9000f39092b9de5a74256e3eebe1515590648.06511.ts"), VolumeIndex: 7, Offset: 4096, NextOffset: 8192, RepairTool: false},
+		{Name: []byte("43c8adc53dbb40d27add4f614fc49e5e1515595691.35618#0#d.data"), VolumeIndex: 8, Offset: 20480, NextOffset: 24576, RepairTool: false},
+		{Name: []byte("f3804523d91d294dab1500145b43395b1515596136.42189#4#d.data"), VolumeIndex: 9, Offset: 4096, NextOffset: 8192, RepairTool: false},
+		{Name: []byte("fefe1ba1120cd6cd501927401d6b2ecc1515750800.13517#2#d.data"), VolumeIndex: 10, Offset: 4096, NextOffset: 8192, RepairTool: false},
+		{Name: []byte("a8766d2608b77dc6cb0bfe3fe6782c731515750800.18975#0#d.data"), VolumeIndex: 11, Offset: 4096, NextOffset: 8192, RepairTool: false},
+		{Name: []byte("30f12368ca25d11fb1a80d10e64b15431515750800.19224#4#d.data"), VolumeIndex: 12, Offset: 4096, NextOffset: 8192, RepairTool: false},
+		{Name: []byte("ca9576ada218f74cb8f11648ecec439c1515750800.21553#2#d.data"), VolumeIndex: 13, Offset: 4096, NextOffset: 8192, RepairTool: false},
+		{Name: []byte("3549df7ef11006af6852587bf16d82971515750800.22096#2#d.data"), VolumeIndex: 14, Offset: 4096, NextOffset: 8192, RepairTool: false},
+		{Name: []byte("5a0a70e36a057a9982d1dc9188069b511515750803.50544#0#d.data"), VolumeIndex: 15, Offset: 8192, NextOffset: 12288, RepairTool: false},
+		{Name: []byte("5a1801fea97614f8c5f58511905773d01515750800.40035#0#d.data"), VolumeIndex: 15, Offset: 4096, NextOffset: 8192, RepairTool: false},
+		{Name: []byte("34c46ce96897a24374d126d7d7eab2fb1515750800.42545#0#d.data"), VolumeIndex: 16, Offset: 4096, NextOffset: 8192, RepairTool: false},
+		{Name: []byte("3cf60143ea488c84da9e1603158203a11515750800.93160#0#d.data"), VolumeIndex: 17, Offset: 4096, NextOffset: 8192, RepairTool: false},
+		{Name: []byte("d5c64e9cb0b093441fb6b500141aa0531515750800.94069#2#d.data"), VolumeIndex: 18, Offset: 4096, NextOffset: 8192, RepairTool: false},
+		{Name: []byte("11f5db768b6f9a37cf894af99b15c0d11515750801.05135#4#d.data"), VolumeIndex: 19, Offset: 4096, NextOffset: 8192, RepairTool: false},
+		{Name: []byte("02573d31b770cda8e0effd7762e8a0751515750801.09785#2#d.data"), VolumeIndex: 20, Offset: 4096, NextOffset: 8192, RepairTool: false},
+		{Name: []byte("6b08eabf5667557c72dc6570aa1fb8451515750801.08639#4#d.data"), VolumeIndex: 21, Offset: 4096, NextOffset: 8192, RepairTool: false},
+		{Name: []byte("6b08eabf5667557c72dc6570aa1fb8451515750856.77219.meta"), VolumeIndex: 21, Offset: 8192, NextOffset: 12288, RepairTool: false},
+		{Name: []byte("6b08eabf5667557c72dc6570abcfb8451515643210.72429#4#d.data"), VolumeIndex: 22, Offset: 8192, NextOffset: 12288, RepairTool: false},
+		{Name: []byte("687ba0410f4323c66397a85292077b101515750801.10244#0#d.data"), VolumeIndex: 22, Offset: 4096, NextOffset: 8192, RepairTool: false},
+		{Name: []byte("c4aaea9b28c425f45eb64d4d5b0b3f621515750801.19478#2#d.data"), VolumeIndex: 23, Offset: 4096, NextOffset: 8192, RepairTool: false},
+		{Name: []byte("0a0898eb861579d1240adbb1c9f0c92b1515750801.20636#2#d.data"), VolumeIndex: 24, Offset: 4096, NextOffset: 8192, RepairTool: false},
+		{Name: []byte("5efd43142db5913180ba865ef529eccd1515750801.64704#4#d.data"), VolumeIndex: 25, Offset: 4096, NextOffset: 8192, RepairTool: false},
+		{Name: []byte("806a35f1e974f93161b2da51760f22701515750801.68309#2#d.data"), VolumeIndex: 26, Offset: 4096, NextOffset: 8192, RepairTool: false},
+		{Name: []byte("0fdceb7af49cdd0cb1262acbdc88ae881515750801.93565#0#d.data"), VolumeIndex: 27, Offset: 4096, NextOffset: 8192, RepairTool: false},
+		{Name: []byte("49d4fa294d2c97f08596148bf4615bfa1515750801.93739#4#d.data"), VolumeIndex: 28, Offset: 4096, NextOffset: 8192, RepairTool: false},
+		{Name: []byte("971b4d05733f475d447d7f8b050bb0071515750802.09721#2#d.data"), VolumeIndex: 29, Offset: 4096, NextOffset: 8192, RepairTool: false},
+		{Name: []byte("8bc66b3ae033db15ceb3729d89a07ece1515750802.51062#0#d.data"), VolumeIndex: 30, Offset: 4096, NextOffset: 8192, RepairTool: false},
+		{Name: []byte("ca53beae1aeb4deacd17409e32305a2c1515750802.63996#2#d.data"), VolumeIndex: 31, Offset: 4096, NextOffset: 8192, RepairTool: false},
+		{Name: []byte("69375433763d9d511114e8ac869c916c1515750802.63846#0#d.data"), VolumeIndex: 32, Offset: 4096, NextOffset: 8192, RepairTool: false},
+		{Name: []byte("105de5f388ab4b72e56bc93f36ad388a1515750802.73393#2#d.data"), VolumeIndex: 33, Offset: 4096, NextOffset: 8192, RepairTool: false},
+		{Name: []byte("105de5f388ab4b72e56bc93f36ad388a1515873948.27383#2#d.meta"), VolumeIndex: 33, Offset: 8192, NextOffset: 12288, RepairTool: false},
+		{Name: []byte("fc6916fd1e6a0267afac88c395b876ac1515750802.83459#2#d.data"), VolumeIndex: 34, Offset: 4096, NextOffset: 8192, RepairTool: false},
+		{Name: []byte("02b10d6bfb205fe0f34f9bd82336dc711515750802.93662#2#d.data"), VolumeIndex: 35, Offset: 4096, NextOffset: 8192, RepairTool: false},
+		{Name: []byte("bf43763a98208f15da803e76bf52e7d11515750803.01357#0#d.data"), VolumeIndex: 36, Offset: 4096, NextOffset: 8192, RepairTool: false},
+		{Name: []byte("b1abadfed91b1cb4392dd2ec29e171ac1515750803.07767#4#d.data"), VolumeIndex: 37, Offset: 4096, NextOffset: 8192, RepairTool: false},
+		{Name: []byte("6de30d74634d088f1f5923336af2b3ae1515750803.36199#4#d.data"), VolumeIndex: 38, Offset: 4096, NextOffset: 8192, RepairTool: false},
+		{Name: []byte("7d234bbd1137d509105245ac78427b9f1515750803.49022#4#d.data"), VolumeIndex: 39, Offset: 4096, NextOffset: 8192, RepairTool: false},
+		{Name: []byte("749057975c1bac830360530bdcd741591515750803.49647#0#d.data"), VolumeIndex: 40, Offset: 4096, NextOffset: 8192, RepairTool: false},
+		{Name: []byte("9692991e77c9742cbc24469391d499981515750803.56295#0#d.data"), VolumeIndex: 41, Offset: 4096, NextOffset: 8192, RepairTool: false},
+		{Name: []byte("a8dbd473e360787caff0b97aca33373f1515750803.68428#2#d.data"), VolumeIndex: 42, Offset: 4096, NextOffset: 8192, RepairTool: false},
+		{Name: []byte("1ff88cb2b6b64f1fd3b6097f20203ee01515750803.73746#4#d.data"), VolumeIndex: 43, Offset: 4096, NextOffset: 8192, RepairTool: false},
+		{Name: []byte("71572f46094d7ac440f5e2a3c72da17b1515750803.75628#2#d.data"), VolumeIndex: 44, Offset: 4096, NextOffset: 8192, RepairTool: false},
+		{Name: []byte("bf8e83d954478d66ac1dba7eaa832c721515750803.81141#4#d.data"), VolumeIndex: 45, Offset: 4096, NextOffset: 8192, RepairTool: false},
+		{Name: []byte("69724f682fe12b4a4306bceeb75825431515750804.10112#2#d.data"), VolumeIndex: 46, Offset: 4096, NextOffset: 8192, RepairTool: false},
+		{Name: []byte("1bf38645ccc5f158c96480f1e0861a141515750804.31472#0#d.data"), VolumeIndex: 47, Offset: 4096, NextOffset: 8192, RepairTool: false},
+		{Name: []byte("51fecf0e0bb30920fd0d83ee8fba29f71515750804.32492#2#d.data"), VolumeIndex: 48, Offset: 4096, NextOffset: 8192, RepairTool: false},
+		{Name: []byte("2acbf85061e46b3bb3adb8930cb7414d1515750804.46622#2#d.data"), VolumeIndex: 49, Offset: 4096, NextOffset: 8192, RepairTool: false},
+		{Name: []byte("22e4a97f1d4f2b6d4150bb9b481e4c971515750804.51987#0#d.data"), VolumeIndex: 50, Offset: 4096, NextOffset: 8192, RepairTool: false},
 	}
 
-	// Register datafiles (volumes)
-	for _, df := range dataFiles {
-		_, err = client.RegisterDataFile(context.Background(), &df)
+	// Register volumes
+	for _, df := range volumes {
+		_, err = client.RegisterVolume(context.Background(), &df)
 		if err != nil {
 			return
 		}
@@ -239,8 +239,8 @@ func TestLoadObjectsByPrefix(t *testing.T) {
 	prefix := &pb.ObjectPrefix{Prefix: []byte("105de5f388ab4b72e56bc93f36ad388a")}
 
 	expectedObjects := []pb.Object{
-		{[]byte("105de5f388ab4b72e56bc93f36ad388a1515750802.73393#2#d.data"), 33, 4096},
-		{[]byte("105de5f388ab4b72e56bc93f36ad388a1515873948.27383#2#d.meta"), 33, 8192},
+		{Name: []byte("105de5f388ab4b72e56bc93f36ad388a1515750802.73393#2#d.data"), VolumeIndex: 33, Offset: 4096},
+		{Name: []byte("105de5f388ab4b72e56bc93f36ad388a1515873948.27383#2#d.meta"), VolumeIndex: 33, Offset: 8192},
 	}
 
 	r, err := client.LoadObjectsByPrefix(context.Background(), prefix)
@@ -261,7 +261,7 @@ func TestListPartitions(t *testing.T) {
 
 	expectedPartitions := []string{"9", "10", "40", "63", "65", "71", "111", "127", "139", "171", "195", "211", "213", "243", "271", "295", "327", "360", "379", "417", "420", "421", "428", "439", "453", "466", "500", "513", "530", "535", "559", "602", "604", "673", "675", "710", "765", "766", "786", "809", "810", "855", "974", "977", "1009", "1019"}
 
-	r, err := client.ListPartitions(context.Background(), &pb.ListPartitionsInfo{partPower})
+	r, err := client.ListPartitions(context.Background(), &pb.ListPartitionsInfo{PartitionBits: partPower})
 	if err != nil {
 		t.Fatalf("RPC call failed: %v", err)
 	}
@@ -282,12 +282,12 @@ func TestListPartitionRecursive(t *testing.T) {
 	partPower := uint32(10)
 
 	expEntries := []pb.FullPathEntry{
-		{[]byte("845"), []byte("6b08eabf5667557c72dc6570aa1fb845"), []byte("1515750801.08639#4#d.data")},
-		{[]byte("845"), []byte("6b08eabf5667557c72dc6570aa1fb845"), []byte("1515750856.77219.meta")},
-		{[]byte("845"), []byte("6b08eabf5667557c72dc6570abcfb845"), []byte("1515643210.72429#4#d.data")},
+		{Suffix: []byte("845"), Ohash: []byte("6b08eabf5667557c72dc6570aa1fb845"), Filename: []byte("1515750801.08639#4#d.data")},
+		{Suffix: []byte("845"), Ohash: []byte("6b08eabf5667557c72dc6570aa1fb845"), Filename: []byte("1515750856.77219.meta")},
+		{Suffix: []byte("845"), Ohash: []byte("6b08eabf5667557c72dc6570abcfb845"), Filename: []byte("1515643210.72429#4#d.data")},
 	}
 
-	r, err := client.ListPartitionRecursive(context.Background(), &pb.ListPartitionInfo{partition, partPower})
+	r, err := client.ListPartitionRecursive(context.Background(), &pb.ListPartitionInfo{Partition: partition, PartitionBits: partPower})
 	if err != nil {
 		t.Fatalf("RPC call failed: %v", err)
 	}
@@ -311,7 +311,7 @@ func TestListSuffix(t *testing.T) {
 
 	expectedHashes := []string{"6b08eabf5667557c72dc6570aa1fb845", "6b08eabf5667557c72dc6570abcfb845"}
 
-	r, err := client.ListSuffix(context.Background(), &pb.ListSuffixInfo{partition, suffix, partPower})
+	r, err := client.ListSuffix(context.Background(), &pb.ListSuffixInfo{Partition: partition, Suffix: suffix, PartitionBits: partPower})
 	if err != nil {
 		t.Fatalf("RPC call failed: %v", err)
 	}
@@ -329,7 +329,7 @@ func TestListSuffix(t *testing.T) {
 
 func TestState(t *testing.T) {
 	// Mark dirty and check
-	_, err := client.SetKvState(context.Background(), &pb.KvState{false})
+	_, err := client.SetKvState(context.Background(), &pb.KvState{IsClean: false})
 	if err != nil {
 		t.Fatalf("Failed to change KV state")
 	}
@@ -342,7 +342,7 @@ func TestState(t *testing.T) {
 	}
 
 	// Mark clean and check
-	_, err = client.SetKvState(context.Background(), &pb.KvState{true})
+	_, err = client.SetKvState(context.Background(), &pb.KvState{IsClean: true})
 	if err != nil {
 		t.Fatalf("Failed to change KV state")
 	}
@@ -359,13 +359,13 @@ func TestState(t *testing.T) {
 func TestQuarantineObject(t *testing.T) {
 	// Quarantine an existing object
 	name := []byte("bf43763a98208f15da803e76bf52e7d11515750803.01357#0#d.data")
-	objName := &pb.ObjectName{name, false}
+	objName := &pb.ObjectName{Name: name, RepairTool: false}
 	_, err := client.QuarantineObject(context.Background(), objName)
 	if err != nil {
 		t.Fatal("Failed to quarantine object")
 	}
 	// We shouldn't be able to find it
-	objInfo := &pb.LoadObjectInfo{name, false, false}
+	objInfo := &pb.LoadObjectInfo{Name: name, IsQuarantined: false, RepairTool: false}
 	_, err = client.LoadObject(context.Background(), objInfo)
 	if err != nil {
 		grpcStatus, ok := status.FromError(err)
@@ -386,13 +386,13 @@ func TestQuarantineObject(t *testing.T) {
 func TestUnquarantineObject(t *testing.T) {
 	// Unuarantine an existing quarantined object (check that)
 	name := []byte("bf43763a98208f15da803e76bf52e7d11515750803.01357#0#d.data")
-	objName := &pb.ObjectName{name, false}
+	objName := &pb.ObjectName{Name: name, RepairTool: false}
 	_, err := client.UnquarantineObject(context.Background(), objName)
 	if err != nil {
 		t.Fatal("Failed to quarantine object")
 	}
 	// We should be able to find it
-	objInfo := &pb.LoadObjectInfo{name, false, false}
+	objInfo := &pb.LoadObjectInfo{Name: name, IsQuarantined: false, RepairTool: false}
 	_, err = client.LoadObject(context.Background(), objInfo)
 	if err != nil {
 		t.Fatal("cannot find unquarantined object")
@@ -404,7 +404,7 @@ func TestUnquarantineObject(t *testing.T) {
 
 // This test modifies the DB
 func TestListQuarantinedOHashes(t *testing.T) {
-	nextEntry := &pb.ListQuarantinedOHashesInfo{[]byte("")}
+	nextEntry := &pb.ListQuarantinedOHashesInfo{FromEntry: []byte("")}
 	qList, err := client.ListQuarantinedOHashes(context.Background(), nextEntry)
 	if err != nil {
 		t.Fatalf("failed to list quarantined objects: %s", err)
@@ -417,13 +417,13 @@ func TestListQuarantinedOHashes(t *testing.T) {
 	}
 
 	objectsToQuarantine := []pb.ObjectName{
-		{[]byte("02573d31b770cda8e0effd7762e8a0751515750801.09785#2#d.data"), false},
-		{[]byte("6b08eabf5667557c72dc6570aa1fb8451515750801.08639#4#d.data"), false},
-		{[]byte("6b08eabf5667557c72dc6570aa1fb8451515750856.77219.meta"), false},
-		{[]byte("6b08eabf5667557c72dc6570abcfb8451515643210.72429#4#d.data"), false},
-		{[]byte("687ba0410f4323c66397a85292077b101515750801.10244#0#d.data"), false},
-		{[]byte("c4aaea9b28c425f45eb64d4d5b0b3f621515750801.19478#2#d.data"), false},
-		{[]byte("0a0898eb861579d1240adbb1c9f0c92b1515750801.20636#2#d.data"), false},
+		{Name: []byte("02573d31b770cda8e0effd7762e8a0751515750801.09785#2#d.data"), RepairTool: false},
+		{Name: []byte("6b08eabf5667557c72dc6570aa1fb8451515750801.08639#4#d.data"), RepairTool: false},
+		{Name: []byte("6b08eabf5667557c72dc6570aa1fb8451515750856.77219.meta"), RepairTool: false},
+		{Name: []byte("6b08eabf5667557c72dc6570abcfb8451515643210.72429#4#d.data"), RepairTool: false},
+		{Name: []byte("687ba0410f4323c66397a85292077b101515750801.10244#0#d.data"), RepairTool: false},
+		{Name: []byte("c4aaea9b28c425f45eb64d4d5b0b3f621515750801.19478#2#d.data"), RepairTool: false},
+		{Name: []byte("0a0898eb861579d1240adbb1c9f0c92b1515750801.20636#2#d.data"), RepairTool: false},
 	}
 
 	expectedOhashes := []string{
@@ -457,7 +457,7 @@ func TestListQuarantinedOHashes(t *testing.T) {
 }
 
 func TestListQuarantinedOHash(t *testing.T) {
-	ohash := pb.ObjectPrefix{[]byte("6b08eabf5667557c72dc6570aa1fb845"), false}
+	ohash := pb.ObjectPrefix{Prefix: []byte("6b08eabf5667557c72dc6570aa1fb845"), RepairTool: false}
 	qList, err := client.ListQuarantinedOHash(context.Background(), &ohash)
 	if err != nil {
 		t.Fatalf("error listing quarantined object files: %s", err)

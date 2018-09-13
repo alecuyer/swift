@@ -130,7 +130,7 @@ class VFileReader(object):
             raise (e)
 
         # get the volume file name from the object
-        volume_filename = get_volume_name(obj.datafile_index)
+        volume_filename = get_volume_name(obj.volume_index)
         volume_filepath = os.path.join(volume_dir, volume_filename)
 
         fp = open(volume_filepath, 'rb')
@@ -574,9 +574,9 @@ def open_writable_volume(socket_path, partition, extension, volume_dir, conf,
     volumes = rpc.list_volumes(socket_path, partition, volume_type)
 
     # writable candidates are volumes which are in RW state and not too large
-    volumes = [vol for vol in volumes if vol.datafile_state == STATE_RW and
+    volumes = [vol for vol in volumes if vol.volume_state == STATE_RW and
                vol.next_offset < conf['max_volume_size']]
-    volume_files = [get_volume_name(volume.datafile_index) for volume in
+    volume_files = [get_volume_name(volume.volume_index) for volume in
                     volumes]
 
     for volume_file_name in volume_files:
@@ -832,7 +832,7 @@ def set_header_state(socket_path, name, quarantine):
             raise IOError("No such file or directory: {}".format(name))
         raise (e)
 
-    volume_filename = get_volume_name(obj.datafile_index)
+    volume_filename = get_volume_name(obj.volume_index)
     volume_dir = socket_path.replace("rpc.socket", "volumes")
     volume_filepath = os.path.join(volume_dir, volume_filename)
     with open(volume_filepath, 'r+b') as fp:
@@ -956,9 +956,9 @@ def delete_vfile_from_path(filepath):
     si = SwiftPathInfo.from_path(filepath)
     full_name = si.ohash + si.filename
 
-    def _unregister_object(socket_path, name, datafile_index, offset, size):
+    def _unregister_object(socket_path, name, volume_index, offset, size):
         try:
-            rpc.unregister_object(socket_path, name, datafile_index, offset,
+            rpc.unregister_object(socket_path, name, volume_index, offset,
                                   size)
         except RpcError as e:
             if e.code() == StatusCode.NOT_FOUND:
@@ -972,7 +972,7 @@ def delete_vfile_from_path(filepath):
         if e.code() == StatusCode.NOT_FOUND:
             raise VOSError(errno.ENOENT, "No such file or directory:\
                            '{}'".format(filepath))
-    volume_filename = get_volume_name(obj.datafile_index)
+    volume_filename = get_volume_name(obj.volume_index)
     volume_filepath = os.path.join(si.volume_dir, volume_filename)
 
     with open(volume_filepath, 'r+b') as fp:
@@ -990,7 +990,7 @@ def delete_vfile_from_path(filepath):
             if all(c == '\x00' for c in data):
                 # unregister the object here
                 _unregister_object(si.socket_path, full_name,
-                                   obj.datafile_index, obj.offset, 0)
+                                   obj.volume_index, obj.offset, 0)
                 return
 
             msg = "Failed to read header for {} at offset {} in volume\
@@ -1009,7 +1009,7 @@ def delete_vfile_from_path(filepath):
                         header_fullname, full_name))
         punch_hole(fp.fileno(), obj.offset, header.total_size)
 
-    _unregister_object(si.socket_path, full_name, obj.datafile_index,
+    _unregister_object(si.socket_path, full_name, obj.volume_index,
                               obj.offset, header.total_size)
 
 

@@ -56,8 +56,8 @@ type server struct {
 
 // The following consts are used as a key prefix for different types in the KV
 
-// DataFile should be called "Volume" to avoid confusion with swift's .data files
-const datafilePrefix = 'd'
+// prefix for "volumes" (large file to which we write objects)
+const volumePrefix = 'd'
 
 // prefix for "objects" ("vfile" in the python code, would be a POSIX file on a regular backend)
 const objectPrefix = 'o'
@@ -74,11 +74,11 @@ const statsPrefix = 's'
 // max key length in ascii format.
 const maxObjKeyLen = 96
 
-// RegisterDataFile registers a new datafile (volume) to the KV, given its index number and starting offset.
-// Will return an error if the datafile index already exists.
-func (s *server) RegisterDataFile(ctx context.Context, in *pb.NewDataFileInfo) (*pb.NewDataFileReply, error) {
-	reqlog := log.WithFields(logrus.Fields{"Function": "RegisterDatafile", "Partition": in.Partition, "Type": in.Type,
-		"DatafileIndex": in.DatafileIndex, "Offset": in.Offset, "State": in.State})
+// RegisterVolume registers a new volume (volume) to the KV, given its index number and starting offset.
+// Will return an error if the volume index already exists.
+func (s *server) RegisterVolume(ctx context.Context, in *pb.NewVolumeInfo) (*pb.NewVolumeReply, error) {
+	reqlog := log.WithFields(logrus.Fields{"Function": "RegisterVolume", "Partition": in.Partition, "Type": in.Type,
+		"VolumeIndex": in.VolumeIndex, "Offset": in.Offset, "State": in.State})
 	reqlog.Debug("RPC Call")
 
 	if !in.RepairTool && !s.isClean {
@@ -86,40 +86,40 @@ func (s *server) RegisterDataFile(ctx context.Context, in *pb.NewDataFileInfo) (
 		return nil, status.Errorf(codes.FailedPrecondition, "KV out of sync with volumes")
 	}
 
-	key := EncodeDataFileKey(in.DatafileIndex)
+	key := EncodeVolumeKey(in.VolumeIndex)
 
-	// Does the datafile already exist ?
-	value, err := s.kv.Get(datafilePrefix, key)
+	// Does the volume already exist ?
+	value, err := s.kv.Get(volumePrefix, key)
 	if err != nil {
-		reqlog.Error("unable to check for existing datafile key")
-		s.statsd_c.Increment("register_datafile.fail")
-		return nil, status.Errorf(codes.Unavailable, "unable to check for existing datafile key")
+		reqlog.Error("unable to check for existing volume key")
+		s.statsd_c.Increment("register_volume.fail")
+		return nil, status.Errorf(codes.Unavailable, "unable to check for existing volume key")
 	}
 
 	if value != nil {
-		reqlog.Info("datafile index already exists in db")
-		s.statsd_c.Increment("register_datafile.ok")
-		return nil, status.Errorf(codes.AlreadyExists, "datafile index already exists in db")
+		reqlog.Info("volume index already exists in db")
+		s.statsd_c.Increment("register_volume.ok")
+		return nil, status.Errorf(codes.AlreadyExists, "volume index already exists in db")
 	}
 
-	// Register the datafile
+	// Register the volume
 	usedSpace := int64(0)
-	value = EncodeDataFileValue(int64(in.Partition), int32(in.Type), int64(in.Offset), usedSpace, int64(in.State))
+	value = EncodeVolumeValue(int64(in.Partition), int32(in.Type), int64(in.Offset), usedSpace, int64(in.State))
 
-	err = s.kv.Put(datafilePrefix, key, value)
+	err = s.kv.Put(volumePrefix, key, value)
 	if err != nil {
-		reqlog.Error("failed to Put new datafile entry")
-		s.statsd_c.Increment("register_datafile.fail")
-		return nil, status.Errorf(codes.Unavailable, "unable to register new datafile")
+		reqlog.Error("failed to Put new volume entry")
+		s.statsd_c.Increment("register_volume.fail")
+		return nil, status.Errorf(codes.Unavailable, "unable to register new volume")
 	}
-	s.statsd_c.Increment("register_datafile.ok")
+	s.statsd_c.Increment("register_volume.ok")
 
-	return &pb.NewDataFileReply{}, nil
+	return &pb.NewVolumeReply{}, nil
 }
 
-// UnregisterDataFile will delete a datafile entry from the kv.
-func (s *server) UnregisterDataFile(ctx context.Context, in *pb.DataFileIndex) (*pb.Empty, error) {
-	reqlog := log.WithFields(logrus.Fields{"Function": "UnregisterDataFile", "DatafileIndex": in.Index})
+// UnregisterVolume will delete a volume entry from the kv.
+func (s *server) UnregisterVolume(ctx context.Context, in *pb.VolumeIndex) (*pb.Empty, error) {
+	reqlog := log.WithFields(logrus.Fields{"Function": "UnregisterVolume", "VolumeIndex": in.Index})
 	reqlog.Debug("RPC Call")
 
 	if !s.isClean {
@@ -127,37 +127,37 @@ func (s *server) UnregisterDataFile(ctx context.Context, in *pb.DataFileIndex) (
 		return nil, status.Errorf(codes.FailedPrecondition, "KV out of sync with volumes")
 	}
 
-	key := EncodeDataFileKey(in.Index)
+	key := EncodeVolumeKey(in.Index)
 
 	// Check for key
-	value, err := s.kv.Get(datafilePrefix, key)
+	value, err := s.kv.Get(volumePrefix, key)
 	if err != nil {
-		reqlog.Error("unable to check for datafile key")
-		s.statsd_c.Increment("unregister_datafile.fail")
-		return nil, status.Errorf(codes.Unavailable, "unable to check for datafile key")
+		reqlog.Error("unable to check for volume key")
+		s.statsd_c.Increment("unregister_volume.fail")
+		return nil, status.Errorf(codes.Unavailable, "unable to check for volume key")
 	}
 
 	if value == nil {
-		reqlog.Info("datafile index does not exist in db")
-		s.statsd_c.Increment("unregister_datafile.ok")
-		return nil, status.Errorf(codes.NotFound, "datafile index does not exist in db")
+		reqlog.Info("volume index does not exist in db")
+		s.statsd_c.Increment("unregister_volume.ok")
+		return nil, status.Errorf(codes.NotFound, "volume index does not exist in db")
 	}
 
 	// Key exists, delete it
-	err = s.kv.Delete(datafilePrefix, key)
+	err = s.kv.Delete(volumePrefix, key)
 	if err != nil {
-		reqlog.Error("failed to Delete datafile entry")
-		s.statsd_c.Increment("unregister_datafile.fail")
-		return nil, status.Errorf(codes.Unavailable, "unable to delete datafile entry")
+		reqlog.Error("failed to Delete volume entry")
+		s.statsd_c.Increment("unregister_volume.fail")
+		return nil, status.Errorf(codes.Unavailable, "unable to delete volume entry")
 	}
 
-	s.statsd_c.Increment("unregister_datafile.ok")
+	s.statsd_c.Increment("unregister_volume.ok")
 	return &pb.Empty{}, nil
 }
 
-// UpdateDataFileState will modify an existing datafile state
-func (s *server) UpdateDataFileState(ctx context.Context, in *pb.NewDataFileState) (*pb.Empty, error) {
-	reqlog := log.WithFields(logrus.Fields{"Function": "UpdateDataFileState", "DatafileIndex": in.DatafileIndex, "State": in.State})
+// UpdateVolumeState will modify an existing volume state
+func (s *server) UpdateVolumeState(ctx context.Context, in *pb.NewVolumeState) (*pb.Empty, error) {
+	reqlog := log.WithFields(logrus.Fields{"Function": "UpdateVolumeState", "VolumeIndex": in.VolumeIndex, "State": in.State})
 	reqlog.Debug("RPC Call")
 
 	if !in.RepairTool && !s.isClean {
@@ -165,43 +165,43 @@ func (s *server) UpdateDataFileState(ctx context.Context, in *pb.NewDataFileStat
 		return nil, status.Errorf(codes.FailedPrecondition, "KV out of sync with volumes")
 	}
 
-	key := EncodeDataFileKey(in.DatafileIndex)
-	value, err := s.kv.Get(datafilePrefix, key)
+	key := EncodeVolumeKey(in.VolumeIndex)
+	value, err := s.kv.Get(volumePrefix, key)
 	if err != nil {
-		reqlog.Error("unable to retrieve datafile key")
-		s.statsd_c.Increment("update_datafile_state.fail")
-		return nil, status.Errorf(codes.Unavailable, "unable to retrieve datafile key")
+		reqlog.Error("unable to retrieve volume key")
+		s.statsd_c.Increment("update_volume_state.fail")
+		return nil, status.Errorf(codes.Unavailable, "unable to retrieve volume key")
 	}
 
 	if value == nil {
-		reqlog.Info("datafile index does not exist in db")
-		s.statsd_c.Increment("update_datafile_state.ok")
-		return nil, status.Errorf(codes.NotFound, "datafile index does not exist in db")
+		reqlog.Info("volume index does not exist in db")
+		s.statsd_c.Increment("update_volume_state.ok")
+		return nil, status.Errorf(codes.NotFound, "volume index does not exist in db")
 	}
 
-	partition, dfType, offset, usedSpace, state, err := DecodeDataFileValue(value)
+	partition, dfType, offset, usedSpace, state, err := DecodeVolumeValue(value)
 	reqlog.WithFields(logrus.Fields{"current_state": state}).Info("updating state")
 	if err != nil {
-		reqlog.Error("failed to decode DataFile value")
-		s.statsd_c.Increment("update_datafile_state.fail")
-		return nil, status.Errorf(codes.Internal, "failed to decode DataFile value")
+		reqlog.Error("failed to decode Volume value")
+		s.statsd_c.Increment("update_volume_state.fail")
+		return nil, status.Errorf(codes.Internal, "failed to decode Volume value")
 	}
 
-	value = EncodeDataFileValue(partition, dfType, offset, usedSpace, int64(in.State))
-	err = s.kv.Put(datafilePrefix, key, value)
+	value = EncodeVolumeValue(partition, dfType, offset, usedSpace, int64(in.State))
+	err = s.kv.Put(volumePrefix, key, value)
 	if err != nil {
-		reqlog.Error("failed to Put updated datafile entry")
-		s.statsd_c.Increment("update_datafile_state.fail")
-		return nil, status.Errorf(codes.Unavailable, "unable to update datafile state")
+		reqlog.Error("failed to Put updated volume entry")
+		s.statsd_c.Increment("update_volume_state.fail")
+		return nil, status.Errorf(codes.Unavailable, "unable to update volume state")
 	}
-	s.statsd_c.Increment("update_datafile_state.ok")
+	s.statsd_c.Increment("update_volume_state.ok")
 
 	return &pb.Empty{}, nil
 }
 
-// GetDataFile will return a datafile information
-func (s *server) GetDataFile(ctx context.Context, in *pb.DataFileIndex) (*pb.DataFile, error) {
-	reqlog := log.WithFields(logrus.Fields{"Function": "GetDataFile", "Volume index": in.Index})
+// GetVolume will return a volume information
+func (s *server) GetVolume(ctx context.Context, in *pb.VolumeIndex) (*pb.Volume, error) {
+	reqlog := log.WithFields(logrus.Fields{"Function": "GetVolume", "Volume index": in.Index})
 	reqlog.Debug("RPC Call")
 
 	if !in.RepairTool && !s.isClean {
@@ -209,37 +209,37 @@ func (s *server) GetDataFile(ctx context.Context, in *pb.DataFileIndex) (*pb.Dat
 		return nil, status.Errorf(codes.FailedPrecondition, "KV out of sync with volumes")
 	}
 
-	key := EncodeDataFileKey(in.Index)
-	value, err := s.kv.Get(datafilePrefix, key)
+	key := EncodeVolumeKey(in.Index)
+	value, err := s.kv.Get(volumePrefix, key)
 	if err != nil {
-		reqlog.Errorf("Failed to get datafile key in KV: %s", err)
-		s.statsd_c.Increment("get_datafile.fail")
-		return nil, status.Errorf(codes.Internal, "Failed to get datafile key in KV")
+		reqlog.Errorf("Failed to get volume key in KV: %s", err)
+		s.statsd_c.Increment("get_volume.fail")
+		return nil, status.Errorf(codes.Internal, "Failed to get volume key in KV")
 	}
 
 	if value == nil {
-		reqlog.Info("No such DataFile")
-		s.statsd_c.Increment("get_datafile.ok")
-		return nil, status.Errorf(codes.NotFound, "No such DataFile")
+		reqlog.Info("No such Volume")
+		s.statsd_c.Increment("get_volume.ok")
+		return nil, status.Errorf(codes.NotFound, "No such Volume")
 	}
 
-	partition, dfType, nextOffset, _, state, err := DecodeDataFileValue(value)
+	partition, dfType, nextOffset, _, state, err := DecodeVolumeValue(value)
 	if err != nil {
-		reqlog.Error("Failed to decode DataFile value")
-		s.statsd_c.Increment("get_datafile.fail")
-		return nil, status.Errorf(codes.Internal, "Failed to decode DataFile value")
+		reqlog.Error("Failed to decode Volume value")
+		s.statsd_c.Increment("get_volume.fail")
+		return nil, status.Errorf(codes.Internal, "Failed to decode Volume value")
 	}
 
-	s.statsd_c.Increment("get_datafile.ok")
-	return &pb.DataFile{DatafileIndex: in.Index, DatafileType: uint32(dfType), DatafileState: uint32(state),
+	s.statsd_c.Increment("get_volume.ok")
+	return &pb.Volume{VolumeIndex: in.Index, VolumeType: uint32(dfType), VolumeState: uint32(state),
 		Partition: uint32(partition), NextOffset: uint64(nextOffset)}, nil
 }
 
-// ListDataFiles will return all datafiles of the given type, for the given partition.
+// ListVolumes will return all volumes of the given type, for the given partition.
 // Currently this scans all volumes in the KV. Likely fast enough as long as the KV is cached.
 // If it becomes a performance issue, we may want to add an in-memory cache indexed by partition.
-func (s *server) ListDataFiles(ctx context.Context, in *pb.ListDataFilesInfo) (*pb.DataFiles, error) {
-	reqlog := log.WithFields(logrus.Fields{"Function": "ListDataFiles", "Partition": in.Partition, "Type": in.Type})
+func (s *server) ListVolumes(ctx context.Context, in *pb.ListVolumesInfo) (*pb.Volumes, error) {
+	reqlog := log.WithFields(logrus.Fields{"Function": "ListVolumes", "Partition": in.Partition, "Type": in.Type})
 	reqlog.Debug("RPC Call")
 
 	if !in.RepairTool && !s.isClean {
@@ -247,34 +247,34 @@ func (s *server) ListDataFiles(ctx context.Context, in *pb.ListDataFilesInfo) (*
 		return nil, status.Errorf(codes.FailedPrecondition, "KV out of sync with volumes")
 	}
 
-	response := &pb.DataFiles{}
+	response := &pb.Volumes{}
 
-	// Iterate over datafiles and return the ones that match the request
-	it := s.kv.NewIterator(datafilePrefix)
+	// Iterate over volumes and return the ones that match the request
+	it := s.kv.NewIterator(volumePrefix)
 	defer it.Close()
 
 	for it.SeekToFirst(); it.Valid(); it.Next() {
-		idx, err := DecodeDataFileKey(it.Key())
+		idx, err := DecodeVolumeKey(it.Key())
 		if err != nil {
-			reqlog.Error("failed to decode datafile key")
-			s.statsd_c.Increment("list_datafiles.fail")
-			return nil, status.Errorf(codes.Internal, "unable to decode datafile value")
+			reqlog.Error("failed to decode volume key")
+			s.statsd_c.Increment("list_volumes.fail")
+			return nil, status.Errorf(codes.Internal, "unable to decode volume value")
 		}
 
-		partition, dfType, nextOffset, _, state, err := DecodeDataFileValue(it.Value())
+		partition, dfType, nextOffset, _, state, err := DecodeVolumeValue(it.Value())
 		if err != nil {
-			reqlog.Error("failed to decode datafile value")
-			s.statsd_c.Increment("list_datafiles.fail")
-			return nil, status.Errorf(codes.Internal, "unable to decode datafile value")
+			reqlog.Error("failed to decode volume value")
+			s.statsd_c.Increment("list_volumes.fail")
+			return nil, status.Errorf(codes.Internal, "unable to decode volume value")
 		}
-		if uint32(partition) == in.Partition && pb.DataFileType(dfType) == in.Type {
-			response.Datafiles = append(response.Datafiles, &pb.DataFile{DatafileIndex: idx,
-				DatafileType: uint32(in.Type), DatafileState: uint32(state),
+		if uint32(partition) == in.Partition && pb.VolumeType(dfType) == in.Type {
+			response.Volumes = append(response.Volumes, &pb.Volume{VolumeIndex: idx,
+				VolumeType: uint32(in.Type), VolumeState: uint32(state),
 				Partition: uint32(partition), NextOffset: uint64(nextOffset)})
 		}
 	}
 
-	s.statsd_c.Increment("list_datafiles.ok")
+	s.statsd_c.Increment("list_volumes.ok")
 	return response, nil
 }
 
@@ -284,7 +284,7 @@ func (s *server) RegisterObject(ctx context.Context, in *pb.NewObjectInfo) (*pb.
 		"Function":      "RegisterObject",
 		"Name":          fmt.Sprintf("%s", in.Name),
 		"DiskPath":      s.diskPath,
-		"DatafileIndex": in.DatafileIndex,
+		"VolumeIndex": in.VolumeIndex,
 		"Offset":        in.Offset,
 		"NextOffset":    in.NextOffset,
 		"Length":        in.NextOffset - in.Offset, // debug
@@ -296,22 +296,22 @@ func (s *server) RegisterObject(ctx context.Context, in *pb.NewObjectInfo) (*pb.
 		return nil, status.Errorf(codes.FailedPrecondition, "KV out of sync with volumes")
 	}
 
-	// Check if datafile exists
-	dataFileKey := EncodeDataFileKey(in.DatafileIndex)
-	dataFileValue, err := s.kv.Get(datafilePrefix, dataFileKey)
+	// Check if volume exists
+	volumeKey := EncodeVolumeKey(in.VolumeIndex)
+	volumeValue, err := s.kv.Get(volumePrefix, volumeKey)
 	if err != nil {
-		reqlog.Error("unable to check for existing datafile key")
+		reqlog.Error("unable to check for existing volume key")
 		s.statsd_c.Increment("register_object.fail")
-		return nil, status.Errorf(codes.Unavailable, "unable to check for existing datafile key")
+		return nil, status.Errorf(codes.Unavailable, "unable to check for existing volume key")
 	}
 
-	if dataFileValue == nil {
-		reqlog.Info("datafile index does not exist in db")
+	if volumeValue == nil {
+		reqlog.Info("volume index does not exist in db")
 		s.statsd_c.Increment("register_object.ok")
-		return nil, status.Errorf(codes.FailedPrecondition, "datafile index does not exist in db")
+		return nil, status.Errorf(codes.FailedPrecondition, "volume index does not exist in db")
 	}
 
-	partition, dataFileType, _, currentUsedSpace, state, err := DecodeDataFileValue(dataFileValue)
+	partition, volumeType, _, currentUsedSpace, state, err := DecodeVolumeValue(volumeValue)
 
 	objectKey, err := EncodeObjectKey(in.Name)
 	if err != nil {
@@ -320,7 +320,7 @@ func (s *server) RegisterObject(ctx context.Context, in *pb.NewObjectInfo) (*pb.
 		return nil, status.Errorf(codes.Unavailable, "unable to encode object key")
 	}
 
-	objectValue := EncodeObjectValue(in.DatafileIndex, in.Offset)
+	objectValue := EncodeObjectValue(in.VolumeIndex, in.Offset)
 
 	// If an object exists with the same name, we need to move it to the delete queue before overwriting the key.
 	// On the regular file backend, this would happen automatically with the rename operation. In our case,
@@ -349,18 +349,18 @@ func (s *server) RegisterObject(ctx context.Context, in *pb.NewObjectInfo) (*pb.
 		}
 	}
 
-	// Update datafile offset
-	dataFileNewValue := EncodeDataFileValue(int64(partition), dataFileType, int64(in.NextOffset), int64(currentUsedSpace), state)
+	// Update volume offset
+	volumeNewValue := EncodeVolumeValue(int64(partition), volumeType, int64(in.NextOffset), int64(currentUsedSpace), state)
 	wb := s.kv.NewWriteBatch()
 	defer wb.Close()
-	wb.Put(datafilePrefix, dataFileKey, dataFileNewValue)
+	wb.Put(volumePrefix, volumeKey, volumeNewValue)
 	wb.Put(objectPrefix, objectKey, objectValue)
 
 	err = wb.Commit()
 	if err != nil {
-		reqlog.Error("failed to Put new datafile value and new object entry")
+		reqlog.Error("failed to Put new volume value and new object entry")
 		s.statsd_c.Increment("register_object.fail")
-		return nil, status.Errorf(codes.Unavailable, "unable to update datafile and register new object")
+		return nil, status.Errorf(codes.Unavailable, "unable to update volume and register new object")
 	}
 	objMutex.Unlock()
 
@@ -374,7 +374,7 @@ func (s *server) UnregisterObject(ctx context.Context, in *pb.UnregisterObjectIn
 		"Function":      "UnregisterObject",
 		"Name":          fmt.Sprintf("%s", in.Name),
 		"DiskPath":      s.diskPath,
-		"DatafileIndex": in.DatafileIndex,
+		"VolumeIndex": in.VolumeIndex,
 		"Offset":        in.Offset,
 		"Length":        in.Length,
 	})
@@ -517,7 +517,7 @@ func (s *server) LoadObject(ctx context.Context, in *pb.LoadObjectInfo) (*pb.Obj
 		return nil, status.Errorf(codes.NotFound, "%s", in.Name)
 	}
 
-	dataFileIndex, offset, err := DecodeObjectValue(value)
+	volumeIndex, offset, err := DecodeObjectValue(value)
 	if err != nil {
 		reqlog.Error("failed to decode object value")
 		s.statsd_c.Increment("load_object.fail")
@@ -525,7 +525,7 @@ func (s *server) LoadObject(ctx context.Context, in *pb.LoadObjectInfo) (*pb.Obj
 	}
 
 	s.statsd_c.Increment("load_object.ok")
-	return &pb.Object{Name: in.Name, DatafileIndex: dataFileIndex, Offset: offset}, nil
+	return &pb.Object{Name: in.Name, VolumeIndex: volumeIndex, Offset: offset}, nil
 }
 
 // QuarantineDir will change all keys below a given prefix to mark objects as quarantined. (the whole "directory")
@@ -729,7 +729,7 @@ func (s *server) LoadObjectsByPrefix(ctx context.Context, in *pb.ObjectPrefix) (
 	for it.Seek(prefix); it.Valid() && len(prefix) <= len(it.Key()) && bytes.Equal(prefix, it.Key()[:len(prefix)]); it.Next() {
 
 		// Decode value
-		dataFileIndex, offset, err := DecodeObjectValue(it.Value())
+		volumeIndex, offset, err := DecodeObjectValue(it.Value())
 		if err != nil {
 			reqlog.Error("failed to decode object value")
 			s.statsd_c.Increment("load_objects_by_prefix.fail")
@@ -743,19 +743,19 @@ func (s *server) LoadObjectsByPrefix(ctx context.Context, in *pb.ObjectPrefix) (
 			s.statsd_c.Increment("load_objects_by_prefix.fail")
 			return nil, status.Errorf(codes.Internal, "unable to decode object key")
 		}
-		response.Objects = append(response.Objects, &pb.Object{Name: key, DatafileIndex: dataFileIndex, Offset: offset})
+		response.Objects = append(response.Objects, &pb.Object{Name: key, VolumeIndex: volumeIndex, Offset: offset})
 	}
 
 	s.statsd_c.Increment("load_objects_by_prefix.ok")
 	return response, nil
 }
 
-// LoadObjectsByDataFile returns a list of all objects within a datafile.
+// LoadObjectsByVolume returns a list of all objects within a volume.
 // TODO: add an option to list quarantined objects
-func (s *server) LoadObjectsByDataFile(in *pb.DataFileIndex, stream pb.FileMgr_LoadObjectsByDataFileServer) error {
+func (s *server) LoadObjectsByVolume(in *pb.VolumeIndex, stream pb.FileMgr_LoadObjectsByVolumeServer) error {
 	reqlog := log.WithFields(logrus.Fields{
-		"Function":      "LoadObjectsByDataFile",
-		"DataFileIndex": in.Index})
+		"Function":      "LoadObjectsByVolume",
+		"VolumeIndex": in.Index})
 	reqlog.Debug("RPC Call")
 
 	if !in.RepairTool && !s.isClean {
@@ -771,14 +771,14 @@ func (s *server) LoadObjectsByDataFile(in *pb.DataFileIndex, stream pb.FileMgr_L
 	// It shouldn't matter as this is only used for compaction, and each object will have to be copied.
 	// Disk activity dwarfs CPU usage. (for spinning rust anyway, but SSDs?)
 	for it.SeekToFirst(); it.Valid(); it.Next() {
-		dataFileIndex, offset, err := DecodeObjectValue(it.Value())
+		volumeIndex, offset, err := DecodeObjectValue(it.Value())
 		if err != nil {
 			reqlog.Error("failed to decode object value")
-			s.statsd_c.Increment("load_objects_by_datafile.fail")
+			s.statsd_c.Increment("load_objects_by_volume.fail")
 			return status.Errorf(codes.Internal, "unable to read object")
 		}
 
-		if dataFileIndex == in.Index {
+		if volumeIndex == in.Index {
 			key := make([]byte, 32+len(it.Key()[16:]))
 			err = DecodeObjectKey(it.Key(), key)
 			if err != nil {
@@ -786,16 +786,16 @@ func (s *server) LoadObjectsByDataFile(in *pb.DataFileIndex, stream pb.FileMgr_L
 				s.statsd_c.Increment("load_objects_by_prefix.fail")
 				return status.Errorf(codes.Internal, "unable to decode object key")
 			}
-			object := &pb.Object{Name: key, DatafileIndex: dataFileIndex, Offset: offset}
+			object := &pb.Object{Name: key, VolumeIndex: volumeIndex, Offset: offset}
 			err = stream.Send(object)
 			if err != nil {
 				reqlog.Error("failed to send streamed response")
-				s.statsd_c.Increment("load_objects_by_datafile.fail")
+				s.statsd_c.Increment("load_objects_by_volume.fail")
 				return status.Errorf(codes.Internal, "failed to send streamed response")
 			}
 		}
 	}
-	s.statsd_c.Increment("load_objects_by_datafile.ok")
+	s.statsd_c.Increment("load_objects_by_volume.ok")
 	return nil
 }
 
@@ -1273,7 +1273,7 @@ func (s *server) ListQuarantinedOHash(ctx context.Context, in *pb.ObjectPrefix) 
 	for it.Seek(prefix); it.Valid() && len(prefix) <= len(it.Key()) && bytes.Equal(prefix, it.Key()[:len(prefix)]); it.Next() {
 
 		// Decode value
-		dataFileIndex, offset, err := DecodeObjectValue(it.Value())
+		volumeIndex, offset, err := DecodeObjectValue(it.Value())
 		if err != nil {
 			reqlog.Error("failed to decode object value")
 			s.statsd_c.Increment("list_quarantined_ohash.fail")
@@ -1287,15 +1287,15 @@ func (s *server) ListQuarantinedOHash(ctx context.Context, in *pb.ObjectPrefix) 
 			s.statsd_c.Increment("list_quarantined_ohash.fail")
 			return nil, status.Errorf(codes.Internal, "unable to decode object key")
 		}
-		response.Objects = append(response.Objects, &pb.Object{Name: key, DatafileIndex: dataFileIndex, Offset: offset})
+		response.Objects = append(response.Objects, &pb.Object{Name: key, VolumeIndex: volumeIndex, Offset: offset})
 	}
 
 	s.statsd_c.Increment("list_quarantined_ohash.ok")
 	return response, nil
 }
 
-func (s *server) GetNextOffset(ctx context.Context, in *pb.GetNextOffsetInfo) (*pb.DataFileNextOffset, error) {
-	reqlog := log.WithFields(logrus.Fields{"Function": "GetNextOffset", "DatafileIndex": in.DatafileIndex})
+func (s *server) GetNextOffset(ctx context.Context, in *pb.GetNextOffsetInfo) (*pb.VolumeNextOffset, error) {
+	reqlog := log.WithFields(logrus.Fields{"Function": "GetNextOffset", "VolumeIndex": in.VolumeIndex})
 	reqlog.Debug("RPC Call")
 
 	if !in.RepairTool && !s.isClean {
@@ -1303,30 +1303,30 @@ func (s *server) GetNextOffset(ctx context.Context, in *pb.GetNextOffsetInfo) (*
 		return nil, status.Errorf(codes.FailedPrecondition, "KV out of sync with volumes")
 	}
 
-	key := EncodeDataFileKey(in.DatafileIndex)
+	key := EncodeVolumeKey(in.VolumeIndex)
 
-	value, err := s.kv.Get(datafilePrefix, key)
+	value, err := s.kv.Get(volumePrefix, key)
 	if err != nil {
-		reqlog.Error("unable to retrieve datafile key")
+		reqlog.Error("unable to retrieve volume key")
 		s.statsd_c.Increment("get_next_offset.fail")
-		return nil, status.Errorf(codes.Unavailable, "unable to retrieve datafile key")
+		return nil, status.Errorf(codes.Unavailable, "unable to retrieve volume key")
 	}
 
 	if value == nil {
-		reqlog.Info("datafile index does not exist in db")
+		reqlog.Info("volume index does not exist in db")
 		s.statsd_c.Increment("get_next_offset.fail")
-		return nil, status.Errorf(codes.FailedPrecondition, "datafile index does not exist in db")
+		return nil, status.Errorf(codes.FailedPrecondition, "volume index does not exist in db")
 	}
 
-	_, _, nextOffset, _, _, err := DecodeDataFileValue(value)
+	_, _, nextOffset, _, _, err := DecodeVolumeValue(value)
 	if err != nil {
-		reqlog.WithFields(logrus.Fields{"value": value}).Error("failed to decode data file value")
+		reqlog.WithFields(logrus.Fields{"value": value}).Error("failed to decode volume value")
 		s.statsd_c.Increment("get_next_offset.fail")
-		return nil, status.Errorf(codes.Internal, "failed to decode data file value")
+		return nil, status.Errorf(codes.Internal, "failed to decode volume value")
 	}
 
 	s.statsd_c.Increment("get_next_offset.ok")
-	return &pb.DataFileNextOffset{Offset: uint64(nextOffset)}, nil
+	return &pb.VolumeNextOffset{Offset: uint64(nextOffset)}, nil
 }
 
 // GetStats returns stats for the KV. used for initial debugging, remove?
