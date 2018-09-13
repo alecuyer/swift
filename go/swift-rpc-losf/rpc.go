@@ -28,7 +28,7 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-	"gopkg.in/alexcesaro/statsd.v2"
+	"github.com/alecuyer/statsd"
 	"net"
 	"os"
 	"path"
