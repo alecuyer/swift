@@ -33,7 +33,7 @@ from swift.common.utils import (
     whataremyips, unlink_older_than, compute_eta, get_logger,
     dump_recon_cache, config_true_value,
     GreenAsyncPile, Timestamp, load_recon_cache,
-    parse_override_options, distribute_evenly)
+    parse_override_options, distribute_evenly, PrefixLoggerAdapter)
 from swift.common.header_key_dict import HeaderKeyDict
 from swift.common.bufferedhttp import http_connect
 from swift.common.daemon import Daemon
