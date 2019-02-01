@@ -30,7 +30,7 @@ build-losf:
 build-snappy:
 	git submodule update --init snappy
 	sed -i 's/\(BUILD_SHARED_LIBS "Build.*\) OFF/\1 ON/' snappy/CMakeLists.txt
-	mkdir snappy/build
+	mkdir -p snappy/build
 	cmake -S snappy -B snappy/build
 	$(MAKE) -C snappy/build all
 
@@ -41,7 +41,7 @@ build-leveldb:
 	git submodule update --init leveldb
 	# add set(BUILD_SHARED_LIBS ON) to leveldb/CMakeLists.txt (only if it doesn't exist)
 	grep -q -x -F 'set(BUILD_SHARED_LIBS ON)' leveldb/CMakeLists.txt || echo 'set(BUILD_SHARED_LIBS ON)' >> leveldb/CMakeLists.txt
-	mkdir leveldb/build
+	mkdir -p leveldb/build
 	cmake -S leveldb -B leveldb/build
 	$(MAKE) -C leveldb/build all
 	# TODO: Make sure if it should run after leveldb install
