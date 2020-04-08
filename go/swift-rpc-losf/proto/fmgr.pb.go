@@ -81,46 +81,1323 @@ func (VolumeState) EnumDescriptor() ([]byte, []int) {
 	return fileDescriptor_1fcd0776e05e82a6, []int{1}
 }
 
-type ListPartitionsInfo struct {
+type RegisterVolumeRequest struct {
+	Partition            uint32      `protobuf:"varint,1,opt,name=partition,proto3" json:"partition,omitempty"`
+	Type                 VolumeType  `protobuf:"varint,2,opt,name=type,proto3,enum=filemgr.VolumeType" json:"type,omitempty"`
+	VolumeIndex          uint32      `protobuf:"varint,3,opt,name=volume_index,json=volumeIndex,proto3" json:"volume_index,omitempty"`
+	Offset               uint64      `protobuf:"varint,4,opt,name=offset,proto3" json:"offset,omitempty"`
+	State                VolumeState `protobuf:"varint,5,opt,name=state,proto3,enum=filemgr.VolumeState" json:"state,omitempty"`
+	RepairTool           bool        `protobuf:"varint,6,opt,name=repair_tool,json=repairTool,proto3" json:"repair_tool,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}    `json:"-"`
+	XXX_unrecognized     []byte      `json:"-"`
+	XXX_sizecache        int32       `json:"-"`
+}
+
+func (m *RegisterVolumeRequest) Reset()         { *m = RegisterVolumeRequest{} }
+func (m *RegisterVolumeRequest) String() string { return proto.CompactTextString(m) }
+func (*RegisterVolumeRequest) ProtoMessage()    {}
+func (*RegisterVolumeRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1fcd0776e05e82a6, []int{0}
+}
+
+func (m *RegisterVolumeRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RegisterVolumeRequest.Unmarshal(m, b)
+}
+func (m *RegisterVolumeRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RegisterVolumeRequest.Marshal(b, m, deterministic)
+}
+func (m *RegisterVolumeRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RegisterVolumeRequest.Merge(m, src)
+}
+func (m *RegisterVolumeRequest) XXX_Size() int {
+	return xxx_messageInfo_RegisterVolumeRequest.Size(m)
+}
+func (m *RegisterVolumeRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_RegisterVolumeRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_RegisterVolumeRequest proto.InternalMessageInfo
+
+func (m *RegisterVolumeRequest) GetPartition() uint32 {
+	if m != nil {
+		return m.Partition
+	}
+	return 0
+}
+
+func (m *RegisterVolumeRequest) GetType() VolumeType {
+	if m != nil {
+		return m.Type
+	}
+	return VolumeType_VOLUME_DEFAULT
+}
+
+func (m *RegisterVolumeRequest) GetVolumeIndex() uint32 {
+	if m != nil {
+		return m.VolumeIndex
+	}
+	return 0
+}
+
+func (m *RegisterVolumeRequest) GetOffset() uint64 {
+	if m != nil {
+		return m.Offset
+	}
+	return 0
+}
+
+func (m *RegisterVolumeRequest) GetState() VolumeState {
+	if m != nil {
+		return m.State
+	}
+	return VolumeState_STATE_RW
+}
+
+func (m *RegisterVolumeRequest) GetRepairTool() bool {
+	if m != nil {
+		return m.RepairTool
+	}
+	return false
+}
+
+type RegisterVolumeReply struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *RegisterVolumeReply) Reset()         { *m = RegisterVolumeReply{} }
+func (m *RegisterVolumeReply) String() string { return proto.CompactTextString(m) }
+func (*RegisterVolumeReply) ProtoMessage()    {}
+func (*RegisterVolumeReply) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1fcd0776e05e82a6, []int{1}
+}
+
+func (m *RegisterVolumeReply) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RegisterVolumeReply.Unmarshal(m, b)
+}
+func (m *RegisterVolumeReply) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RegisterVolumeReply.Marshal(b, m, deterministic)
+}
+func (m *RegisterVolumeReply) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RegisterVolumeReply.Merge(m, src)
+}
+func (m *RegisterVolumeReply) XXX_Size() int {
+	return xxx_messageInfo_RegisterVolumeReply.Size(m)
+}
+func (m *RegisterVolumeReply) XXX_DiscardUnknown() {
+	xxx_messageInfo_RegisterVolumeReply.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_RegisterVolumeReply proto.InternalMessageInfo
+
+type UnregisterVolumeRequest struct {
+	Index                uint32   `protobuf:"varint,1,opt,name=index,proto3" json:"index,omitempty"`
+	RepairTool           bool     `protobuf:"varint,2,opt,name=repair_tool,json=repairTool,proto3" json:"repair_tool,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *UnregisterVolumeRequest) Reset()         { *m = UnregisterVolumeRequest{} }
+func (m *UnregisterVolumeRequest) String() string { return proto.CompactTextString(m) }
+func (*UnregisterVolumeRequest) ProtoMessage()    {}
+func (*UnregisterVolumeRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1fcd0776e05e82a6, []int{2}
+}
+
+func (m *UnregisterVolumeRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_UnregisterVolumeRequest.Unmarshal(m, b)
+}
+func (m *UnregisterVolumeRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_UnregisterVolumeRequest.Marshal(b, m, deterministic)
+}
+func (m *UnregisterVolumeRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_UnregisterVolumeRequest.Merge(m, src)
+}
+func (m *UnregisterVolumeRequest) XXX_Size() int {
+	return xxx_messageInfo_UnregisterVolumeRequest.Size(m)
+}
+func (m *UnregisterVolumeRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_UnregisterVolumeRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_UnregisterVolumeRequest proto.InternalMessageInfo
+
+func (m *UnregisterVolumeRequest) GetIndex() uint32 {
+	if m != nil {
+		return m.Index
+	}
+	return 0
+}
+
+func (m *UnregisterVolumeRequest) GetRepairTool() bool {
+	if m != nil {
+		return m.RepairTool
+	}
+	return false
+}
+
+type UnregisterVolumeReply struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *UnregisterVolumeReply) Reset()         { *m = UnregisterVolumeReply{} }
+func (m *UnregisterVolumeReply) String() string { return proto.CompactTextString(m) }
+func (*UnregisterVolumeReply) ProtoMessage()    {}
+func (*UnregisterVolumeReply) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1fcd0776e05e82a6, []int{3}
+}
+
+func (m *UnregisterVolumeReply) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_UnregisterVolumeReply.Unmarshal(m, b)
+}
+func (m *UnregisterVolumeReply) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_UnregisterVolumeReply.Marshal(b, m, deterministic)
+}
+func (m *UnregisterVolumeReply) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_UnregisterVolumeReply.Merge(m, src)
+}
+func (m *UnregisterVolumeReply) XXX_Size() int {
+	return xxx_messageInfo_UnregisterVolumeReply.Size(m)
+}
+func (m *UnregisterVolumeReply) XXX_DiscardUnknown() {
+	xxx_messageInfo_UnregisterVolumeReply.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_UnregisterVolumeReply proto.InternalMessageInfo
+
+type UpdateVolumeStateRequest struct {
+	VolumeIndex          uint32      `protobuf:"varint,1,opt,name=volume_index,json=volumeIndex,proto3" json:"volume_index,omitempty"`
+	State                VolumeState `protobuf:"varint,2,opt,name=state,proto3,enum=filemgr.VolumeState" json:"state,omitempty"`
+	RepairTool           bool        `protobuf:"varint,3,opt,name=repair_tool,json=repairTool,proto3" json:"repair_tool,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}    `json:"-"`
+	XXX_unrecognized     []byte      `json:"-"`
+	XXX_sizecache        int32       `json:"-"`
+}
+
+func (m *UpdateVolumeStateRequest) Reset()         { *m = UpdateVolumeStateRequest{} }
+func (m *UpdateVolumeStateRequest) String() string { return proto.CompactTextString(m) }
+func (*UpdateVolumeStateRequest) ProtoMessage()    {}
+func (*UpdateVolumeStateRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1fcd0776e05e82a6, []int{4}
+}
+
+func (m *UpdateVolumeStateRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_UpdateVolumeStateRequest.Unmarshal(m, b)
+}
+func (m *UpdateVolumeStateRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_UpdateVolumeStateRequest.Marshal(b, m, deterministic)
+}
+func (m *UpdateVolumeStateRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_UpdateVolumeStateRequest.Merge(m, src)
+}
+func (m *UpdateVolumeStateRequest) XXX_Size() int {
+	return xxx_messageInfo_UpdateVolumeStateRequest.Size(m)
+}
+func (m *UpdateVolumeStateRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_UpdateVolumeStateRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_UpdateVolumeStateRequest proto.InternalMessageInfo
+
+func (m *UpdateVolumeStateRequest) GetVolumeIndex() uint32 {
+	if m != nil {
+		return m.VolumeIndex
+	}
+	return 0
+}
+
+func (m *UpdateVolumeStateRequest) GetState() VolumeState {
+	if m != nil {
+		return m.State
+	}
+	return VolumeState_STATE_RW
+}
+
+func (m *UpdateVolumeStateRequest) GetRepairTool() bool {
+	if m != nil {
+		return m.RepairTool
+	}
+	return false
+}
+
+type UpdateVolumeStateReply struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *UpdateVolumeStateReply) Reset()         { *m = UpdateVolumeStateReply{} }
+func (m *UpdateVolumeStateReply) String() string { return proto.CompactTextString(m) }
+func (*UpdateVolumeStateReply) ProtoMessage()    {}
+func (*UpdateVolumeStateReply) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1fcd0776e05e82a6, []int{5}
+}
+
+func (m *UpdateVolumeStateReply) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_UpdateVolumeStateReply.Unmarshal(m, b)
+}
+func (m *UpdateVolumeStateReply) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_UpdateVolumeStateReply.Marshal(b, m, deterministic)
+}
+func (m *UpdateVolumeStateReply) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_UpdateVolumeStateReply.Merge(m, src)
+}
+func (m *UpdateVolumeStateReply) XXX_Size() int {
+	return xxx_messageInfo_UpdateVolumeStateReply.Size(m)
+}
+func (m *UpdateVolumeStateReply) XXX_DiscardUnknown() {
+	xxx_messageInfo_UpdateVolumeStateReply.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_UpdateVolumeStateReply proto.InternalMessageInfo
+
+type GetVolumeRequest struct {
+	Index                uint32   `protobuf:"varint,1,opt,name=index,proto3" json:"index,omitempty"`
+	RepairTool           bool     `protobuf:"varint,2,opt,name=repair_tool,json=repairTool,proto3" json:"repair_tool,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetVolumeRequest) Reset()         { *m = GetVolumeRequest{} }
+func (m *GetVolumeRequest) String() string { return proto.CompactTextString(m) }
+func (*GetVolumeRequest) ProtoMessage()    {}
+func (*GetVolumeRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1fcd0776e05e82a6, []int{6}
+}
+
+func (m *GetVolumeRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetVolumeRequest.Unmarshal(m, b)
+}
+func (m *GetVolumeRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetVolumeRequest.Marshal(b, m, deterministic)
+}
+func (m *GetVolumeRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetVolumeRequest.Merge(m, src)
+}
+func (m *GetVolumeRequest) XXX_Size() int {
+	return xxx_messageInfo_GetVolumeRequest.Size(m)
+}
+func (m *GetVolumeRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetVolumeRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetVolumeRequest proto.InternalMessageInfo
+
+func (m *GetVolumeRequest) GetIndex() uint32 {
+	if m != nil {
+		return m.Index
+	}
+	return 0
+}
+
+func (m *GetVolumeRequest) GetRepairTool() bool {
+	if m != nil {
+		return m.RepairTool
+	}
+	return false
+}
+
+type GetVolumeReply struct {
+	VolumeIndex          uint32     `protobuf:"varint,1,opt,name=volume_index,json=volumeIndex,proto3" json:"volume_index,omitempty"`
+	VolumeType           VolumeType `protobuf:"varint,2,opt,name=volume_type,json=volumeType,proto3,enum=filemgr.VolumeType" json:"volume_type,omitempty"`
+	VolumeState          uint32     `protobuf:"varint,3,opt,name=volume_state,json=volumeState,proto3" json:"volume_state,omitempty"`
+	Partition            uint32     `protobuf:"varint,4,opt,name=partition,proto3" json:"partition,omitempty"`
+	NextOffset           uint64     `protobuf:"varint,5,opt,name=next_offset,json=nextOffset,proto3" json:"next_offset,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
+	XXX_unrecognized     []byte     `json:"-"`
+	XXX_sizecache        int32      `json:"-"`
+}
+
+func (m *GetVolumeReply) Reset()         { *m = GetVolumeReply{} }
+func (m *GetVolumeReply) String() string { return proto.CompactTextString(m) }
+func (*GetVolumeReply) ProtoMessage()    {}
+func (*GetVolumeReply) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1fcd0776e05e82a6, []int{7}
+}
+
+func (m *GetVolumeReply) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetVolumeReply.Unmarshal(m, b)
+}
+func (m *GetVolumeReply) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetVolumeReply.Marshal(b, m, deterministic)
+}
+func (m *GetVolumeReply) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetVolumeReply.Merge(m, src)
+}
+func (m *GetVolumeReply) XXX_Size() int {
+	return xxx_messageInfo_GetVolumeReply.Size(m)
+}
+func (m *GetVolumeReply) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetVolumeReply.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetVolumeReply proto.InternalMessageInfo
+
+func (m *GetVolumeReply) GetVolumeIndex() uint32 {
+	if m != nil {
+		return m.VolumeIndex
+	}
+	return 0
+}
+
+func (m *GetVolumeReply) GetVolumeType() VolumeType {
+	if m != nil {
+		return m.VolumeType
+	}
+	return VolumeType_VOLUME_DEFAULT
+}
+
+func (m *GetVolumeReply) GetVolumeState() uint32 {
+	if m != nil {
+		return m.VolumeState
+	}
+	return 0
+}
+
+func (m *GetVolumeReply) GetPartition() uint32 {
+	if m != nil {
+		return m.Partition
+	}
+	return 0
+}
+
+func (m *GetVolumeReply) GetNextOffset() uint64 {
+	if m != nil {
+		return m.NextOffset
+	}
+	return 0
+}
+
+type ListVolumesRequest struct {
+	Partition            uint32     `protobuf:"varint,1,opt,name=partition,proto3" json:"partition,omitempty"`
+	Type                 VolumeType `protobuf:"varint,2,opt,name=type,proto3,enum=filemgr.VolumeType" json:"type,omitempty"`
+	RepairTool           bool       `protobuf:"varint,3,opt,name=repair_tool,json=repairTool,proto3" json:"repair_tool,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}   `json:"-"`
+	XXX_unrecognized     []byte     `json:"-"`
+	XXX_sizecache        int32      `json:"-"`
+}
+
+func (m *ListVolumesRequest) Reset()         { *m = ListVolumesRequest{} }
+func (m *ListVolumesRequest) String() string { return proto.CompactTextString(m) }
+func (*ListVolumesRequest) ProtoMessage()    {}
+func (*ListVolumesRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1fcd0776e05e82a6, []int{8}
+}
+
+func (m *ListVolumesRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ListVolumesRequest.Unmarshal(m, b)
+}
+func (m *ListVolumesRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ListVolumesRequest.Marshal(b, m, deterministic)
+}
+func (m *ListVolumesRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ListVolumesRequest.Merge(m, src)
+}
+func (m *ListVolumesRequest) XXX_Size() int {
+	return xxx_messageInfo_ListVolumesRequest.Size(m)
+}
+func (m *ListVolumesRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_ListVolumesRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ListVolumesRequest proto.InternalMessageInfo
+
+func (m *ListVolumesRequest) GetPartition() uint32 {
+	if m != nil {
+		return m.Partition
+	}
+	return 0
+}
+
+func (m *ListVolumesRequest) GetType() VolumeType {
+	if m != nil {
+		return m.Type
+	}
+	return VolumeType_VOLUME_DEFAULT
+}
+
+func (m *ListVolumesRequest) GetRepairTool() bool {
+	if m != nil {
+		return m.RepairTool
+	}
+	return false
+}
+
+type ListVolumesReply struct {
+	Volumes              []*Volume `protobuf:"bytes,1,rep,name=volumes,proto3" json:"volumes,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}  `json:"-"`
+	XXX_unrecognized     []byte    `json:"-"`
+	XXX_sizecache        int32     `json:"-"`
+}
+
+func (m *ListVolumesReply) Reset()         { *m = ListVolumesReply{} }
+func (m *ListVolumesReply) String() string { return proto.CompactTextString(m) }
+func (*ListVolumesReply) ProtoMessage()    {}
+func (*ListVolumesReply) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1fcd0776e05e82a6, []int{9}
+}
+
+func (m *ListVolumesReply) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ListVolumesReply.Unmarshal(m, b)
+}
+func (m *ListVolumesReply) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ListVolumesReply.Marshal(b, m, deterministic)
+}
+func (m *ListVolumesReply) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ListVolumesReply.Merge(m, src)
+}
+func (m *ListVolumesReply) XXX_Size() int {
+	return xxx_messageInfo_ListVolumesReply.Size(m)
+}
+func (m *ListVolumesReply) XXX_DiscardUnknown() {
+	xxx_messageInfo_ListVolumesReply.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ListVolumesReply proto.InternalMessageInfo
+
+func (m *ListVolumesReply) GetVolumes() []*Volume {
+	if m != nil {
+		return m.Volumes
+	}
+	return nil
+}
+
+type RegisterObjectRequest struct {
+	Name                 []byte   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	VolumeIndex          uint32   `protobuf:"varint,2,opt,name=volume_index,json=volumeIndex,proto3" json:"volume_index,omitempty"`
+	Offset               uint64   `protobuf:"varint,3,opt,name=offset,proto3" json:"offset,omitempty"`
+	NextOffset           uint64   `protobuf:"varint,4,opt,name=next_offset,json=nextOffset,proto3" json:"next_offset,omitempty"`
+	RepairTool           bool     `protobuf:"varint,5,opt,name=repair_tool,json=repairTool,proto3" json:"repair_tool,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *RegisterObjectRequest) Reset()         { *m = RegisterObjectRequest{} }
+func (m *RegisterObjectRequest) String() string { return proto.CompactTextString(m) }
+func (*RegisterObjectRequest) ProtoMessage()    {}
+func (*RegisterObjectRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1fcd0776e05e82a6, []int{10}
+}
+
+func (m *RegisterObjectRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RegisterObjectRequest.Unmarshal(m, b)
+}
+func (m *RegisterObjectRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RegisterObjectRequest.Marshal(b, m, deterministic)
+}
+func (m *RegisterObjectRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RegisterObjectRequest.Merge(m, src)
+}
+func (m *RegisterObjectRequest) XXX_Size() int {
+	return xxx_messageInfo_RegisterObjectRequest.Size(m)
+}
+func (m *RegisterObjectRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_RegisterObjectRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_RegisterObjectRequest proto.InternalMessageInfo
+
+func (m *RegisterObjectRequest) GetName() []byte {
+	if m != nil {
+		return m.Name
+	}
+	return nil
+}
+
+func (m *RegisterObjectRequest) GetVolumeIndex() uint32 {
+	if m != nil {
+		return m.VolumeIndex
+	}
+	return 0
+}
+
+func (m *RegisterObjectRequest) GetOffset() uint64 {
+	if m != nil {
+		return m.Offset
+	}
+	return 0
+}
+
+func (m *RegisterObjectRequest) GetNextOffset() uint64 {
+	if m != nil {
+		return m.NextOffset
+	}
+	return 0
+}
+
+func (m *RegisterObjectRequest) GetRepairTool() bool {
+	if m != nil {
+		return m.RepairTool
+	}
+	return false
+}
+
+type RegisterObjectReply struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *RegisterObjectReply) Reset()         { *m = RegisterObjectReply{} }
+func (m *RegisterObjectReply) String() string { return proto.CompactTextString(m) }
+func (*RegisterObjectReply) ProtoMessage()    {}
+func (*RegisterObjectReply) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1fcd0776e05e82a6, []int{11}
+}
+
+func (m *RegisterObjectReply) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RegisterObjectReply.Unmarshal(m, b)
+}
+func (m *RegisterObjectReply) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RegisterObjectReply.Marshal(b, m, deterministic)
+}
+func (m *RegisterObjectReply) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RegisterObjectReply.Merge(m, src)
+}
+func (m *RegisterObjectReply) XXX_Size() int {
+	return xxx_messageInfo_RegisterObjectReply.Size(m)
+}
+func (m *RegisterObjectReply) XXX_DiscardUnknown() {
+	xxx_messageInfo_RegisterObjectReply.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_RegisterObjectReply proto.InternalMessageInfo
+
+type UnregisterObjectRequest struct {
+	Name                 []byte   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	RepairTool           bool     `protobuf:"varint,2,opt,name=repair_tool,json=repairTool,proto3" json:"repair_tool,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *UnregisterObjectRequest) Reset()         { *m = UnregisterObjectRequest{} }
+func (m *UnregisterObjectRequest) String() string { return proto.CompactTextString(m) }
+func (*UnregisterObjectRequest) ProtoMessage()    {}
+func (*UnregisterObjectRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1fcd0776e05e82a6, []int{12}
+}
+
+func (m *UnregisterObjectRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_UnregisterObjectRequest.Unmarshal(m, b)
+}
+func (m *UnregisterObjectRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_UnregisterObjectRequest.Marshal(b, m, deterministic)
+}
+func (m *UnregisterObjectRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_UnregisterObjectRequest.Merge(m, src)
+}
+func (m *UnregisterObjectRequest) XXX_Size() int {
+	return xxx_messageInfo_UnregisterObjectRequest.Size(m)
+}
+func (m *UnregisterObjectRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_UnregisterObjectRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_UnregisterObjectRequest proto.InternalMessageInfo
+
+func (m *UnregisterObjectRequest) GetName() []byte {
+	if m != nil {
+		return m.Name
+	}
+	return nil
+}
+
+func (m *UnregisterObjectRequest) GetRepairTool() bool {
+	if m != nil {
+		return m.RepairTool
+	}
+	return false
+}
+
+type UnregisterObjectReply struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *UnregisterObjectReply) Reset()         { *m = UnregisterObjectReply{} }
+func (m *UnregisterObjectReply) String() string { return proto.CompactTextString(m) }
+func (*UnregisterObjectReply) ProtoMessage()    {}
+func (*UnregisterObjectReply) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1fcd0776e05e82a6, []int{13}
+}
+
+func (m *UnregisterObjectReply) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_UnregisterObjectReply.Unmarshal(m, b)
+}
+func (m *UnregisterObjectReply) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_UnregisterObjectReply.Marshal(b, m, deterministic)
+}
+func (m *UnregisterObjectReply) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_UnregisterObjectReply.Merge(m, src)
+}
+func (m *UnregisterObjectReply) XXX_Size() int {
+	return xxx_messageInfo_UnregisterObjectReply.Size(m)
+}
+func (m *UnregisterObjectReply) XXX_DiscardUnknown() {
+	xxx_messageInfo_UnregisterObjectReply.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_UnregisterObjectReply proto.InternalMessageInfo
+
+type RenameObjectRequest struct {
+	Name                 []byte   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	NewName              []byte   `protobuf:"bytes,2,opt,name=new_name,json=newName,proto3" json:"new_name,omitempty"`
+	RepairTool           bool     `protobuf:"varint,3,opt,name=repair_tool,json=repairTool,proto3" json:"repair_tool,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *RenameObjectRequest) Reset()         { *m = RenameObjectRequest{} }
+func (m *RenameObjectRequest) String() string { return proto.CompactTextString(m) }
+func (*RenameObjectRequest) ProtoMessage()    {}
+func (*RenameObjectRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1fcd0776e05e82a6, []int{14}
+}
+
+func (m *RenameObjectRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RenameObjectRequest.Unmarshal(m, b)
+}
+func (m *RenameObjectRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RenameObjectRequest.Marshal(b, m, deterministic)
+}
+func (m *RenameObjectRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RenameObjectRequest.Merge(m, src)
+}
+func (m *RenameObjectRequest) XXX_Size() int {
+	return xxx_messageInfo_RenameObjectRequest.Size(m)
+}
+func (m *RenameObjectRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_RenameObjectRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_RenameObjectRequest proto.InternalMessageInfo
+
+func (m *RenameObjectRequest) GetName() []byte {
+	if m != nil {
+		return m.Name
+	}
+	return nil
+}
+
+func (m *RenameObjectRequest) GetNewName() []byte {
+	if m != nil {
+		return m.NewName
+	}
+	return nil
+}
+
+func (m *RenameObjectRequest) GetRepairTool() bool {
+	if m != nil {
+		return m.RepairTool
+	}
+	return false
+}
+
+type RenameObjectReply struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *RenameObjectReply) Reset()         { *m = RenameObjectReply{} }
+func (m *RenameObjectReply) String() string { return proto.CompactTextString(m) }
+func (*RenameObjectReply) ProtoMessage()    {}
+func (*RenameObjectReply) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1fcd0776e05e82a6, []int{15}
+}
+
+func (m *RenameObjectReply) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_RenameObjectReply.Unmarshal(m, b)
+}
+func (m *RenameObjectReply) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_RenameObjectReply.Marshal(b, m, deterministic)
+}
+func (m *RenameObjectReply) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_RenameObjectReply.Merge(m, src)
+}
+func (m *RenameObjectReply) XXX_Size() int {
+	return xxx_messageInfo_RenameObjectReply.Size(m)
+}
+func (m *RenameObjectReply) XXX_DiscardUnknown() {
+	xxx_messageInfo_RenameObjectReply.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_RenameObjectReply proto.InternalMessageInfo
+
+type LoadObjectRequest struct {
+	Name                 []byte   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	IsQuarantined        bool     `protobuf:"varint,2,opt,name=is_quarantined,json=isQuarantined,proto3" json:"is_quarantined,omitempty"`
+	RepairTool           bool     `protobuf:"varint,3,opt,name=repair_tool,json=repairTool,proto3" json:"repair_tool,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *LoadObjectRequest) Reset()         { *m = LoadObjectRequest{} }
+func (m *LoadObjectRequest) String() string { return proto.CompactTextString(m) }
+func (*LoadObjectRequest) ProtoMessage()    {}
+func (*LoadObjectRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1fcd0776e05e82a6, []int{16}
+}
+
+func (m *LoadObjectRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_LoadObjectRequest.Unmarshal(m, b)
+}
+func (m *LoadObjectRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_LoadObjectRequest.Marshal(b, m, deterministic)
+}
+func (m *LoadObjectRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_LoadObjectRequest.Merge(m, src)
+}
+func (m *LoadObjectRequest) XXX_Size() int {
+	return xxx_messageInfo_LoadObjectRequest.Size(m)
+}
+func (m *LoadObjectRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_LoadObjectRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_LoadObjectRequest proto.InternalMessageInfo
+
+func (m *LoadObjectRequest) GetName() []byte {
+	if m != nil {
+		return m.Name
+	}
+	return nil
+}
+
+func (m *LoadObjectRequest) GetIsQuarantined() bool {
+	if m != nil {
+		return m.IsQuarantined
+	}
+	return false
+}
+
+func (m *LoadObjectRequest) GetRepairTool() bool {
+	if m != nil {
+		return m.RepairTool
+	}
+	return false
+}
+
+type LoadObjectReply struct {
+	Name                 []byte   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	VolumeIndex          uint32   `protobuf:"varint,2,opt,name=volume_index,json=volumeIndex,proto3" json:"volume_index,omitempty"`
+	Offset               uint64   `protobuf:"varint,3,opt,name=offset,proto3" json:"offset,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *LoadObjectReply) Reset()         { *m = LoadObjectReply{} }
+func (m *LoadObjectReply) String() string { return proto.CompactTextString(m) }
+func (*LoadObjectReply) ProtoMessage()    {}
+func (*LoadObjectReply) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1fcd0776e05e82a6, []int{17}
+}
+
+func (m *LoadObjectReply) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_LoadObjectReply.Unmarshal(m, b)
+}
+func (m *LoadObjectReply) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_LoadObjectReply.Marshal(b, m, deterministic)
+}
+func (m *LoadObjectReply) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_LoadObjectReply.Merge(m, src)
+}
+func (m *LoadObjectReply) XXX_Size() int {
+	return xxx_messageInfo_LoadObjectReply.Size(m)
+}
+func (m *LoadObjectReply) XXX_DiscardUnknown() {
+	xxx_messageInfo_LoadObjectReply.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_LoadObjectReply proto.InternalMessageInfo
+
+func (m *LoadObjectReply) GetName() []byte {
+	if m != nil {
+		return m.Name
+	}
+	return nil
+}
+
+func (m *LoadObjectReply) GetVolumeIndex() uint32 {
+	if m != nil {
+		return m.VolumeIndex
+	}
+	return 0
+}
+
+func (m *LoadObjectReply) GetOffset() uint64 {
+	if m != nil {
+		return m.Offset
+	}
+	return 0
+}
+
+type QuarantineObjectRequest struct {
+	Name                 []byte   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	RepairTool           bool     `protobuf:"varint,2,opt,name=repair_tool,json=repairTool,proto3" json:"repair_tool,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *QuarantineObjectRequest) Reset()         { *m = QuarantineObjectRequest{} }
+func (m *QuarantineObjectRequest) String() string { return proto.CompactTextString(m) }
+func (*QuarantineObjectRequest) ProtoMessage()    {}
+func (*QuarantineObjectRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1fcd0776e05e82a6, []int{18}
+}
+
+func (m *QuarantineObjectRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_QuarantineObjectRequest.Unmarshal(m, b)
+}
+func (m *QuarantineObjectRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_QuarantineObjectRequest.Marshal(b, m, deterministic)
+}
+func (m *QuarantineObjectRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QuarantineObjectRequest.Merge(m, src)
+}
+func (m *QuarantineObjectRequest) XXX_Size() int {
+	return xxx_messageInfo_QuarantineObjectRequest.Size(m)
+}
+func (m *QuarantineObjectRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QuarantineObjectRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QuarantineObjectRequest proto.InternalMessageInfo
+
+func (m *QuarantineObjectRequest) GetName() []byte {
+	if m != nil {
+		return m.Name
+	}
+	return nil
+}
+
+func (m *QuarantineObjectRequest) GetRepairTool() bool {
+	if m != nil {
+		return m.RepairTool
+	}
+	return false
+}
+
+type QuarantineObjectReply struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *QuarantineObjectReply) Reset()         { *m = QuarantineObjectReply{} }
+func (m *QuarantineObjectReply) String() string { return proto.CompactTextString(m) }
+func (*QuarantineObjectReply) ProtoMessage()    {}
+func (*QuarantineObjectReply) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1fcd0776e05e82a6, []int{19}
+}
+
+func (m *QuarantineObjectReply) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_QuarantineObjectReply.Unmarshal(m, b)
+}
+func (m *QuarantineObjectReply) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_QuarantineObjectReply.Marshal(b, m, deterministic)
+}
+func (m *QuarantineObjectReply) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QuarantineObjectReply.Merge(m, src)
+}
+func (m *QuarantineObjectReply) XXX_Size() int {
+	return xxx_messageInfo_QuarantineObjectReply.Size(m)
+}
+func (m *QuarantineObjectReply) XXX_DiscardUnknown() {
+	xxx_messageInfo_QuarantineObjectReply.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QuarantineObjectReply proto.InternalMessageInfo
+
+type UnquarantineObjectRequest struct {
+	Name                 []byte   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	RepairTool           bool     `protobuf:"varint,2,opt,name=repair_tool,json=repairTool,proto3" json:"repair_tool,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *UnquarantineObjectRequest) Reset()         { *m = UnquarantineObjectRequest{} }
+func (m *UnquarantineObjectRequest) String() string { return proto.CompactTextString(m) }
+func (*UnquarantineObjectRequest) ProtoMessage()    {}
+func (*UnquarantineObjectRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1fcd0776e05e82a6, []int{20}
+}
+
+func (m *UnquarantineObjectRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_UnquarantineObjectRequest.Unmarshal(m, b)
+}
+func (m *UnquarantineObjectRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_UnquarantineObjectRequest.Marshal(b, m, deterministic)
+}
+func (m *UnquarantineObjectRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_UnquarantineObjectRequest.Merge(m, src)
+}
+func (m *UnquarantineObjectRequest) XXX_Size() int {
+	return xxx_messageInfo_UnquarantineObjectRequest.Size(m)
+}
+func (m *UnquarantineObjectRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_UnquarantineObjectRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_UnquarantineObjectRequest proto.InternalMessageInfo
+
+func (m *UnquarantineObjectRequest) GetName() []byte {
+	if m != nil {
+		return m.Name
+	}
+	return nil
+}
+
+func (m *UnquarantineObjectRequest) GetRepairTool() bool {
+	if m != nil {
+		return m.RepairTool
+	}
+	return false
+}
+
+type UnquarantineObjectReply struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *UnquarantineObjectReply) Reset()         { *m = UnquarantineObjectReply{} }
+func (m *UnquarantineObjectReply) String() string { return proto.CompactTextString(m) }
+func (*UnquarantineObjectReply) ProtoMessage()    {}
+func (*UnquarantineObjectReply) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1fcd0776e05e82a6, []int{21}
+}
+
+func (m *UnquarantineObjectReply) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_UnquarantineObjectReply.Unmarshal(m, b)
+}
+func (m *UnquarantineObjectReply) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_UnquarantineObjectReply.Marshal(b, m, deterministic)
+}
+func (m *UnquarantineObjectReply) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_UnquarantineObjectReply.Merge(m, src)
+}
+func (m *UnquarantineObjectReply) XXX_Size() int {
+	return xxx_messageInfo_UnquarantineObjectReply.Size(m)
+}
+func (m *UnquarantineObjectReply) XXX_DiscardUnknown() {
+	xxx_messageInfo_UnquarantineObjectReply.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_UnquarantineObjectReply proto.InternalMessageInfo
+
+type LoadObjectsByPrefixRequest struct {
+	Prefix               []byte   `protobuf:"bytes,1,opt,name=prefix,proto3" json:"prefix,omitempty"`
+	RepairTool           bool     `protobuf:"varint,2,opt,name=repair_tool,json=repairTool,proto3" json:"repair_tool,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *LoadObjectsByPrefixRequest) Reset()         { *m = LoadObjectsByPrefixRequest{} }
+func (m *LoadObjectsByPrefixRequest) String() string { return proto.CompactTextString(m) }
+func (*LoadObjectsByPrefixRequest) ProtoMessage()    {}
+func (*LoadObjectsByPrefixRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1fcd0776e05e82a6, []int{22}
+}
+
+func (m *LoadObjectsByPrefixRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_LoadObjectsByPrefixRequest.Unmarshal(m, b)
+}
+func (m *LoadObjectsByPrefixRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_LoadObjectsByPrefixRequest.Marshal(b, m, deterministic)
+}
+func (m *LoadObjectsByPrefixRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_LoadObjectsByPrefixRequest.Merge(m, src)
+}
+func (m *LoadObjectsByPrefixRequest) XXX_Size() int {
+	return xxx_messageInfo_LoadObjectsByPrefixRequest.Size(m)
+}
+func (m *LoadObjectsByPrefixRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_LoadObjectsByPrefixRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_LoadObjectsByPrefixRequest proto.InternalMessageInfo
+
+func (m *LoadObjectsByPrefixRequest) GetPrefix() []byte {
+	if m != nil {
+		return m.Prefix
+	}
+	return nil
+}
+
+func (m *LoadObjectsByPrefixRequest) GetRepairTool() bool {
+	if m != nil {
+		return m.RepairTool
+	}
+	return false
+}
+
+type Object struct {
+	Name                 []byte   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	VolumeIndex          uint32   `protobuf:"varint,2,opt,name=volume_index,json=volumeIndex,proto3" json:"volume_index,omitempty"`
+	Offset               uint64   `protobuf:"varint,3,opt,name=offset,proto3" json:"offset,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *Object) Reset()         { *m = Object{} }
+func (m *Object) String() string { return proto.CompactTextString(m) }
+func (*Object) ProtoMessage()    {}
+func (*Object) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1fcd0776e05e82a6, []int{23}
+}
+
+func (m *Object) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_Object.Unmarshal(m, b)
+}
+func (m *Object) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_Object.Marshal(b, m, deterministic)
+}
+func (m *Object) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_Object.Merge(m, src)
+}
+func (m *Object) XXX_Size() int {
+	return xxx_messageInfo_Object.Size(m)
+}
+func (m *Object) XXX_DiscardUnknown() {
+	xxx_messageInfo_Object.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_Object proto.InternalMessageInfo
+
+func (m *Object) GetName() []byte {
+	if m != nil {
+		return m.Name
+	}
+	return nil
+}
+
+func (m *Object) GetVolumeIndex() uint32 {
+	if m != nil {
+		return m.VolumeIndex
+	}
+	return 0
+}
+
+func (m *Object) GetOffset() uint64 {
+	if m != nil {
+		return m.Offset
+	}
+	return 0
+}
+
+type LoadObjectsByPrefixReply struct {
+	Objects              []*Object `protobuf:"bytes,1,rep,name=objects,proto3" json:"objects,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}  `json:"-"`
+	XXX_unrecognized     []byte    `json:"-"`
+	XXX_sizecache        int32     `json:"-"`
+}
+
+func (m *LoadObjectsByPrefixReply) Reset()         { *m = LoadObjectsByPrefixReply{} }
+func (m *LoadObjectsByPrefixReply) String() string { return proto.CompactTextString(m) }
+func (*LoadObjectsByPrefixReply) ProtoMessage()    {}
+func (*LoadObjectsByPrefixReply) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1fcd0776e05e82a6, []int{24}
+}
+
+func (m *LoadObjectsByPrefixReply) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_LoadObjectsByPrefixReply.Unmarshal(m, b)
+}
+func (m *LoadObjectsByPrefixReply) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_LoadObjectsByPrefixReply.Marshal(b, m, deterministic)
+}
+func (m *LoadObjectsByPrefixReply) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_LoadObjectsByPrefixReply.Merge(m, src)
+}
+func (m *LoadObjectsByPrefixReply) XXX_Size() int {
+	return xxx_messageInfo_LoadObjectsByPrefixReply.Size(m)
+}
+func (m *LoadObjectsByPrefixReply) XXX_DiscardUnknown() {
+	xxx_messageInfo_LoadObjectsByPrefixReply.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_LoadObjectsByPrefixReply proto.InternalMessageInfo
+
+func (m *LoadObjectsByPrefixReply) GetObjects() []*Object {
+	if m != nil {
+		return m.Objects
+	}
+	return nil
+}
+
+type LoadObjectsByVolumeRequest struct {
+	Index                uint32   `protobuf:"varint,1,opt,name=index,proto3" json:"index,omitempty"`
+	Quarantined          bool     `protobuf:"varint,2,opt,name=quarantined,proto3" json:"quarantined,omitempty"`
+	PageToken            []byte   `protobuf:"bytes,3,opt,name=page_token,json=pageToken,proto3" json:"page_token,omitempty"`
+	PageSize             uint32   `protobuf:"varint,4,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+	RepairTool           bool     `protobuf:"varint,5,opt,name=repair_tool,json=repairTool,proto3" json:"repair_tool,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *LoadObjectsByVolumeRequest) Reset()         { *m = LoadObjectsByVolumeRequest{} }
+func (m *LoadObjectsByVolumeRequest) String() string { return proto.CompactTextString(m) }
+func (*LoadObjectsByVolumeRequest) ProtoMessage()    {}
+func (*LoadObjectsByVolumeRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1fcd0776e05e82a6, []int{25}
+}
+
+func (m *LoadObjectsByVolumeRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_LoadObjectsByVolumeRequest.Unmarshal(m, b)
+}
+func (m *LoadObjectsByVolumeRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_LoadObjectsByVolumeRequest.Marshal(b, m, deterministic)
+}
+func (m *LoadObjectsByVolumeRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_LoadObjectsByVolumeRequest.Merge(m, src)
+}
+func (m *LoadObjectsByVolumeRequest) XXX_Size() int {
+	return xxx_messageInfo_LoadObjectsByVolumeRequest.Size(m)
+}
+func (m *LoadObjectsByVolumeRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_LoadObjectsByVolumeRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_LoadObjectsByVolumeRequest proto.InternalMessageInfo
+
+func (m *LoadObjectsByVolumeRequest) GetIndex() uint32 {
+	if m != nil {
+		return m.Index
+	}
+	return 0
+}
+
+func (m *LoadObjectsByVolumeRequest) GetQuarantined() bool {
+	if m != nil {
+		return m.Quarantined
+	}
+	return false
+}
+
+func (m *LoadObjectsByVolumeRequest) GetPageToken() []byte {
+	if m != nil {
+		return m.PageToken
+	}
+	return nil
+}
+
+func (m *LoadObjectsByVolumeRequest) GetPageSize() uint32 {
+	if m != nil {
+		return m.PageSize
+	}
+	return 0
+}
+
+func (m *LoadObjectsByVolumeRequest) GetRepairTool() bool {
+	if m != nil {
+		return m.RepairTool
+	}
+	return false
+}
+
+type LoadObjectsByVolumeReply struct {
+	Objects              []*Object `protobuf:"bytes,1,rep,name=objects,proto3" json:"objects,omitempty"`
+	NextPageToken        []byte    `protobuf:"bytes,2,opt,name=next_page_token,json=nextPageToken,proto3" json:"next_page_token,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}  `json:"-"`
+	XXX_unrecognized     []byte    `json:"-"`
+	XXX_sizecache        int32     `json:"-"`
+}
+
+func (m *LoadObjectsByVolumeReply) Reset()         { *m = LoadObjectsByVolumeReply{} }
+func (m *LoadObjectsByVolumeReply) String() string { return proto.CompactTextString(m) }
+func (*LoadObjectsByVolumeReply) ProtoMessage()    {}
+func (*LoadObjectsByVolumeReply) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1fcd0776e05e82a6, []int{26}
+}
+
+func (m *LoadObjectsByVolumeReply) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_LoadObjectsByVolumeReply.Unmarshal(m, b)
+}
+func (m *LoadObjectsByVolumeReply) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_LoadObjectsByVolumeReply.Marshal(b, m, deterministic)
+}
+func (m *LoadObjectsByVolumeReply) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_LoadObjectsByVolumeReply.Merge(m, src)
+}
+func (m *LoadObjectsByVolumeReply) XXX_Size() int {
+	return xxx_messageInfo_LoadObjectsByVolumeReply.Size(m)
+}
+func (m *LoadObjectsByVolumeReply) XXX_DiscardUnknown() {
+	xxx_messageInfo_LoadObjectsByVolumeReply.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_LoadObjectsByVolumeReply proto.InternalMessageInfo
+
+func (m *LoadObjectsByVolumeReply) GetObjects() []*Object {
+	if m != nil {
+		return m.Objects
+	}
+	return nil
+}
+
+func (m *LoadObjectsByVolumeReply) GetNextPageToken() []byte {
+	if m != nil {
+		return m.NextPageToken
+	}
+	return nil
+}
+
+type ListPartitionsRequest struct {
 	PartitionBits        uint32   `protobuf:"varint,1,opt,name=partition_bits,json=partitionBits,proto3" json:"partition_bits,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *ListPartitionsInfo) Reset()         { *m = ListPartitionsInfo{} }
-func (m *ListPartitionsInfo) String() string { return proto.CompactTextString(m) }
-func (*ListPartitionsInfo) ProtoMessage()    {}
-func (*ListPartitionsInfo) Descriptor() ([]byte, []int) {
-	return fileDescriptor_1fcd0776e05e82a6, []int{0}
+func (m *ListPartitionsRequest) Reset()         { *m = ListPartitionsRequest{} }
+func (m *ListPartitionsRequest) String() string { return proto.CompactTextString(m) }
+func (*ListPartitionsRequest) ProtoMessage()    {}
+func (*ListPartitionsRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1fcd0776e05e82a6, []int{27}
 }
 
-func (m *ListPartitionsInfo) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ListPartitionsInfo.Unmarshal(m, b)
+func (m *ListPartitionsRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ListPartitionsRequest.Unmarshal(m, b)
 }
-func (m *ListPartitionsInfo) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ListPartitionsInfo.Marshal(b, m, deterministic)
+func (m *ListPartitionsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ListPartitionsRequest.Marshal(b, m, deterministic)
 }
-func (m *ListPartitionsInfo) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ListPartitionsInfo.Merge(m, src)
+func (m *ListPartitionsRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ListPartitionsRequest.Merge(m, src)
 }
-func (m *ListPartitionsInfo) XXX_Size() int {
-	return xxx_messageInfo_ListPartitionsInfo.Size(m)
+func (m *ListPartitionsRequest) XXX_Size() int {
+	return xxx_messageInfo_ListPartitionsRequest.Size(m)
 }
-func (m *ListPartitionsInfo) XXX_DiscardUnknown() {
-	xxx_messageInfo_ListPartitionsInfo.DiscardUnknown(m)
+func (m *ListPartitionsRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_ListPartitionsRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_ListPartitionsInfo proto.InternalMessageInfo
+var xxx_messageInfo_ListPartitionsRequest proto.InternalMessageInfo
 
-func (m *ListPartitionsInfo) GetPartitionBits() uint32 {
+func (m *ListPartitionsRequest) GetPartitionBits() uint32 {
 	if m != nil {
 		return m.PartitionBits
 	}
 	return 0
 }
 
-type ListPartitionInfo struct {
+type ListPartitionRequest struct {
 	Partition            uint32   `protobuf:"varint,1,opt,name=partition,proto3" json:"partition,omitempty"`
 	PartitionBits        uint32   `protobuf:"varint,2,opt,name=partition_bits,json=partitionBits,proto3" json:"partition_bits,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
@@ -128,46 +1405,46 @@ type ListPartitionInfo struct {
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *ListPartitionInfo) Reset()         { *m = ListPartitionInfo{} }
-func (m *ListPartitionInfo) String() string { return proto.CompactTextString(m) }
-func (*ListPartitionInfo) ProtoMessage()    {}
-func (*ListPartitionInfo) Descriptor() ([]byte, []int) {
-	return fileDescriptor_1fcd0776e05e82a6, []int{1}
+func (m *ListPartitionRequest) Reset()         { *m = ListPartitionRequest{} }
+func (m *ListPartitionRequest) String() string { return proto.CompactTextString(m) }
+func (*ListPartitionRequest) ProtoMessage()    {}
+func (*ListPartitionRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1fcd0776e05e82a6, []int{28}
 }
 
-func (m *ListPartitionInfo) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ListPartitionInfo.Unmarshal(m, b)
+func (m *ListPartitionRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ListPartitionRequest.Unmarshal(m, b)
 }
-func (m *ListPartitionInfo) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ListPartitionInfo.Marshal(b, m, deterministic)
+func (m *ListPartitionRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ListPartitionRequest.Marshal(b, m, deterministic)
 }
-func (m *ListPartitionInfo) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ListPartitionInfo.Merge(m, src)
+func (m *ListPartitionRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ListPartitionRequest.Merge(m, src)
 }
-func (m *ListPartitionInfo) XXX_Size() int {
-	return xxx_messageInfo_ListPartitionInfo.Size(m)
+func (m *ListPartitionRequest) XXX_Size() int {
+	return xxx_messageInfo_ListPartitionRequest.Size(m)
 }
-func (m *ListPartitionInfo) XXX_DiscardUnknown() {
-	xxx_messageInfo_ListPartitionInfo.DiscardUnknown(m)
+func (m *ListPartitionRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_ListPartitionRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_ListPartitionInfo proto.InternalMessageInfo
+var xxx_messageInfo_ListPartitionRequest proto.InternalMessageInfo
 
-func (m *ListPartitionInfo) GetPartition() uint32 {
+func (m *ListPartitionRequest) GetPartition() uint32 {
 	if m != nil {
 		return m.Partition
 	}
 	return 0
 }
 
-func (m *ListPartitionInfo) GetPartitionBits() uint32 {
+func (m *ListPartitionRequest) GetPartitionBits() uint32 {
 	if m != nil {
 		return m.PartitionBits
 	}
 	return 0
 }
 
-type ListSuffixInfo struct {
+type ListSuffixRequest struct {
 	Partition            uint32   `protobuf:"varint,1,opt,name=partition,proto3" json:"partition,omitempty"`
 	Suffix               []byte   `protobuf:"bytes,2,opt,name=suffix,proto3" json:"suffix,omitempty"`
 	PartitionBits        uint32   `protobuf:"varint,3,opt,name=partition_bits,json=partitionBits,proto3" json:"partition_bits,omitempty"`
@@ -176,99 +1453,580 @@ type ListSuffixInfo struct {
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *ListSuffixInfo) Reset()         { *m = ListSuffixInfo{} }
-func (m *ListSuffixInfo) String() string { return proto.CompactTextString(m) }
-func (*ListSuffixInfo) ProtoMessage()    {}
-func (*ListSuffixInfo) Descriptor() ([]byte, []int) {
-	return fileDescriptor_1fcd0776e05e82a6, []int{2}
+func (m *ListSuffixRequest) Reset()         { *m = ListSuffixRequest{} }
+func (m *ListSuffixRequest) String() string { return proto.CompactTextString(m) }
+func (*ListSuffixRequest) ProtoMessage()    {}
+func (*ListSuffixRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1fcd0776e05e82a6, []int{29}
 }
 
-func (m *ListSuffixInfo) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ListSuffixInfo.Unmarshal(m, b)
+func (m *ListSuffixRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ListSuffixRequest.Unmarshal(m, b)
 }
-func (m *ListSuffixInfo) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ListSuffixInfo.Marshal(b, m, deterministic)
+func (m *ListSuffixRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ListSuffixRequest.Marshal(b, m, deterministic)
 }
-func (m *ListSuffixInfo) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ListSuffixInfo.Merge(m, src)
+func (m *ListSuffixRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ListSuffixRequest.Merge(m, src)
 }
-func (m *ListSuffixInfo) XXX_Size() int {
-	return xxx_messageInfo_ListSuffixInfo.Size(m)
+func (m *ListSuffixRequest) XXX_Size() int {
+	return xxx_messageInfo_ListSuffixRequest.Size(m)
 }
-func (m *ListSuffixInfo) XXX_DiscardUnknown() {
-	xxx_messageInfo_ListSuffixInfo.DiscardUnknown(m)
+func (m *ListSuffixRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_ListSuffixRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_ListSuffixInfo proto.InternalMessageInfo
+var xxx_messageInfo_ListSuffixRequest proto.InternalMessageInfo
 
-func (m *ListSuffixInfo) GetPartition() uint32 {
+func (m *ListSuffixRequest) GetPartition() uint32 {
 	if m != nil {
 		return m.Partition
 	}
 	return 0
 }
 
-func (m *ListSuffixInfo) GetSuffix() []byte {
+func (m *ListSuffixRequest) GetSuffix() []byte {
 	if m != nil {
 		return m.Suffix
 	}
 	return nil
 }
 
-func (m *ListSuffixInfo) GetPartitionBits() uint32 {
+func (m *ListSuffixRequest) GetPartitionBits() uint32 {
 	if m != nil {
 		return m.PartitionBits
 	}
 	return 0
 }
 
-// Generic reply message for List* functions (listdir like)
-type DirEntries struct {
-	Entry                []string `protobuf:"bytes,1,rep,name=entry,proto3" json:"entry,omitempty"`
+type ListQuarantinedOHashesRequest struct {
+	PageToken            []byte   `protobuf:"bytes,1,opt,name=page_token,json=pageToken,proto3" json:"page_token,omitempty"`
+	PageSize             uint32   `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *DirEntries) Reset()         { *m = DirEntries{} }
-func (m *DirEntries) String() string { return proto.CompactTextString(m) }
-func (*DirEntries) ProtoMessage()    {}
-func (*DirEntries) Descriptor() ([]byte, []int) {
-	return fileDescriptor_1fcd0776e05e82a6, []int{3}
+func (m *ListQuarantinedOHashesRequest) Reset()         { *m = ListQuarantinedOHashesRequest{} }
+func (m *ListQuarantinedOHashesRequest) String() string { return proto.CompactTextString(m) }
+func (*ListQuarantinedOHashesRequest) ProtoMessage()    {}
+func (*ListQuarantinedOHashesRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1fcd0776e05e82a6, []int{30}
 }
 
-func (m *DirEntries) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_DirEntries.Unmarshal(m, b)
+func (m *ListQuarantinedOHashesRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ListQuarantinedOHashesRequest.Unmarshal(m, b)
 }
-func (m *DirEntries) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_DirEntries.Marshal(b, m, deterministic)
+func (m *ListQuarantinedOHashesRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ListQuarantinedOHashesRequest.Marshal(b, m, deterministic)
 }
-func (m *DirEntries) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_DirEntries.Merge(m, src)
+func (m *ListQuarantinedOHashesRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ListQuarantinedOHashesRequest.Merge(m, src)
 }
-func (m *DirEntries) XXX_Size() int {
-	return xxx_messageInfo_DirEntries.Size(m)
+func (m *ListQuarantinedOHashesRequest) XXX_Size() int {
+	return xxx_messageInfo_ListQuarantinedOHashesRequest.Size(m)
 }
-func (m *DirEntries) XXX_DiscardUnknown() {
-	xxx_messageInfo_DirEntries.DiscardUnknown(m)
+func (m *ListQuarantinedOHashesRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_ListQuarantinedOHashesRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_DirEntries proto.InternalMessageInfo
+var xxx_messageInfo_ListQuarantinedOHashesRequest proto.InternalMessageInfo
 
-func (m *DirEntries) GetEntry() []string {
+func (m *ListQuarantinedOHashesRequest) GetPageToken() []byte {
 	if m != nil {
-		return m.Entry
+		return m.PageToken
+	}
+	return nil
+}
+
+func (m *ListQuarantinedOHashesRequest) GetPageSize() uint32 {
+	if m != nil {
+		return m.PageSize
+	}
+	return 0
+}
+
+type ListQuarantinedOHashesReply struct {
+	Objects              []*QuarantinedObjectName `protobuf:"bytes,1,rep,name=objects,proto3" json:"objects,omitempty"`
+	NextPageToken        []byte                   `protobuf:"bytes,2,opt,name=next_page_token,json=nextPageToken,proto3" json:"next_page_token,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}                 `json:"-"`
+	XXX_unrecognized     []byte                   `json:"-"`
+	XXX_sizecache        int32                    `json:"-"`
+}
+
+func (m *ListQuarantinedOHashesReply) Reset()         { *m = ListQuarantinedOHashesReply{} }
+func (m *ListQuarantinedOHashesReply) String() string { return proto.CompactTextString(m) }
+func (*ListQuarantinedOHashesReply) ProtoMessage()    {}
+func (*ListQuarantinedOHashesReply) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1fcd0776e05e82a6, []int{31}
+}
+
+func (m *ListQuarantinedOHashesReply) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ListQuarantinedOHashesReply.Unmarshal(m, b)
+}
+func (m *ListQuarantinedOHashesReply) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ListQuarantinedOHashesReply.Marshal(b, m, deterministic)
+}
+func (m *ListQuarantinedOHashesReply) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ListQuarantinedOHashesReply.Merge(m, src)
+}
+func (m *ListQuarantinedOHashesReply) XXX_Size() int {
+	return xxx_messageInfo_ListQuarantinedOHashesReply.Size(m)
+}
+func (m *ListQuarantinedOHashesReply) XXX_DiscardUnknown() {
+	xxx_messageInfo_ListQuarantinedOHashesReply.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ListQuarantinedOHashesReply proto.InternalMessageInfo
+
+func (m *ListQuarantinedOHashesReply) GetObjects() []*QuarantinedObjectName {
+	if m != nil {
+		return m.Objects
+	}
+	return nil
+}
+
+func (m *ListQuarantinedOHashesReply) GetNextPageToken() []byte {
+	if m != nil {
+		return m.NextPageToken
+	}
+	return nil
+}
+
+type QuarantinedObjectName struct {
+	Name                 []byte   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *QuarantinedObjectName) Reset()         { *m = QuarantinedObjectName{} }
+func (m *QuarantinedObjectName) String() string { return proto.CompactTextString(m) }
+func (*QuarantinedObjectName) ProtoMessage()    {}
+func (*QuarantinedObjectName) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1fcd0776e05e82a6, []int{32}
+}
+
+func (m *QuarantinedObjectName) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_QuarantinedObjectName.Unmarshal(m, b)
+}
+func (m *QuarantinedObjectName) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_QuarantinedObjectName.Marshal(b, m, deterministic)
+}
+func (m *QuarantinedObjectName) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QuarantinedObjectName.Merge(m, src)
+}
+func (m *QuarantinedObjectName) XXX_Size() int {
+	return xxx_messageInfo_QuarantinedObjectName.Size(m)
+}
+func (m *QuarantinedObjectName) XXX_DiscardUnknown() {
+	xxx_messageInfo_QuarantinedObjectName.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QuarantinedObjectName proto.InternalMessageInfo
+
+func (m *QuarantinedObjectName) GetName() []byte {
+	if m != nil {
+		return m.Name
+	}
+	return nil
+}
+
+type ListQuarantinedOHashRequest struct {
+	Prefix               []byte   `protobuf:"bytes,1,opt,name=prefix,proto3" json:"prefix,omitempty"`
+	RepairTool           bool     `protobuf:"varint,2,opt,name=repair_tool,json=repairTool,proto3" json:"repair_tool,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *ListQuarantinedOHashRequest) Reset()         { *m = ListQuarantinedOHashRequest{} }
+func (m *ListQuarantinedOHashRequest) String() string { return proto.CompactTextString(m) }
+func (*ListQuarantinedOHashRequest) ProtoMessage()    {}
+func (*ListQuarantinedOHashRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1fcd0776e05e82a6, []int{33}
+}
+
+func (m *ListQuarantinedOHashRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ListQuarantinedOHashRequest.Unmarshal(m, b)
+}
+func (m *ListQuarantinedOHashRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ListQuarantinedOHashRequest.Marshal(b, m, deterministic)
+}
+func (m *ListQuarantinedOHashRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ListQuarantinedOHashRequest.Merge(m, src)
+}
+func (m *ListQuarantinedOHashRequest) XXX_Size() int {
+	return xxx_messageInfo_ListQuarantinedOHashRequest.Size(m)
+}
+func (m *ListQuarantinedOHashRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_ListQuarantinedOHashRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ListQuarantinedOHashRequest proto.InternalMessageInfo
+
+func (m *ListQuarantinedOHashRequest) GetPrefix() []byte {
+	if m != nil {
+		return m.Prefix
+	}
+	return nil
+}
+
+func (m *ListQuarantinedOHashRequest) GetRepairTool() bool {
+	if m != nil {
+		return m.RepairTool
+	}
+	return false
+}
+
+type ListQuarantinedOHashReply struct {
+	Objects              []*Object `protobuf:"bytes,1,rep,name=objects,proto3" json:"objects,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}  `json:"-"`
+	XXX_unrecognized     []byte    `json:"-"`
+	XXX_sizecache        int32     `json:"-"`
+}
+
+func (m *ListQuarantinedOHashReply) Reset()         { *m = ListQuarantinedOHashReply{} }
+func (m *ListQuarantinedOHashReply) String() string { return proto.CompactTextString(m) }
+func (*ListQuarantinedOHashReply) ProtoMessage()    {}
+func (*ListQuarantinedOHashReply) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1fcd0776e05e82a6, []int{34}
+}
+
+func (m *ListQuarantinedOHashReply) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_ListQuarantinedOHashReply.Unmarshal(m, b)
+}
+func (m *ListQuarantinedOHashReply) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_ListQuarantinedOHashReply.Marshal(b, m, deterministic)
+}
+func (m *ListQuarantinedOHashReply) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_ListQuarantinedOHashReply.Merge(m, src)
+}
+func (m *ListQuarantinedOHashReply) XXX_Size() int {
+	return xxx_messageInfo_ListQuarantinedOHashReply.Size(m)
+}
+func (m *ListQuarantinedOHashReply) XXX_DiscardUnknown() {
+	xxx_messageInfo_ListQuarantinedOHashReply.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_ListQuarantinedOHashReply proto.InternalMessageInfo
+
+func (m *ListQuarantinedOHashReply) GetObjects() []*Object {
+	if m != nil {
+		return m.Objects
+	}
+	return nil
+}
+
+type GetNextOffsetRequest struct {
+	VolumeIndex          uint32   `protobuf:"varint,1,opt,name=volume_index,json=volumeIndex,proto3" json:"volume_index,omitempty"`
+	RepairTool           bool     `protobuf:"varint,2,opt,name=repair_tool,json=repairTool,proto3" json:"repair_tool,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetNextOffsetRequest) Reset()         { *m = GetNextOffsetRequest{} }
+func (m *GetNextOffsetRequest) String() string { return proto.CompactTextString(m) }
+func (*GetNextOffsetRequest) ProtoMessage()    {}
+func (*GetNextOffsetRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1fcd0776e05e82a6, []int{35}
+}
+
+func (m *GetNextOffsetRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetNextOffsetRequest.Unmarshal(m, b)
+}
+func (m *GetNextOffsetRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetNextOffsetRequest.Marshal(b, m, deterministic)
+}
+func (m *GetNextOffsetRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetNextOffsetRequest.Merge(m, src)
+}
+func (m *GetNextOffsetRequest) XXX_Size() int {
+	return xxx_messageInfo_GetNextOffsetRequest.Size(m)
+}
+func (m *GetNextOffsetRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetNextOffsetRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetNextOffsetRequest proto.InternalMessageInfo
+
+func (m *GetNextOffsetRequest) GetVolumeIndex() uint32 {
+	if m != nil {
+		return m.VolumeIndex
+	}
+	return 0
+}
+
+func (m *GetNextOffsetRequest) GetRepairTool() bool {
+	if m != nil {
+		return m.RepairTool
+	}
+	return false
+}
+
+type GetNextOffsetReply struct {
+	Offset               uint64   `protobuf:"varint,1,opt,name=offset,proto3" json:"offset,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetNextOffsetReply) Reset()         { *m = GetNextOffsetReply{} }
+func (m *GetNextOffsetReply) String() string { return proto.CompactTextString(m) }
+func (*GetNextOffsetReply) ProtoMessage()    {}
+func (*GetNextOffsetReply) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1fcd0776e05e82a6, []int{36}
+}
+
+func (m *GetNextOffsetReply) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetNextOffsetReply.Unmarshal(m, b)
+}
+func (m *GetNextOffsetReply) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetNextOffsetReply.Marshal(b, m, deterministic)
+}
+func (m *GetNextOffsetReply) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetNextOffsetReply.Merge(m, src)
+}
+func (m *GetNextOffsetReply) XXX_Size() int {
+	return xxx_messageInfo_GetNextOffsetReply.Size(m)
+}
+func (m *GetNextOffsetReply) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetNextOffsetReply.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetNextOffsetReply proto.InternalMessageInfo
+
+func (m *GetNextOffsetReply) GetOffset() uint64 {
+	if m != nil {
+		return m.Offset
+	}
+	return 0
+}
+
+type GetStatsRequest struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetStatsRequest) Reset()         { *m = GetStatsRequest{} }
+func (m *GetStatsRequest) String() string { return proto.CompactTextString(m) }
+func (*GetStatsRequest) ProtoMessage()    {}
+func (*GetStatsRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1fcd0776e05e82a6, []int{37}
+}
+
+func (m *GetStatsRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetStatsRequest.Unmarshal(m, b)
+}
+func (m *GetStatsRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetStatsRequest.Marshal(b, m, deterministic)
+}
+func (m *GetStatsRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetStatsRequest.Merge(m, src)
+}
+func (m *GetStatsRequest) XXX_Size() int {
+	return xxx_messageInfo_GetStatsRequest.Size(m)
+}
+func (m *GetStatsRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetStatsRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetStatsRequest proto.InternalMessageInfo
+
+type GetStatsReply struct {
+	Stats                map[string]uint64 `protobuf:"bytes,1,rep,name=stats,proto3" json:"stats,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3"`
+	XXX_NoUnkeyedLiteral struct{}          `json:"-"`
+	XXX_unrecognized     []byte            `json:"-"`
+	XXX_sizecache        int32             `json:"-"`
+}
+
+func (m *GetStatsReply) Reset()         { *m = GetStatsReply{} }
+func (m *GetStatsReply) String() string { return proto.CompactTextString(m) }
+func (*GetStatsReply) ProtoMessage()    {}
+func (*GetStatsReply) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1fcd0776e05e82a6, []int{38}
+}
+
+func (m *GetStatsReply) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetStatsReply.Unmarshal(m, b)
+}
+func (m *GetStatsReply) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetStatsReply.Marshal(b, m, deterministic)
+}
+func (m *GetStatsReply) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetStatsReply.Merge(m, src)
+}
+func (m *GetStatsReply) XXX_Size() int {
+	return xxx_messageInfo_GetStatsReply.Size(m)
+}
+func (m *GetStatsReply) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetStatsReply.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetStatsReply proto.InternalMessageInfo
+
+func (m *GetStatsReply) GetStats() map[string]uint64 {
+	if m != nil {
+		return m.Stats
+	}
+	return nil
+}
+
+type SetKvStateReply struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *SetKvStateReply) Reset()         { *m = SetKvStateReply{} }
+func (m *SetKvStateReply) String() string { return proto.CompactTextString(m) }
+func (*SetKvStateReply) ProtoMessage()    {}
+func (*SetKvStateReply) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1fcd0776e05e82a6, []int{39}
+}
+
+func (m *SetKvStateReply) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_SetKvStateReply.Unmarshal(m, b)
+}
+func (m *SetKvStateReply) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_SetKvStateReply.Marshal(b, m, deterministic)
+}
+func (m *SetKvStateReply) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_SetKvStateReply.Merge(m, src)
+}
+func (m *SetKvStateReply) XXX_Size() int {
+	return xxx_messageInfo_SetKvStateReply.Size(m)
+}
+func (m *SetKvStateReply) XXX_DiscardUnknown() {
+	xxx_messageInfo_SetKvStateReply.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_SetKvStateReply proto.InternalMessageInfo
+
+type GetKvStateRequest struct {
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *GetKvStateRequest) Reset()         { *m = GetKvStateRequest{} }
+func (m *GetKvStateRequest) String() string { return proto.CompactTextString(m) }
+func (*GetKvStateRequest) ProtoMessage()    {}
+func (*GetKvStateRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1fcd0776e05e82a6, []int{40}
+}
+
+func (m *GetKvStateRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_GetKvStateRequest.Unmarshal(m, b)
+}
+func (m *GetKvStateRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_GetKvStateRequest.Marshal(b, m, deterministic)
+}
+func (m *GetKvStateRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_GetKvStateRequest.Merge(m, src)
+}
+func (m *GetKvStateRequest) XXX_Size() int {
+	return xxx_messageInfo_GetKvStateRequest.Size(m)
+}
+func (m *GetKvStateRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_GetKvStateRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_GetKvStateRequest proto.InternalMessageInfo
+
+type KvState struct {
+	IsClean              bool     `protobuf:"varint,1,opt,name=isClean,proto3" json:"isClean,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *KvState) Reset()         { *m = KvState{} }
+func (m *KvState) String() string { return proto.CompactTextString(m) }
+func (*KvState) ProtoMessage()    {}
+func (*KvState) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1fcd0776e05e82a6, []int{41}
+}
+
+func (m *KvState) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_KvState.Unmarshal(m, b)
+}
+func (m *KvState) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_KvState.Marshal(b, m, deterministic)
+}
+func (m *KvState) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_KvState.Merge(m, src)
+}
+func (m *KvState) XXX_Size() int {
+	return xxx_messageInfo_KvState.Size(m)
+}
+func (m *KvState) XXX_DiscardUnknown() {
+	xxx_messageInfo_KvState.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_KvState proto.InternalMessageInfo
+
+func (m *KvState) GetIsClean() bool {
+	if m != nil {
+		return m.IsClean
+	}
+	return false
+}
+
+type LoadObjectsResponse struct {
+	Objects              []*Object `protobuf:"bytes,1,rep,name=objects,proto3" json:"objects,omitempty"`
+	NextPageToken        []byte    `protobuf:"bytes,2,opt,name=next_page_token,json=nextPageToken,proto3" json:"next_page_token,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}  `json:"-"`
+	XXX_unrecognized     []byte    `json:"-"`
+	XXX_sizecache        int32     `json:"-"`
+}
+
+func (m *LoadObjectsResponse) Reset()         { *m = LoadObjectsResponse{} }
+func (m *LoadObjectsResponse) String() string { return proto.CompactTextString(m) }
+func (*LoadObjectsResponse) ProtoMessage()    {}
+func (*LoadObjectsResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1fcd0776e05e82a6, []int{42}
+}
+
+func (m *LoadObjectsResponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_LoadObjectsResponse.Unmarshal(m, b)
+}
+func (m *LoadObjectsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_LoadObjectsResponse.Marshal(b, m, deterministic)
+}
+func (m *LoadObjectsResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_LoadObjectsResponse.Merge(m, src)
+}
+func (m *LoadObjectsResponse) XXX_Size() int {
+	return xxx_messageInfo_LoadObjectsResponse.Size(m)
+}
+func (m *LoadObjectsResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_LoadObjectsResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_LoadObjectsResponse proto.InternalMessageInfo
+
+func (m *LoadObjectsResponse) GetObjects() []*Object {
+	if m != nil {
+		return m.Objects
+	}
+	return nil
+}
+
+func (m *LoadObjectsResponse) GetNextPageToken() []byte {
+	if m != nil {
+		return m.NextPageToken
 	}
 	return nil
 }
 
 type VolumeIndex struct {
-	Index uint32 `protobuf:"varint,1,opt,name=index,proto3" json:"index,omitempty"`
-	// List only quarantined files, if true
-	Quarantined bool   `protobuf:"varint,2,opt,name=quarantined,proto3" json:"quarantined,omitempty"`
-	PageToken   []byte `protobuf:"bytes,3,opt,name=page_token,json=pageToken,proto3" json:"page_token,omitempty"`
-	PageSize    uint32 `protobuf:"varint,4,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
-	// Is this request coming from a repair tool ?
+	Index                uint32   `protobuf:"varint,1,opt,name=index,proto3" json:"index,omitempty"`
+	Quarantined          bool     `protobuf:"varint,2,opt,name=quarantined,proto3" json:"quarantined,omitempty"`
+	PageToken            []byte   `protobuf:"bytes,3,opt,name=page_token,json=pageToken,proto3" json:"page_token,omitempty"`
+	PageSize             uint32   `protobuf:"varint,4,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
 	RepairTool           bool     `protobuf:"varint,5,opt,name=repair_tool,json=repairTool,proto3" json:"repair_tool,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
@@ -279,7 +2037,7 @@ func (m *VolumeIndex) Reset()         { *m = VolumeIndex{} }
 func (m *VolumeIndex) String() string { return proto.CompactTextString(m) }
 func (*VolumeIndex) ProtoMessage()    {}
 func (*VolumeIndex) Descriptor() ([]byte, []int) {
-	return fileDescriptor_1fcd0776e05e82a6, []int{4}
+	return fileDescriptor_1fcd0776e05e82a6, []int{43}
 }
 
 func (m *VolumeIndex) XXX_Unmarshal(b []byte) error {
@@ -350,7 +2108,7 @@ func (m *Volume) Reset()         { *m = Volume{} }
 func (m *Volume) String() string { return proto.CompactTextString(m) }
 func (*Volume) ProtoMessage()    {}
 func (*Volume) Descriptor() ([]byte, []int) {
-	return fileDescriptor_1fcd0776e05e82a6, []int{5}
+	return fileDescriptor_1fcd0776e05e82a6, []int{44}
 }
 
 func (m *Volume) XXX_Unmarshal(b []byte) error {
@@ -406,345 +2164,44 @@ func (m *Volume) GetNextOffset() uint64 {
 	return 0
 }
 
-// Similar to volume but we don't want to require the
-// partition
-type GetNextOffsetInfo struct {
-	VolumeIndex uint32 `protobuf:"varint,1,opt,name=volume_index,json=volumeIndex,proto3" json:"volume_index,omitempty"`
-	VolumeType  uint32 `protobuf:"varint,2,opt,name=volume_type,json=volumeType,proto3" json:"volume_type,omitempty"`
-	VolumeState uint32 `protobuf:"varint,3,opt,name=volume_state,json=volumeState,proto3" json:"volume_state,omitempty"`
-	// Is this request coming from a repair tool ?
-	RepairTool           bool     `protobuf:"varint,4,opt,name=repair_tool,json=repairTool,proto3" json:"repair_tool,omitempty"`
+// Generic reply message for List* functions (listdir like)
+type DirEntries struct {
+	Entry                []string `protobuf:"bytes,1,rep,name=entry,proto3" json:"entry,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *GetNextOffsetInfo) Reset()         { *m = GetNextOffsetInfo{} }
-func (m *GetNextOffsetInfo) String() string { return proto.CompactTextString(m) }
-func (*GetNextOffsetInfo) ProtoMessage()    {}
-func (*GetNextOffsetInfo) Descriptor() ([]byte, []int) {
-	return fileDescriptor_1fcd0776e05e82a6, []int{6}
+func (m *DirEntries) Reset()         { *m = DirEntries{} }
+func (m *DirEntries) String() string { return proto.CompactTextString(m) }
+func (*DirEntries) ProtoMessage()    {}
+func (*DirEntries) Descriptor() ([]byte, []int) {
+	return fileDescriptor_1fcd0776e05e82a6, []int{45}
 }
 
-func (m *GetNextOffsetInfo) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_GetNextOffsetInfo.Unmarshal(m, b)
+func (m *DirEntries) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_DirEntries.Unmarshal(m, b)
 }
-func (m *GetNextOffsetInfo) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_GetNextOffsetInfo.Marshal(b, m, deterministic)
+func (m *DirEntries) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_DirEntries.Marshal(b, m, deterministic)
 }
-func (m *GetNextOffsetInfo) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_GetNextOffsetInfo.Merge(m, src)
+func (m *DirEntries) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_DirEntries.Merge(m, src)
 }
-func (m *GetNextOffsetInfo) XXX_Size() int {
-	return xxx_messageInfo_GetNextOffsetInfo.Size(m)
+func (m *DirEntries) XXX_Size() int {
+	return xxx_messageInfo_DirEntries.Size(m)
 }
-func (m *GetNextOffsetInfo) XXX_DiscardUnknown() {
-	xxx_messageInfo_GetNextOffsetInfo.DiscardUnknown(m)
+func (m *DirEntries) XXX_DiscardUnknown() {
+	xxx_messageInfo_DirEntries.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_GetNextOffsetInfo proto.InternalMessageInfo
+var xxx_messageInfo_DirEntries proto.InternalMessageInfo
 
-func (m *GetNextOffsetInfo) GetVolumeIndex() uint32 {
+func (m *DirEntries) GetEntry() []string {
 	if m != nil {
-		return m.VolumeIndex
-	}
-	return 0
-}
-
-func (m *GetNextOffsetInfo) GetVolumeType() uint32 {
-	if m != nil {
-		return m.VolumeType
-	}
-	return 0
-}
-
-func (m *GetNextOffsetInfo) GetVolumeState() uint32 {
-	if m != nil {
-		return m.VolumeState
-	}
-	return 0
-}
-
-func (m *GetNextOffsetInfo) GetRepairTool() bool {
-	if m != nil {
-		return m.RepairTool
-	}
-	return false
-}
-
-type ListVolumesInfo struct {
-	Partition uint32     `protobuf:"varint,1,opt,name=partition,proto3" json:"partition,omitempty"`
-	Type      VolumeType `protobuf:"varint,2,opt,name=type,proto3,enum=filemgr.VolumeType" json:"type,omitempty"`
-	// Is this request coming from a repair tool ?
-	RepairTool           bool     `protobuf:"varint,3,opt,name=repair_tool,json=repairTool,proto3" json:"repair_tool,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *ListVolumesInfo) Reset()         { *m = ListVolumesInfo{} }
-func (m *ListVolumesInfo) String() string { return proto.CompactTextString(m) }
-func (*ListVolumesInfo) ProtoMessage()    {}
-func (*ListVolumesInfo) Descriptor() ([]byte, []int) {
-	return fileDescriptor_1fcd0776e05e82a6, []int{7}
-}
-
-func (m *ListVolumesInfo) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ListVolumesInfo.Unmarshal(m, b)
-}
-func (m *ListVolumesInfo) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ListVolumesInfo.Marshal(b, m, deterministic)
-}
-func (m *ListVolumesInfo) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ListVolumesInfo.Merge(m, src)
-}
-func (m *ListVolumesInfo) XXX_Size() int {
-	return xxx_messageInfo_ListVolumesInfo.Size(m)
-}
-func (m *ListVolumesInfo) XXX_DiscardUnknown() {
-	xxx_messageInfo_ListVolumesInfo.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_ListVolumesInfo proto.InternalMessageInfo
-
-func (m *ListVolumesInfo) GetPartition() uint32 {
-	if m != nil {
-		return m.Partition
-	}
-	return 0
-}
-
-func (m *ListVolumesInfo) GetType() VolumeType {
-	if m != nil {
-		return m.Type
-	}
-	return VolumeType_VOLUME_DEFAULT
-}
-
-func (m *ListVolumesInfo) GetRepairTool() bool {
-	if m != nil {
-		return m.RepairTool
-	}
-	return false
-}
-
-type Volumes struct {
-	Volumes              []*Volume `protobuf:"bytes,1,rep,name=volumes,proto3" json:"volumes,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}  `json:"-"`
-	XXX_unrecognized     []byte    `json:"-"`
-	XXX_sizecache        int32     `json:"-"`
-}
-
-func (m *Volumes) Reset()         { *m = Volumes{} }
-func (m *Volumes) String() string { return proto.CompactTextString(m) }
-func (*Volumes) ProtoMessage()    {}
-func (*Volumes) Descriptor() ([]byte, []int) {
-	return fileDescriptor_1fcd0776e05e82a6, []int{8}
-}
-
-func (m *Volumes) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_Volumes.Unmarshal(m, b)
-}
-func (m *Volumes) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_Volumes.Marshal(b, m, deterministic)
-}
-func (m *Volumes) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Volumes.Merge(m, src)
-}
-func (m *Volumes) XXX_Size() int {
-	return xxx_messageInfo_Volumes.Size(m)
-}
-func (m *Volumes) XXX_DiscardUnknown() {
-	xxx_messageInfo_Volumes.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_Volumes proto.InternalMessageInfo
-
-func (m *Volumes) GetVolumes() []*Volume {
-	if m != nil {
-		return m.Volumes
+		return m.Entry
 	}
 	return nil
-}
-
-// The response message to GetNextOffset
-type VolumeNextOffset struct {
-	Offset               uint64   `protobuf:"varint,1,opt,name=offset,proto3" json:"offset,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *VolumeNextOffset) Reset()         { *m = VolumeNextOffset{} }
-func (m *VolumeNextOffset) String() string { return proto.CompactTextString(m) }
-func (*VolumeNextOffset) ProtoMessage()    {}
-func (*VolumeNextOffset) Descriptor() ([]byte, []int) {
-	return fileDescriptor_1fcd0776e05e82a6, []int{9}
-}
-
-func (m *VolumeNextOffset) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_VolumeNextOffset.Unmarshal(m, b)
-}
-func (m *VolumeNextOffset) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_VolumeNextOffset.Marshal(b, m, deterministic)
-}
-func (m *VolumeNextOffset) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_VolumeNextOffset.Merge(m, src)
-}
-func (m *VolumeNextOffset) XXX_Size() int {
-	return xxx_messageInfo_VolumeNextOffset.Size(m)
-}
-func (m *VolumeNextOffset) XXX_DiscardUnknown() {
-	xxx_messageInfo_VolumeNextOffset.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_VolumeNextOffset proto.InternalMessageInfo
-
-func (m *VolumeNextOffset) GetOffset() uint64 {
-	if m != nil {
-		return m.Offset
-	}
-	return 0
-}
-
-// The request message for a new volume
-type NewVolumeInfo struct {
-	// Swift partition
-	Partition uint32     `protobuf:"varint,1,opt,name=partition,proto3" json:"partition,omitempty"`
-	Type      VolumeType `protobuf:"varint,2,opt,name=type,proto3,enum=filemgr.VolumeType" json:"type,omitempty"`
-	// Index number of the volume. It is up to the client to map this to an actual filename.
-	VolumeIndex uint32 `protobuf:"varint,3,opt,name=volume_index,json=volumeIndex,proto3" json:"volume_index,omitempty"`
-	// Next available offset to use in the volume.
-	Offset uint64      `protobuf:"varint,4,opt,name=offset,proto3" json:"offset,omitempty"`
-	State  VolumeState `protobuf:"varint,5,opt,name=state,proto3,enum=filemgr.VolumeState" json:"state,omitempty"`
-	// Is this request coming from a repair tool ?
-	RepairTool           bool     `protobuf:"varint,6,opt,name=repair_tool,json=repairTool,proto3" json:"repair_tool,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *NewVolumeInfo) Reset()         { *m = NewVolumeInfo{} }
-func (m *NewVolumeInfo) String() string { return proto.CompactTextString(m) }
-func (*NewVolumeInfo) ProtoMessage()    {}
-func (*NewVolumeInfo) Descriptor() ([]byte, []int) {
-	return fileDescriptor_1fcd0776e05e82a6, []int{10}
-}
-
-func (m *NewVolumeInfo) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_NewVolumeInfo.Unmarshal(m, b)
-}
-func (m *NewVolumeInfo) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_NewVolumeInfo.Marshal(b, m, deterministic)
-}
-func (m *NewVolumeInfo) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_NewVolumeInfo.Merge(m, src)
-}
-func (m *NewVolumeInfo) XXX_Size() int {
-	return xxx_messageInfo_NewVolumeInfo.Size(m)
-}
-func (m *NewVolumeInfo) XXX_DiscardUnknown() {
-	xxx_messageInfo_NewVolumeInfo.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_NewVolumeInfo proto.InternalMessageInfo
-
-func (m *NewVolumeInfo) GetPartition() uint32 {
-	if m != nil {
-		return m.Partition
-	}
-	return 0
-}
-
-func (m *NewVolumeInfo) GetType() VolumeType {
-	if m != nil {
-		return m.Type
-	}
-	return VolumeType_VOLUME_DEFAULT
-}
-
-func (m *NewVolumeInfo) GetVolumeIndex() uint32 {
-	if m != nil {
-		return m.VolumeIndex
-	}
-	return 0
-}
-
-func (m *NewVolumeInfo) GetOffset() uint64 {
-	if m != nil {
-		return m.Offset
-	}
-	return 0
-}
-
-func (m *NewVolumeInfo) GetState() VolumeState {
-	if m != nil {
-		return m.State
-	}
-	return VolumeState_STATE_RW
-}
-
-func (m *NewVolumeInfo) GetRepairTool() bool {
-	if m != nil {
-		return m.RepairTool
-	}
-	return false
-}
-
-type NewVolumeState struct {
-	VolumeIndex uint32      `protobuf:"varint,1,opt,name=volume_index,json=volumeIndex,proto3" json:"volume_index,omitempty"`
-	State       VolumeState `protobuf:"varint,2,opt,name=state,proto3,enum=filemgr.VolumeState" json:"state,omitempty"`
-	// Is this request coming from a repair tool ?
-	RepairTool           bool     `protobuf:"varint,3,opt,name=repair_tool,json=repairTool,proto3" json:"repair_tool,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *NewVolumeState) Reset()         { *m = NewVolumeState{} }
-func (m *NewVolumeState) String() string { return proto.CompactTextString(m) }
-func (*NewVolumeState) ProtoMessage()    {}
-func (*NewVolumeState) Descriptor() ([]byte, []int) {
-	return fileDescriptor_1fcd0776e05e82a6, []int{11}
-}
-
-func (m *NewVolumeState) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_NewVolumeState.Unmarshal(m, b)
-}
-func (m *NewVolumeState) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_NewVolumeState.Marshal(b, m, deterministic)
-}
-func (m *NewVolumeState) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_NewVolumeState.Merge(m, src)
-}
-func (m *NewVolumeState) XXX_Size() int {
-	return xxx_messageInfo_NewVolumeState.Size(m)
-}
-func (m *NewVolumeState) XXX_DiscardUnknown() {
-	xxx_messageInfo_NewVolumeState.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_NewVolumeState proto.InternalMessageInfo
-
-func (m *NewVolumeState) GetVolumeIndex() uint32 {
-	if m != nil {
-		return m.VolumeIndex
-	}
-	return 0
-}
-
-func (m *NewVolumeState) GetState() VolumeState {
-	if m != nil {
-		return m.State
-	}
-	return VolumeState_STATE_RW
-}
-
-func (m *NewVolumeState) GetRepairTool() bool {
-	if m != nil {
-		return m.RepairTool
-	}
-	return false
 }
 
 // The response message for a new volume
@@ -758,7 +2215,7 @@ func (m *NewVolumeReply) Reset()         { *m = NewVolumeReply{} }
 func (m *NewVolumeReply) String() string { return proto.CompactTextString(m) }
 func (*NewVolumeReply) ProtoMessage()    {}
 func (*NewVolumeReply) Descriptor() ([]byte, []int) {
-	return fileDescriptor_1fcd0776e05e82a6, []int{12}
+	return fileDescriptor_1fcd0776e05e82a6, []int{46}
 }
 
 func (m *NewVolumeReply) XXX_Unmarshal(b []byte) error {
@@ -779,37 +2236,6 @@ func (m *NewVolumeReply) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_NewVolumeReply proto.InternalMessageInfo
 
-type DelObjectReply struct {
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *DelObjectReply) Reset()         { *m = DelObjectReply{} }
-func (m *DelObjectReply) String() string { return proto.CompactTextString(m) }
-func (*DelObjectReply) ProtoMessage()    {}
-func (*DelObjectReply) Descriptor() ([]byte, []int) {
-	return fileDescriptor_1fcd0776e05e82a6, []int{13}
-}
-
-func (m *DelObjectReply) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_DelObjectReply.Unmarshal(m, b)
-}
-func (m *DelObjectReply) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_DelObjectReply.Marshal(b, m, deterministic)
-}
-func (m *DelObjectReply) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_DelObjectReply.Merge(m, src)
-}
-func (m *DelObjectReply) XXX_Size() int {
-	return xxx_messageInfo_DelObjectReply.Size(m)
-}
-func (m *DelObjectReply) XXX_DiscardUnknown() {
-	xxx_messageInfo_DelObjectReply.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_DelObjectReply proto.InternalMessageInfo
-
 type RenameReply struct {
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
@@ -820,7 +2246,7 @@ func (m *RenameReply) Reset()         { *m = RenameReply{} }
 func (m *RenameReply) String() string { return proto.CompactTextString(m) }
 func (*RenameReply) ProtoMessage()    {}
 func (*RenameReply) Descriptor() ([]byte, []int) {
-	return fileDescriptor_1fcd0776e05e82a6, []int{14}
+	return fileDescriptor_1fcd0776e05e82a6, []int{47}
 }
 
 func (m *RenameReply) XXX_Unmarshal(b []byte) error {
@@ -841,202 +2267,6 @@ func (m *RenameReply) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_RenameReply proto.InternalMessageInfo
 
-// The request message for a new object
-type NewObjectInfo struct {
-	// Object "name". Name made of (md5, timestamp, etc..)
-	Name []byte `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	// Index number of the volume.
-	VolumeIndex uint32 `protobuf:"varint,2,opt,name=volume_index,json=volumeIndex,proto3" json:"volume_index,omitempty"`
-	// Start offset of the object in the volume.
-	Offset uint64 `protobuf:"varint,3,opt,name=offset,proto3" json:"offset,omitempty"`
-	// Next available offset to use in the volume.
-	NextOffset uint64 `protobuf:"varint,4,opt,name=next_offset,json=nextOffset,proto3" json:"next_offset,omitempty"`
-	// Is this request coming from a repair tool ?
-	RepairTool           bool     `protobuf:"varint,5,opt,name=repair_tool,json=repairTool,proto3" json:"repair_tool,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *NewObjectInfo) Reset()         { *m = NewObjectInfo{} }
-func (m *NewObjectInfo) String() string { return proto.CompactTextString(m) }
-func (*NewObjectInfo) ProtoMessage()    {}
-func (*NewObjectInfo) Descriptor() ([]byte, []int) {
-	return fileDescriptor_1fcd0776e05e82a6, []int{15}
-}
-
-func (m *NewObjectInfo) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_NewObjectInfo.Unmarshal(m, b)
-}
-func (m *NewObjectInfo) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_NewObjectInfo.Marshal(b, m, deterministic)
-}
-func (m *NewObjectInfo) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_NewObjectInfo.Merge(m, src)
-}
-func (m *NewObjectInfo) XXX_Size() int {
-	return xxx_messageInfo_NewObjectInfo.Size(m)
-}
-func (m *NewObjectInfo) XXX_DiscardUnknown() {
-	xxx_messageInfo_NewObjectInfo.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_NewObjectInfo proto.InternalMessageInfo
-
-func (m *NewObjectInfo) GetName() []byte {
-	if m != nil {
-		return m.Name
-	}
-	return nil
-}
-
-func (m *NewObjectInfo) GetVolumeIndex() uint32 {
-	if m != nil {
-		return m.VolumeIndex
-	}
-	return 0
-}
-
-func (m *NewObjectInfo) GetOffset() uint64 {
-	if m != nil {
-		return m.Offset
-	}
-	return 0
-}
-
-func (m *NewObjectInfo) GetNextOffset() uint64 {
-	if m != nil {
-		return m.NextOffset
-	}
-	return 0
-}
-
-func (m *NewObjectInfo) GetRepairTool() bool {
-	if m != nil {
-		return m.RepairTool
-	}
-	return false
-}
-
-// The response message for a new object
-// Currently empty, but we may want to return something in the future
-type NewObjectReply struct {
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *NewObjectReply) Reset()         { *m = NewObjectReply{} }
-func (m *NewObjectReply) String() string { return proto.CompactTextString(m) }
-func (*NewObjectReply) ProtoMessage()    {}
-func (*NewObjectReply) Descriptor() ([]byte, []int) {
-	return fileDescriptor_1fcd0776e05e82a6, []int{16}
-}
-
-func (m *NewObjectReply) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_NewObjectReply.Unmarshal(m, b)
-}
-func (m *NewObjectReply) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_NewObjectReply.Marshal(b, m, deterministic)
-}
-func (m *NewObjectReply) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_NewObjectReply.Merge(m, src)
-}
-func (m *NewObjectReply) XXX_Size() int {
-	return xxx_messageInfo_NewObjectReply.Size(m)
-}
-func (m *NewObjectReply) XXX_DiscardUnknown() {
-	xxx_messageInfo_NewObjectReply.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_NewObjectReply proto.InternalMessageInfo
-
-type QuarantinedObjectName struct {
-	Name                 []byte   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *QuarantinedObjectName) Reset()         { *m = QuarantinedObjectName{} }
-func (m *QuarantinedObjectName) String() string { return proto.CompactTextString(m) }
-func (*QuarantinedObjectName) ProtoMessage()    {}
-func (*QuarantinedObjectName) Descriptor() ([]byte, []int) {
-	return fileDescriptor_1fcd0776e05e82a6, []int{17}
-}
-
-func (m *QuarantinedObjectName) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_QuarantinedObjectName.Unmarshal(m, b)
-}
-func (m *QuarantinedObjectName) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_QuarantinedObjectName.Marshal(b, m, deterministic)
-}
-func (m *QuarantinedObjectName) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_QuarantinedObjectName.Merge(m, src)
-}
-func (m *QuarantinedObjectName) XXX_Size() int {
-	return xxx_messageInfo_QuarantinedObjectName.Size(m)
-}
-func (m *QuarantinedObjectName) XXX_DiscardUnknown() {
-	xxx_messageInfo_QuarantinedObjectName.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_QuarantinedObjectName proto.InternalMessageInfo
-
-func (m *QuarantinedObjectName) GetName() []byte {
-	if m != nil {
-		return m.Name
-	}
-	return nil
-}
-
-type QuarantinedObjectNames struct {
-	Objects              []*QuarantinedObjectName `protobuf:"bytes,1,rep,name=objects,proto3" json:"objects,omitempty"`
-	NextPageToken        []byte                   `protobuf:"bytes,2,opt,name=next_page_token,json=nextPageToken,proto3" json:"next_page_token,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}                 `json:"-"`
-	XXX_unrecognized     []byte                   `json:"-"`
-	XXX_sizecache        int32                    `json:"-"`
-}
-
-func (m *QuarantinedObjectNames) Reset()         { *m = QuarantinedObjectNames{} }
-func (m *QuarantinedObjectNames) String() string { return proto.CompactTextString(m) }
-func (*QuarantinedObjectNames) ProtoMessage()    {}
-func (*QuarantinedObjectNames) Descriptor() ([]byte, []int) {
-	return fileDescriptor_1fcd0776e05e82a6, []int{18}
-}
-
-func (m *QuarantinedObjectNames) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_QuarantinedObjectNames.Unmarshal(m, b)
-}
-func (m *QuarantinedObjectNames) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_QuarantinedObjectNames.Marshal(b, m, deterministic)
-}
-func (m *QuarantinedObjectNames) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_QuarantinedObjectNames.Merge(m, src)
-}
-func (m *QuarantinedObjectNames) XXX_Size() int {
-	return xxx_messageInfo_QuarantinedObjectNames.Size(m)
-}
-func (m *QuarantinedObjectNames) XXX_DiscardUnknown() {
-	xxx_messageInfo_QuarantinedObjectNames.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_QuarantinedObjectNames proto.InternalMessageInfo
-
-func (m *QuarantinedObjectNames) GetObjects() []*QuarantinedObjectName {
-	if m != nil {
-		return m.Objects
-	}
-	return nil
-}
-
-func (m *QuarantinedObjectNames) GetNextPageToken() []byte {
-	if m != nil {
-		return m.NextPageToken
-	}
-	return nil
-}
-
 type ObjectName struct {
 	// name of the object.
 	Name []byte `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
@@ -1051,7 +2281,7 @@ func (m *ObjectName) Reset()         { *m = ObjectName{} }
 func (m *ObjectName) String() string { return proto.CompactTextString(m) }
 func (*ObjectName) ProtoMessage()    {}
 func (*ObjectName) Descriptor() ([]byte, []int) {
-	return fileDescriptor_1fcd0776e05e82a6, []int{19}
+	return fileDescriptor_1fcd0776e05e82a6, []int{48}
 }
 
 func (m *ObjectName) XXX_Unmarshal(b []byte) error {
@@ -1086,276 +2316,6 @@ func (m *ObjectName) GetRepairTool() bool {
 	return false
 }
 
-type LoadObjectInfo struct {
-	// name of the object.
-	Name []byte `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	// Is it quarantined ?
-	IsQuarantined bool `protobuf:"varint,2,opt,name=is_quarantined,json=isQuarantined,proto3" json:"is_quarantined,omitempty"`
-	// Is this request coming from a repair tool ?
-	RepairTool           bool     `protobuf:"varint,5,opt,name=repair_tool,json=repairTool,proto3" json:"repair_tool,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *LoadObjectInfo) Reset()         { *m = LoadObjectInfo{} }
-func (m *LoadObjectInfo) String() string { return proto.CompactTextString(m) }
-func (*LoadObjectInfo) ProtoMessage()    {}
-func (*LoadObjectInfo) Descriptor() ([]byte, []int) {
-	return fileDescriptor_1fcd0776e05e82a6, []int{20}
-}
-
-func (m *LoadObjectInfo) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_LoadObjectInfo.Unmarshal(m, b)
-}
-func (m *LoadObjectInfo) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_LoadObjectInfo.Marshal(b, m, deterministic)
-}
-func (m *LoadObjectInfo) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_LoadObjectInfo.Merge(m, src)
-}
-func (m *LoadObjectInfo) XXX_Size() int {
-	return xxx_messageInfo_LoadObjectInfo.Size(m)
-}
-func (m *LoadObjectInfo) XXX_DiscardUnknown() {
-	xxx_messageInfo_LoadObjectInfo.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_LoadObjectInfo proto.InternalMessageInfo
-
-func (m *LoadObjectInfo) GetName() []byte {
-	if m != nil {
-		return m.Name
-	}
-	return nil
-}
-
-func (m *LoadObjectInfo) GetIsQuarantined() bool {
-	if m != nil {
-		return m.IsQuarantined
-	}
-	return false
-}
-
-func (m *LoadObjectInfo) GetRepairTool() bool {
-	if m != nil {
-		return m.RepairTool
-	}
-	return false
-}
-
-// The request message to rename an object
-type RenameInfo struct {
-	// name of the object.
-	Name []byte `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	// new name of the object
-	NewName []byte `protobuf:"bytes,2,opt,name=new_name,json=newName,proto3" json:"new_name,omitempty"`
-	// Is this request coming from a repair tool ?
-	RepairTool           bool     `protobuf:"varint,3,opt,name=repair_tool,json=repairTool,proto3" json:"repair_tool,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *RenameInfo) Reset()         { *m = RenameInfo{} }
-func (m *RenameInfo) String() string { return proto.CompactTextString(m) }
-func (*RenameInfo) ProtoMessage()    {}
-func (*RenameInfo) Descriptor() ([]byte, []int) {
-	return fileDescriptor_1fcd0776e05e82a6, []int{21}
-}
-
-func (m *RenameInfo) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_RenameInfo.Unmarshal(m, b)
-}
-func (m *RenameInfo) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_RenameInfo.Marshal(b, m, deterministic)
-}
-func (m *RenameInfo) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_RenameInfo.Merge(m, src)
-}
-func (m *RenameInfo) XXX_Size() int {
-	return xxx_messageInfo_RenameInfo.Size(m)
-}
-func (m *RenameInfo) XXX_DiscardUnknown() {
-	xxx_messageInfo_RenameInfo.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_RenameInfo proto.InternalMessageInfo
-
-func (m *RenameInfo) GetName() []byte {
-	if m != nil {
-		return m.Name
-	}
-	return nil
-}
-
-func (m *RenameInfo) GetNewName() []byte {
-	if m != nil {
-		return m.NewName
-	}
-	return nil
-}
-
-func (m *RenameInfo) GetRepairTool() bool {
-	if m != nil {
-		return m.RepairTool
-	}
-	return false
-}
-
-type Object struct {
-	// name of the object.
-	Name []byte `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	// Index number of the volume.
-	VolumeIndex uint32 `protobuf:"varint,2,opt,name=volume_index,json=volumeIndex,proto3" json:"volume_index,omitempty"`
-	// Start offset of the object in the volume.
-	Offset               uint64   `protobuf:"varint,3,opt,name=offset,proto3" json:"offset,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *Object) Reset()         { *m = Object{} }
-func (m *Object) String() string { return proto.CompactTextString(m) }
-func (*Object) ProtoMessage()    {}
-func (*Object) Descriptor() ([]byte, []int) {
-	return fileDescriptor_1fcd0776e05e82a6, []int{22}
-}
-
-func (m *Object) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_Object.Unmarshal(m, b)
-}
-func (m *Object) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_Object.Marshal(b, m, deterministic)
-}
-func (m *Object) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Object.Merge(m, src)
-}
-func (m *Object) XXX_Size() int {
-	return xxx_messageInfo_Object.Size(m)
-}
-func (m *Object) XXX_DiscardUnknown() {
-	xxx_messageInfo_Object.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_Object proto.InternalMessageInfo
-
-func (m *Object) GetName() []byte {
-	if m != nil {
-		return m.Name
-	}
-	return nil
-}
-
-func (m *Object) GetVolumeIndex() uint32 {
-	if m != nil {
-		return m.VolumeIndex
-	}
-	return 0
-}
-
-func (m *Object) GetOffset() uint64 {
-	if m != nil {
-		return m.Offset
-	}
-	return 0
-}
-
-type LoadObjectsResponse struct {
-	Objects              []*Object `protobuf:"bytes,1,rep,name=objects,proto3" json:"objects,omitempty"`
-	NextPageToken        []byte    `protobuf:"bytes,2,opt,name=next_page_token,json=nextPageToken,proto3" json:"next_page_token,omitempty"`
-	XXX_NoUnkeyedLiteral struct{}  `json:"-"`
-	XXX_unrecognized     []byte    `json:"-"`
-	XXX_sizecache        int32     `json:"-"`
-}
-
-func (m *LoadObjectsResponse) Reset()         { *m = LoadObjectsResponse{} }
-func (m *LoadObjectsResponse) String() string { return proto.CompactTextString(m) }
-func (*LoadObjectsResponse) ProtoMessage()    {}
-func (*LoadObjectsResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_1fcd0776e05e82a6, []int{23}
-}
-
-func (m *LoadObjectsResponse) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_LoadObjectsResponse.Unmarshal(m, b)
-}
-func (m *LoadObjectsResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_LoadObjectsResponse.Marshal(b, m, deterministic)
-}
-func (m *LoadObjectsResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_LoadObjectsResponse.Merge(m, src)
-}
-func (m *LoadObjectsResponse) XXX_Size() int {
-	return xxx_messageInfo_LoadObjectsResponse.Size(m)
-}
-func (m *LoadObjectsResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_LoadObjectsResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_LoadObjectsResponse proto.InternalMessageInfo
-
-func (m *LoadObjectsResponse) GetObjects() []*Object {
-	if m != nil {
-		return m.Objects
-	}
-	return nil
-}
-
-func (m *LoadObjectsResponse) GetNextPageToken() []byte {
-	if m != nil {
-		return m.NextPageToken
-	}
-	return nil
-}
-
-type ObjectPrefix struct {
-	Prefix []byte `protobuf:"bytes,1,opt,name=prefix,proto3" json:"prefix,omitempty"`
-	// Is this request coming from a repair tool ?
-	RepairTool           bool     `protobuf:"varint,2,opt,name=repair_tool,json=repairTool,proto3" json:"repair_tool,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *ObjectPrefix) Reset()         { *m = ObjectPrefix{} }
-func (m *ObjectPrefix) String() string { return proto.CompactTextString(m) }
-func (*ObjectPrefix) ProtoMessage()    {}
-func (*ObjectPrefix) Descriptor() ([]byte, []int) {
-	return fileDescriptor_1fcd0776e05e82a6, []int{24}
-}
-
-func (m *ObjectPrefix) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ObjectPrefix.Unmarshal(m, b)
-}
-func (m *ObjectPrefix) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ObjectPrefix.Marshal(b, m, deterministic)
-}
-func (m *ObjectPrefix) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ObjectPrefix.Merge(m, src)
-}
-func (m *ObjectPrefix) XXX_Size() int {
-	return xxx_messageInfo_ObjectPrefix.Size(m)
-}
-func (m *ObjectPrefix) XXX_DiscardUnknown() {
-	xxx_messageInfo_ObjectPrefix.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_ObjectPrefix proto.InternalMessageInfo
-
-func (m *ObjectPrefix) GetPrefix() []byte {
-	if m != nil {
-		return m.Prefix
-	}
-	return nil
-}
-
-func (m *ObjectPrefix) GetRepairTool() bool {
-	if m != nil {
-		return m.RepairTool
-	}
-	return false
-}
-
 type Empty struct {
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
@@ -1366,7 +2326,7 @@ func (m *Empty) Reset()         { *m = Empty{} }
 func (m *Empty) String() string { return proto.CompactTextString(m) }
 func (*Empty) ProtoMessage()    {}
 func (*Empty) Descriptor() ([]byte, []int) {
-	return fileDescriptor_1fcd0776e05e82a6, []int{25}
+	return fileDescriptor_1fcd0776e05e82a6, []int{49}
 }
 
 func (m *Empty) XXX_Unmarshal(b []byte) error {
@@ -1387,37 +2347,6 @@ func (m *Empty) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_Empty proto.InternalMessageInfo
 
-type GetStatsInfo struct {
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *GetStatsInfo) Reset()         { *m = GetStatsInfo{} }
-func (m *GetStatsInfo) String() string { return proto.CompactTextString(m) }
-func (*GetStatsInfo) ProtoMessage()    {}
-func (*GetStatsInfo) Descriptor() ([]byte, []int) {
-	return fileDescriptor_1fcd0776e05e82a6, []int{26}
-}
-
-func (m *GetStatsInfo) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_GetStatsInfo.Unmarshal(m, b)
-}
-func (m *GetStatsInfo) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_GetStatsInfo.Marshal(b, m, deterministic)
-}
-func (m *GetStatsInfo) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_GetStatsInfo.Merge(m, src)
-}
-func (m *GetStatsInfo) XXX_Size() int {
-	return xxx_messageInfo_GetStatsInfo.Size(m)
-}
-func (m *GetStatsInfo) XXX_DiscardUnknown() {
-	xxx_messageInfo_GetStatsInfo.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_GetStatsInfo proto.InternalMessageInfo
-
 type PartitionContent struct {
 	FileEntries          []*FullPathEntry `protobuf:"bytes,1,rep,name=file_entries,json=fileEntries,proto3" json:"file_entries,omitempty"`
 	XXX_NoUnkeyedLiteral struct{}         `json:"-"`
@@ -1429,7 +2358,7 @@ func (m *PartitionContent) Reset()         { *m = PartitionContent{} }
 func (m *PartitionContent) String() string { return proto.CompactTextString(m) }
 func (*PartitionContent) ProtoMessage()    {}
 func (*PartitionContent) Descriptor() ([]byte, []int) {
-	return fileDescriptor_1fcd0776e05e82a6, []int{27}
+	return fileDescriptor_1fcd0776e05e82a6, []int{50}
 }
 
 func (m *PartitionContent) XXX_Unmarshal(b []byte) error {
@@ -1471,7 +2400,7 @@ func (m *FullPathEntry) Reset()         { *m = FullPathEntry{} }
 func (m *FullPathEntry) String() string { return proto.CompactTextString(m) }
 func (*FullPathEntry) ProtoMessage()    {}
 func (*FullPathEntry) Descriptor() ([]byte, []int) {
-	return fileDescriptor_1fcd0776e05e82a6, []int{28}
+	return fileDescriptor_1fcd0776e05e82a6, []int{51}
 }
 
 func (m *FullPathEntry) XXX_Unmarshal(b []byte) error {
@@ -1513,168 +2442,62 @@ func (m *FullPathEntry) GetFilename() []byte {
 	return nil
 }
 
-type KvState struct {
-	IsClean              bool     `protobuf:"varint,1,opt,name=isClean,proto3" json:"isClean,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *KvState) Reset()         { *m = KvState{} }
-func (m *KvState) String() string { return proto.CompactTextString(m) }
-func (*KvState) ProtoMessage()    {}
-func (*KvState) Descriptor() ([]byte, []int) {
-	return fileDescriptor_1fcd0776e05e82a6, []int{29}
-}
-
-func (m *KvState) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_KvState.Unmarshal(m, b)
-}
-func (m *KvState) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_KvState.Marshal(b, m, deterministic)
-}
-func (m *KvState) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_KvState.Merge(m, src)
-}
-func (m *KvState) XXX_Size() int {
-	return xxx_messageInfo_KvState.Size(m)
-}
-func (m *KvState) XXX_DiscardUnknown() {
-	xxx_messageInfo_KvState.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_KvState proto.InternalMessageInfo
-
-func (m *KvState) GetIsClean() bool {
-	if m != nil {
-		return m.IsClean
-	}
-	return false
-}
-
-// KV stats
-type KVStats struct {
-	Stats                map[string]uint64 `protobuf:"bytes,1,rep,name=stats,proto3" json:"stats,omitempty" protobuf_key:"bytes,1,opt,name=key,proto3" protobuf_val:"varint,2,opt,name=value,proto3"`
-	XXX_NoUnkeyedLiteral struct{}          `json:"-"`
-	XXX_unrecognized     []byte            `json:"-"`
-	XXX_sizecache        int32             `json:"-"`
-}
-
-func (m *KVStats) Reset()         { *m = KVStats{} }
-func (m *KVStats) String() string { return proto.CompactTextString(m) }
-func (*KVStats) ProtoMessage()    {}
-func (*KVStats) Descriptor() ([]byte, []int) {
-	return fileDescriptor_1fcd0776e05e82a6, []int{30}
-}
-
-func (m *KVStats) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_KVStats.Unmarshal(m, b)
-}
-func (m *KVStats) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_KVStats.Marshal(b, m, deterministic)
-}
-func (m *KVStats) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_KVStats.Merge(m, src)
-}
-func (m *KVStats) XXX_Size() int {
-	return xxx_messageInfo_KVStats.Size(m)
-}
-func (m *KVStats) XXX_DiscardUnknown() {
-	xxx_messageInfo_KVStats.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_KVStats proto.InternalMessageInfo
-
-func (m *KVStats) GetStats() map[string]uint64 {
-	if m != nil {
-		return m.Stats
-	}
-	return nil
-}
-
-type ListQuarantinedOHashesInfo struct {
-	PageToken            []byte   `protobuf:"bytes,1,opt,name=page_token,json=pageToken,proto3" json:"page_token,omitempty"`
-	PageSize             uint32   `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
-	XXX_NoUnkeyedLiteral struct{} `json:"-"`
-	XXX_unrecognized     []byte   `json:"-"`
-	XXX_sizecache        int32    `json:"-"`
-}
-
-func (m *ListQuarantinedOHashesInfo) Reset()         { *m = ListQuarantinedOHashesInfo{} }
-func (m *ListQuarantinedOHashesInfo) String() string { return proto.CompactTextString(m) }
-func (*ListQuarantinedOHashesInfo) ProtoMessage()    {}
-func (*ListQuarantinedOHashesInfo) Descriptor() ([]byte, []int) {
-	return fileDescriptor_1fcd0776e05e82a6, []int{31}
-}
-
-func (m *ListQuarantinedOHashesInfo) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_ListQuarantinedOHashesInfo.Unmarshal(m, b)
-}
-func (m *ListQuarantinedOHashesInfo) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_ListQuarantinedOHashesInfo.Marshal(b, m, deterministic)
-}
-func (m *ListQuarantinedOHashesInfo) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_ListQuarantinedOHashesInfo.Merge(m, src)
-}
-func (m *ListQuarantinedOHashesInfo) XXX_Size() int {
-	return xxx_messageInfo_ListQuarantinedOHashesInfo.Size(m)
-}
-func (m *ListQuarantinedOHashesInfo) XXX_DiscardUnknown() {
-	xxx_messageInfo_ListQuarantinedOHashesInfo.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_ListQuarantinedOHashesInfo proto.InternalMessageInfo
-
-func (m *ListQuarantinedOHashesInfo) GetPageToken() []byte {
-	if m != nil {
-		return m.PageToken
-	}
-	return nil
-}
-
-func (m *ListQuarantinedOHashesInfo) GetPageSize() uint32 {
-	if m != nil {
-		return m.PageSize
-	}
-	return 0
-}
-
 func init() {
 	proto.RegisterEnum("filemgr.VolumeType", VolumeType_name, VolumeType_value)
 	proto.RegisterEnum("filemgr.VolumeState", VolumeState_name, VolumeState_value)
-	proto.RegisterType((*ListPartitionsInfo)(nil), "filemgr.ListPartitionsInfo")
-	proto.RegisterType((*ListPartitionInfo)(nil), "filemgr.ListPartitionInfo")
-	proto.RegisterType((*ListSuffixInfo)(nil), "filemgr.ListSuffixInfo")
-	proto.RegisterType((*DirEntries)(nil), "filemgr.DirEntries")
+	proto.RegisterType((*RegisterVolumeRequest)(nil), "filemgr.RegisterVolumeRequest")
+	proto.RegisterType((*RegisterVolumeReply)(nil), "filemgr.RegisterVolumeReply")
+	proto.RegisterType((*UnregisterVolumeRequest)(nil), "filemgr.UnregisterVolumeRequest")
+	proto.RegisterType((*UnregisterVolumeReply)(nil), "filemgr.UnregisterVolumeReply")
+	proto.RegisterType((*UpdateVolumeStateRequest)(nil), "filemgr.UpdateVolumeStateRequest")
+	proto.RegisterType((*UpdateVolumeStateReply)(nil), "filemgr.UpdateVolumeStateReply")
+	proto.RegisterType((*GetVolumeRequest)(nil), "filemgr.GetVolumeRequest")
+	proto.RegisterType((*GetVolumeReply)(nil), "filemgr.GetVolumeReply")
+	proto.RegisterType((*ListVolumesRequest)(nil), "filemgr.ListVolumesRequest")
+	proto.RegisterType((*ListVolumesReply)(nil), "filemgr.ListVolumesReply")
+	proto.RegisterType((*RegisterObjectRequest)(nil), "filemgr.RegisterObjectRequest")
+	proto.RegisterType((*RegisterObjectReply)(nil), "filemgr.RegisterObjectReply")
+	proto.RegisterType((*UnregisterObjectRequest)(nil), "filemgr.UnregisterObjectRequest")
+	proto.RegisterType((*UnregisterObjectReply)(nil), "filemgr.UnregisterObjectReply")
+	proto.RegisterType((*RenameObjectRequest)(nil), "filemgr.RenameObjectRequest")
+	proto.RegisterType((*RenameObjectReply)(nil), "filemgr.RenameObjectReply")
+	proto.RegisterType((*LoadObjectRequest)(nil), "filemgr.LoadObjectRequest")
+	proto.RegisterType((*LoadObjectReply)(nil), "filemgr.LoadObjectReply")
+	proto.RegisterType((*QuarantineObjectRequest)(nil), "filemgr.QuarantineObjectRequest")
+	proto.RegisterType((*QuarantineObjectReply)(nil), "filemgr.QuarantineObjectReply")
+	proto.RegisterType((*UnquarantineObjectRequest)(nil), "filemgr.UnquarantineObjectRequest")
+	proto.RegisterType((*UnquarantineObjectReply)(nil), "filemgr.UnquarantineObjectReply")
+	proto.RegisterType((*LoadObjectsByPrefixRequest)(nil), "filemgr.LoadObjectsByPrefixRequest")
+	proto.RegisterType((*Object)(nil), "filemgr.Object")
+	proto.RegisterType((*LoadObjectsByPrefixReply)(nil), "filemgr.LoadObjectsByPrefixReply")
+	proto.RegisterType((*LoadObjectsByVolumeRequest)(nil), "filemgr.LoadObjectsByVolumeRequest")
+	proto.RegisterType((*LoadObjectsByVolumeReply)(nil), "filemgr.LoadObjectsByVolumeReply")
+	proto.RegisterType((*ListPartitionsRequest)(nil), "filemgr.ListPartitionsRequest")
+	proto.RegisterType((*ListPartitionRequest)(nil), "filemgr.ListPartitionRequest")
+	proto.RegisterType((*ListSuffixRequest)(nil), "filemgr.ListSuffixRequest")
+	proto.RegisterType((*ListQuarantinedOHashesRequest)(nil), "filemgr.ListQuarantinedOHashesRequest")
+	proto.RegisterType((*ListQuarantinedOHashesReply)(nil), "filemgr.ListQuarantinedOHashesReply")
+	proto.RegisterType((*QuarantinedObjectName)(nil), "filemgr.QuarantinedObjectName")
+	proto.RegisterType((*ListQuarantinedOHashRequest)(nil), "filemgr.ListQuarantinedOHashRequest")
+	proto.RegisterType((*ListQuarantinedOHashReply)(nil), "filemgr.ListQuarantinedOHashReply")
+	proto.RegisterType((*GetNextOffsetRequest)(nil), "filemgr.GetNextOffsetRequest")
+	proto.RegisterType((*GetNextOffsetReply)(nil), "filemgr.GetNextOffsetReply")
+	proto.RegisterType((*GetStatsRequest)(nil), "filemgr.GetStatsRequest")
+	proto.RegisterType((*GetStatsReply)(nil), "filemgr.GetStatsReply")
+	proto.RegisterMapType((map[string]uint64)(nil), "filemgr.GetStatsReply.StatsEntry")
+	proto.RegisterType((*SetKvStateReply)(nil), "filemgr.SetKvStateReply")
+	proto.RegisterType((*GetKvStateRequest)(nil), "filemgr.GetKvStateRequest")
+	proto.RegisterType((*KvState)(nil), "filemgr.KvState")
+	proto.RegisterType((*LoadObjectsResponse)(nil), "filemgr.LoadObjectsResponse")
 	proto.RegisterType((*VolumeIndex)(nil), "filemgr.VolumeIndex")
 	proto.RegisterType((*Volume)(nil), "filemgr.Volume")
-	proto.RegisterType((*GetNextOffsetInfo)(nil), "filemgr.GetNextOffsetInfo")
-	proto.RegisterType((*ListVolumesInfo)(nil), "filemgr.ListVolumesInfo")
-	proto.RegisterType((*Volumes)(nil), "filemgr.Volumes")
-	proto.RegisterType((*VolumeNextOffset)(nil), "filemgr.VolumeNextOffset")
-	proto.RegisterType((*NewVolumeInfo)(nil), "filemgr.NewVolumeInfo")
-	proto.RegisterType((*NewVolumeState)(nil), "filemgr.NewVolumeState")
+	proto.RegisterType((*DirEntries)(nil), "filemgr.DirEntries")
 	proto.RegisterType((*NewVolumeReply)(nil), "filemgr.NewVolumeReply")
-	proto.RegisterType((*DelObjectReply)(nil), "filemgr.DelObjectReply")
 	proto.RegisterType((*RenameReply)(nil), "filemgr.RenameReply")
-	proto.RegisterType((*NewObjectInfo)(nil), "filemgr.NewObjectInfo")
-	proto.RegisterType((*NewObjectReply)(nil), "filemgr.NewObjectReply")
-	proto.RegisterType((*QuarantinedObjectName)(nil), "filemgr.QuarantinedObjectName")
-	proto.RegisterType((*QuarantinedObjectNames)(nil), "filemgr.QuarantinedObjectNames")
 	proto.RegisterType((*ObjectName)(nil), "filemgr.ObjectName")
-	proto.RegisterType((*LoadObjectInfo)(nil), "filemgr.LoadObjectInfo")
-	proto.RegisterType((*RenameInfo)(nil), "filemgr.RenameInfo")
-	proto.RegisterType((*Object)(nil), "filemgr.Object")
-	proto.RegisterType((*LoadObjectsResponse)(nil), "filemgr.LoadObjectsResponse")
-	proto.RegisterType((*ObjectPrefix)(nil), "filemgr.ObjectPrefix")
 	proto.RegisterType((*Empty)(nil), "filemgr.Empty")
-	proto.RegisterType((*GetStatsInfo)(nil), "filemgr.GetStatsInfo")
 	proto.RegisterType((*PartitionContent)(nil), "filemgr.PartitionContent")
 	proto.RegisterType((*FullPathEntry)(nil), "filemgr.FullPathEntry")
-	proto.RegisterType((*KvState)(nil), "filemgr.KvState")
-	proto.RegisterType((*KVStats)(nil), "filemgr.KVStats")
-	proto.RegisterMapType((map[string]uint64)(nil), "filemgr.KVStats.StatsEntry")
-	proto.RegisterType((*ListQuarantinedOHashesInfo)(nil), "filemgr.ListQuarantinedOHashesInfo")
 }
 
 func init() {
@@ -1682,71 +2505,81 @@ func init() {
 }
 
 var fileDescriptor_1fcd0776e05e82a6 = []byte{
-	// 1045 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x56, 0xdd, 0x6e, 0xe3, 0x44,
-	0x14, 0x5e, 0xe7, 0xbf, 0x27, 0x3f, 0xf5, 0xce, 0x96, 0x12, 0x5a, 0xa0, 0xc5, 0x68, 0x61, 0x29,
-	0x52, 0x25, 0x96, 0xbd, 0x28, 0x70, 0x95, 0x6d, 0xbd, 0xa5, 0xda, 0x36, 0x29, 0x13, 0x6f, 0xb7,
-	0x48, 0x48, 0x96, 0x4b, 0x27, 0x8d, 0x59, 0xc7, 0x36, 0x9e, 0x49, 0xda, 0xf4, 0x8a, 0xf7, 0xe0,
-	0x06, 0xf1, 0x2a, 0xbc, 0x07, 0xcf, 0x82, 0xe6, 0xc7, 0x8e, 0x63, 0x87, 0xa6, 0x95, 0xf6, 0xc6,
-	0x9a, 0xf3, 0xf9, 0xf8, 0xcc, 0xf7, 0x9d, 0x73, 0x3c, 0x73, 0x00, 0x06, 0xa3, 0xab, 0x68, 0x37,
-	0x8c, 0x02, 0x16, 0xa0, 0xea, 0xc0, 0xf5, 0xc8, 0xe8, 0x2a, 0x32, 0x7e, 0x00, 0x74, 0xec, 0x52,
-	0x76, 0xea, 0x44, 0xcc, 0x65, 0x6e, 0xe0, 0xd3, 0x23, 0x7f, 0x10, 0xa0, 0xa7, 0xd0, 0x0a, 0x63,
-	0xc4, 0xbe, 0x70, 0x19, 0x6d, 0x6b, 0xdb, 0xda, 0xb3, 0x26, 0x6e, 0x26, 0xe8, 0x4b, 0x97, 0x51,
-	0xe3, 0x1c, 0x1e, 0xcf, 0x7d, 0x2c, 0xbe, 0xfd, 0x18, 0x56, 0x12, 0x2f, 0xf5, 0xd9, 0x0c, 0x58,
-	0x10, 0xb9, 0xb0, 0x28, 0xf2, 0x08, 0x5a, 0x3c, 0x72, 0x7f, 0x3c, 0x18, 0xb8, 0x37, 0xf7, 0x08,
-	0xbb, 0x0e, 0x15, 0x2a, 0x7c, 0x45, 0xb8, 0x06, 0x56, 0xd6, 0x82, 0xed, 0x8a, 0x8b, 0xb6, 0x33,
-	0x00, 0x0e, 0xdc, 0xc8, 0xf4, 0x59, 0xe4, 0x12, 0x8a, 0xd6, 0xa0, 0x4c, 0x7c, 0x16, 0x4d, 0xdb,
-	0xda, 0x76, 0xf1, 0xd9, 0x0a, 0x96, 0x86, 0xf1, 0xb7, 0x06, 0xf5, 0xb3, 0xc0, 0x1b, 0x8f, 0xc8,
-	0x91, 0x7f, 0x49, 0x6e, 0xb8, 0x97, 0xcb, 0x17, 0x8a, 0x8c, 0x34, 0xd0, 0x36, 0xd4, 0x7f, 0x1f,
-	0x3b, 0x91, 0xe3, 0x33, 0xd7, 0x27, 0x97, 0x82, 0x4d, 0x0d, 0xa7, 0x21, 0xf4, 0x09, 0x40, 0xe8,
-	0x5c, 0x11, 0x9b, 0x05, 0xef, 0x88, 0x2f, 0xe8, 0x34, 0xb8, 0x92, 0x2b, 0x62, 0x71, 0x00, 0x6d,
-	0x82, 0x30, 0x6c, 0xea, 0xde, 0x92, 0x76, 0x49, 0x84, 0xae, 0x71, 0xa0, 0xef, 0xde, 0x12, 0xb4,
-	0x05, 0xf5, 0x88, 0x84, 0x8e, 0x1b, 0xd9, 0x2c, 0x08, 0xbc, 0x76, 0x59, 0x44, 0x07, 0x09, 0x59,
-	0x41, 0xe0, 0x19, 0xff, 0x68, 0x50, 0x91, 0x24, 0xd1, 0x67, 0xd0, 0x98, 0x88, 0x95, 0x9d, 0xa6,
-	0x59, 0x9f, 0xa4, 0x24, 0xbc, 0x00, 0x65, 0xda, 0x6c, 0x1a, 0x12, 0x41, 0xb6, 0xf5, 0xfc, 0xc9,
-	0xae, 0xea, 0x8d, 0x5d, 0x19, 0xc8, 0x9a, 0x86, 0x04, 0xc3, 0x24, 0x59, 0xa7, 0x02, 0x53, 0xe6,
-	0x30, 0xa2, 0x32, 0xaa, 0x22, 0xf5, 0x39, 0x34, 0x5f, 0xac, 0x52, 0xb6, 0x58, 0x5b, 0x50, 0xf7,
-	0xc9, 0x0d, 0xb3, 0x83, 0xc1, 0x80, 0x12, 0x26, 0x54, 0x94, 0x30, 0x70, 0xa8, 0x27, 0x10, 0xe3,
-	0x4f, 0x0d, 0x1e, 0x1f, 0x12, 0xd6, 0x4d, 0x10, 0xd1, 0x01, 0xf7, 0x10, 0xb4, 0x95, 0x17, 0xd4,
-	0x7c, 0x28, 0xf7, 0x4c, 0x8e, 0x4b, 0xb9, 0x1c, 0x4f, 0x61, 0x95, 0xf7, 0xa6, 0xcc, 0x0e, 0xbd,
-	0x47, 0x73, 0x7e, 0x09, 0xa5, 0x65, 0xf9, 0x15, 0x0e, 0xd9, 0xad, 0x8b, 0xb9, 0xad, 0x5f, 0x40,
-	0x55, 0x6d, 0x8b, 0xbe, 0x82, 0xaa, 0x64, 0x4d, 0x45, 0x9b, 0xd6, 0x9f, 0xaf, 0x66, 0xe2, 0xe2,
-	0xf8, 0xbd, 0xb1, 0x03, 0xba, 0x84, 0x66, 0x09, 0xe5, 0x3f, 0x8c, 0x4a, 0xbf, 0x26, 0xd2, 0xaf,
-	0x2c, 0xe3, 0x5f, 0x0d, 0x9a, 0x5d, 0x72, 0x1d, 0x37, 0xfa, 0xfb, 0xd3, 0x96, 0xad, 0x5e, 0x31,
-	0x5f, 0xbd, 0x19, 0xa7, 0x52, 0x9a, 0x13, 0xda, 0x81, 0xb2, 0xac, 0x56, 0x59, 0x6c, 0xb2, 0x96,
-	0xd9, 0x44, 0x94, 0x0d, 0x4b, 0x97, 0x6c, 0x0a, 0x2b, 0xb9, 0x14, 0xfe, 0xa1, 0x41, 0x2b, 0x11,
-	0x28, 0x2b, 0x7e, 0x8f, 0xc6, 0x4a, 0x28, 0x14, 0x1e, 0x4c, 0x21, 0x5f, 0x45, 0x3d, 0xc5, 0x00,
-	0x93, 0xd0, 0x9b, 0x72, 0xe4, 0x80, 0x78, 0xbd, 0x8b, 0xdf, 0xc8, 0xaf, 0x4c, 0x22, 0x4d, 0xa8,
-	0x63, 0xe2, 0x3b, 0xb1, 0xc3, 0x5f, 0xb2, 0x2c, 0xd2, 0x43, 0x94, 0x05, 0x41, 0x89, 0xbf, 0x16,
-	0x64, 0x1b, 0x58, 0xac, 0x73, 0x42, 0x0a, 0x77, 0xe5, 0xb8, 0x38, 0x97, 0xe3, 0xcc, 0x3f, 0x59,
-	0xca, 0xfe, 0x93, 0xcb, 0x8f, 0x1e, 0xa9, 0x2a, 0xad, 0xe1, 0x6b, 0xf8, 0xe0, 0xa7, 0xd9, 0xc1,
-	0x27, 0xdf, 0x74, 0x39, 0xcf, 0x05, 0xdc, 0x8d, 0x5b, 0x58, 0x5f, 0xe8, 0x4c, 0xd1, 0x1e, 0x54,
-	0x03, 0x61, 0xc6, 0x9d, 0xfe, 0x69, 0x92, 0xfd, 0x85, 0x5f, 0xe0, 0xd8, 0x1d, 0x7d, 0x01, 0xab,
-	0x42, 0x54, 0xea, 0xbc, 0x95, 0xd7, 0x43, 0x93, 0xc3, 0xa7, 0xf1, 0x99, 0x6b, 0x74, 0x00, 0xee,
-	0x66, 0x97, 0x55, 0x5f, 0xc8, 0xa9, 0xf7, 0xa0, 0x75, 0x1c, 0x38, 0x97, 0x4b, 0x0a, 0xf4, 0x14,
-	0x5a, 0x2e, 0xb5, 0xf3, 0x17, 0x44, 0xd3, 0xa5, 0x29, 0x29, 0xcb, 0x73, 0xfd, 0x0b, 0x80, 0xec,
-	0x8e, 0xff, 0xdd, 0xe9, 0x23, 0xa8, 0xf9, 0xe4, 0xda, 0x16, 0xb8, 0xd4, 0x5c, 0xf5, 0xc9, 0x75,
-	0x77, 0x81, 0x96, 0x7c, 0x7f, 0xbe, 0x85, 0x8a, 0xd4, 0xf1, 0x9e, 0x9b, 0xcc, 0x18, 0xc2, 0x93,
-	0x59, 0x92, 0x28, 0x26, 0x34, 0x0c, 0x7c, 0x4a, 0xf8, 0x51, 0x36, 0x5f, 0xe0, 0xd9, 0x51, 0xa6,
-	0xda, 0xe9, 0xc1, 0x15, 0x3d, 0x84, 0x86, 0xfc, 0xf4, 0x34, 0x22, 0x7c, 0x0e, 0x58, 0x87, 0x4a,
-	0x28, 0x56, 0x4a, 0x8a, 0xb2, 0x96, 0xd7, 0xb5, 0x0a, 0x65, 0x73, 0x14, 0xb2, 0xa9, 0xd1, 0x82,
-	0xc6, 0x21, 0x61, 0xfc, 0x47, 0x17, 0x47, 0xbe, 0x71, 0x02, 0x7a, 0x32, 0xf7, 0xec, 0x07, 0x3e,
-	0x23, 0x3e, 0x43, 0xdf, 0x41, 0x83, 0x13, 0xb7, 0x89, 0x1c, 0x24, 0x94, 0x9a, 0xf5, 0x44, 0xcd,
-	0xab, 0xb1, 0xe7, 0x9d, 0x3a, 0x6c, 0xc8, 0x07, 0x8d, 0x29, 0xae, 0x73, 0x58, 0xcd, 0x1c, 0xc6,
-	0xcf, 0xd0, 0x9c, 0x7b, 0x9b, 0x9a, 0x68, 0xb4, 0xb9, 0x89, 0x66, 0x0d, 0xca, 0xc1, 0xd0, 0xa1,
-	0x43, 0xa5, 0x5b, 0x1a, 0x68, 0x03, 0x6a, 0x3c, 0x9a, 0x28, 0x96, 0x1c, 0x29, 0x12, 0xdb, 0xf8,
-	0x1c, 0xaa, 0xaf, 0x27, 0xf2, 0xa4, 0x6b, 0x43, 0xd5, 0xa5, 0xfb, 0x1e, 0x71, 0xe4, 0x49, 0x5e,
-	0xc3, 0xb1, 0x69, 0x4c, 0xa0, 0xfa, 0xfa, 0x4c, 0xa8, 0x43, 0xdf, 0xc8, 0xb3, 0x2e, 0xa6, 0xbf,
-	0x99, 0xd0, 0x57, 0x0e, 0xbb, 0xe2, 0x29, 0x35, 0x48, 0xcf, 0x8d, 0x3d, 0x80, 0x19, 0x88, 0x74,
-	0x28, 0xbe, 0x23, 0x53, 0xb1, 0xc3, 0x0a, 0xe6, 0x4b, 0x4e, 0x7a, 0xe2, 0x78, 0x63, 0xd9, 0x8a,
-	0x25, 0x2c, 0x8d, 0xef, 0x0b, 0x7b, 0x9a, 0x71, 0x0e, 0x1b, 0xfc, 0x32, 0x4d, 0xff, 0xc8, 0x3f,
-	0x3a, 0x74, 0xa8, 0xee, 0xd5, 0xf9, 0x59, 0x49, 0xbb, 0x73, 0x56, 0x2a, 0xcc, 0xcf, 0x4a, 0x3b,
-	0x5d, 0x80, 0xd9, 0x25, 0x84, 0x10, 0xb4, 0xce, 0x7a, 0xc7, 0x6f, 0x4e, 0x4c, 0xfb, 0xc0, 0x7c,
-	0xd5, 0x79, 0x73, 0x6c, 0xe9, 0x8f, 0xd0, 0x1a, 0xe8, 0x0a, 0xb3, 0x7a, 0x27, 0x2f, 0xfb, 0x56,
-	0xaf, 0x6b, 0xea, 0x1a, 0x5a, 0x07, 0xa4, 0xd0, 0x73, 0xfb, 0xc0, 0x3c, 0x36, 0x2d, 0xd3, 0xee,
-	0x58, 0x7a, 0x61, 0x07, 0xc7, 0xe3, 0x9f, 0x4c, 0x65, 0x03, 0x6a, 0x7d, 0xab, 0x63, 0x99, 0x36,
-	0x7e, 0xab, 0x3f, 0x42, 0x6d, 0x58, 0x93, 0xd6, 0x7e, 0xef, 0xe4, 0xb4, 0xb3, 0x6f, 0x1d, 0xf5,
-	0xba, 0x76, 0x1f, 0xef, 0xeb, 0x1a, 0xda, 0x84, 0x0f, 0x73, 0x6f, 0xac, 0x0e, 0x3e, 0x34, 0x2d,
-	0xbd, 0x70, 0x51, 0x11, 0xd3, 0xf8, 0xb7, 0xff, 0x05, 0x00, 0x00, 0xff, 0xff, 0xaa, 0x45, 0x72,
-	0xde, 0x9b, 0x0b, 0x00, 0x00,
+	// 1207 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xd4, 0x58, 0xdd, 0x6e, 0xe3, 0xc4,
+	0x17, 0x5f, 0xe7, 0x7b, 0x4f, 0x9a, 0xd4, 0x9d, 0xa6, 0xa9, 0xdb, 0xfe, 0xf7, 0xbf, 0x59, 0xa3,
+	0x85, 0x52, 0x50, 0x2f, 0x16, 0x24, 0x0a, 0x12, 0x48, 0x69, 0x9b, 0x96, 0x8a, 0x36, 0x09, 0x8e,
+	0xd3, 0xe5, 0xe3, 0xc2, 0xb8, 0x74, 0xd2, 0x9a, 0x4d, 0x6c, 0xd7, 0x9e, 0xb4, 0xcd, 0x0a, 0x09,
+	0x89, 0x4b, 0x1e, 0x83, 0x2b, 0x6e, 0x79, 0x06, 0x2e, 0x79, 0x0f, 0x9e, 0x03, 0xcd, 0x8c, 0xed,
+	0xf8, 0x8b, 0xa6, 0x15, 0x41, 0x82, 0x3b, 0x9f, 0x9f, 0xc7, 0xe7, 0x77, 0xbe, 0xcf, 0x24, 0x00,
+	0x83, 0xd1, 0x85, 0xb3, 0x6d, 0x3b, 0x16, 0xb1, 0x50, 0x71, 0x60, 0x0c, 0xf1, 0xe8, 0xc2, 0x91,
+	0xff, 0x10, 0x60, 0x45, 0xc1, 0x17, 0x86, 0x4b, 0xb0, 0x73, 0x6a, 0x0d, 0xc7, 0x23, 0xac, 0xe0,
+	0xab, 0x31, 0x76, 0x09, 0xfa, 0x1f, 0x3c, 0xb6, 0x75, 0x87, 0x18, 0xc4, 0xb0, 0x4c, 0x49, 0x68,
+	0x08, 0x9b, 0x15, 0x65, 0x0a, 0xa0, 0xb7, 0x20, 0x47, 0x26, 0x36, 0x96, 0x32, 0x0d, 0x61, 0xb3,
+	0xfa, 0x62, 0x79, 0xdb, 0xd3, 0xb7, 0xcd, 0x75, 0xa8, 0x13, 0x1b, 0x2b, 0xec, 0x00, 0x7a, 0x06,
+	0x0b, 0xd7, 0x0c, 0xd3, 0x0c, 0xf3, 0x1c, 0xdf, 0x4a, 0x59, 0xa6, 0xa9, 0xcc, 0xb1, 0x23, 0x0a,
+	0xa1, 0x3a, 0x14, 0xac, 0xc1, 0xc0, 0xc5, 0x44, 0xca, 0x35, 0x84, 0xcd, 0x9c, 0xe2, 0x49, 0x68,
+	0x0b, 0xf2, 0x2e, 0xd1, 0x09, 0x96, 0xf2, 0x8c, 0xa4, 0x16, 0x23, 0xe9, 0xd1, 0x77, 0x0a, 0x3f,
+	0x82, 0x9e, 0x42, 0xd9, 0xc1, 0xb6, 0x6e, 0x38, 0x1a, 0xb1, 0xac, 0xa1, 0x54, 0x68, 0x08, 0x9b,
+	0x25, 0x05, 0x38, 0xa4, 0x5a, 0xd6, 0x50, 0x5e, 0x81, 0xe5, 0xb8, 0x9f, 0xf6, 0x70, 0x22, 0x77,
+	0x61, 0xb5, 0x6f, 0x3a, 0xa9, 0x01, 0xa8, 0x41, 0x9e, 0x9b, 0xcc, 0x9d, 0xe7, 0x42, 0x9c, 0x28,
+	0x93, 0x20, 0x5a, 0x85, 0x95, 0xa4, 0x46, 0x4a, 0xf5, 0x93, 0x00, 0x52, 0xdf, 0x3e, 0xd7, 0x09,
+	0x0e, 0xdb, 0xef, 0x91, 0xc5, 0xc3, 0x24, 0x24, 0xc3, 0x14, 0x84, 0x23, 0xf3, 0xe0, 0x70, 0x64,
+	0x13, 0x56, 0x4a, 0x50, 0x4f, 0xb1, 0x85, 0x9a, 0x79, 0x04, 0xe2, 0x21, 0x26, 0x73, 0x09, 0xc5,
+	0xef, 0x02, 0x54, 0x43, 0xba, 0xec, 0xe1, 0xe4, 0x3e, 0x7e, 0xbe, 0x0f, 0x9e, 0xa8, 0xcd, 0xaa,
+	0x30, 0xb8, 0x0e, 0x9e, 0x43, 0x8a, 0x79, 0x90, 0x22, 0x75, 0xc6, 0xdc, 0x8b, 0x56, 0x74, 0x2e,
+	0x5e, 0xd1, 0x4f, 0xa1, 0x6c, 0xe2, 0x5b, 0xa2, 0x79, 0xa5, 0x98, 0x67, 0xa5, 0x08, 0x14, 0xea,
+	0x30, 0x44, 0xfe, 0x1e, 0xd0, 0xb1, 0xe1, 0x7a, 0xde, 0xb8, 0x73, 0x6e, 0x93, 0x99, 0x09, 0xfb,
+	0x18, 0xc4, 0x08, 0x3b, 0x0d, 0xe6, 0xdb, 0x50, 0xe4, 0xfe, 0xb9, 0x92, 0xd0, 0xc8, 0x6e, 0x96,
+	0x5f, 0x2c, 0xc6, 0x08, 0x14, 0xff, 0xbd, 0xfc, 0x4b, 0xa8, 0xcf, 0x3b, 0x67, 0xdf, 0xe1, 0x6f,
+	0x89, 0xef, 0x00, 0x82, 0x9c, 0xa9, 0x8f, 0x30, 0xb3, 0x7d, 0x41, 0x61, 0xcf, 0x89, 0x2c, 0x65,
+	0xee, 0x6a, 0xda, 0x6c, 0xa4, 0x69, 0x63, 0x61, 0xcc, 0xc5, 0xc3, 0x18, 0xf7, 0x34, 0x7f, 0x57,
+	0xa7, 0xfa, 0x96, 0xd2, 0xba, 0x6c, 0x87, 0x3b, 0x75, 0xb6, 0x0b, 0x0f, 0xeb, 0xd3, 0x30, 0x11,
+	0xa6, 0xfc, 0x54, 0xc7, 0x6c, 0x92, 0x35, 0x28, 0x99, 0xf8, 0x46, 0x63, 0x78, 0x86, 0xe1, 0x45,
+	0x13, 0xdf, 0xb4, 0x53, 0xf8, 0x93, 0x09, 0x5d, 0x86, 0xa5, 0x28, 0x0d, 0xe5, 0xb6, 0x60, 0xe9,
+	0xd8, 0xd2, 0xcf, 0x67, 0x33, 0x3f, 0x87, 0xaa, 0xe1, 0x6a, 0x57, 0x63, 0xdd, 0xd1, 0x4d, 0x62,
+	0x98, 0xf8, 0xdc, 0xf3, 0xb0, 0x62, 0xb8, 0x9f, 0x4f, 0xc1, 0xd9, 0x56, 0x7c, 0x03, 0x8b, 0x61,
+	0x42, 0x5a, 0x55, 0xf3, 0x2d, 0x08, 0x9a, 0xb7, 0xa9, 0x45, 0xf3, 0xc9, 0x5b, 0x52, 0x1f, 0x1f,
+	0xe5, 0x6b, 0x7d, 0xf3, 0x6a, 0x9e, 0x54, 0x6b, 0xb4, 0xe4, 0xae, 0x52, 0xc9, 0xfa, 0xb0, 0x3e,
+	0x8d, 0x9b, 0xbb, 0x3b, 0xe9, 0x3a, 0x78, 0x60, 0xdc, 0xfa, 0x6c, 0x75, 0x28, 0xd8, 0x0c, 0xf0,
+	0xf8, 0x3c, 0x69, 0x36, 0xe3, 0x4b, 0x28, 0x70, 0x95, 0xf3, 0xce, 0x42, 0x0b, 0xa4, 0x54, 0x7b,
+	0xbd, 0x31, 0x62, 0x71, 0x3c, 0x31, 0x46, 0x3c, 0x97, 0xfd, 0xf7, 0xf2, 0xaf, 0x42, 0xcc, 0xef,
+	0xfb, 0xec, 0x89, 0x06, 0x94, 0x93, 0x85, 0x1a, 0x86, 0xd0, 0x13, 0x00, 0x5b, 0xbf, 0xc0, 0x1a,
+	0xb1, 0x5e, 0x61, 0x93, 0x59, 0xbe, 0x40, 0xa7, 0xe8, 0x05, 0x56, 0x29, 0x80, 0x36, 0x80, 0x09,
+	0x9a, 0x6b, 0xbc, 0xc6, 0xde, 0xe0, 0x2e, 0x51, 0xa0, 0x67, 0xbc, 0xc6, 0xb3, 0xe7, 0xc9, 0x28,
+	0xe6, 0x7a, 0x78, 0x1d, 0xdd, 0xdf, 0x75, 0xf4, 0x26, 0x2c, 0xb2, 0xc1, 0x16, 0x32, 0x94, 0xb7,
+	0x7c, 0x85, 0xc2, 0x5d, 0xdf, 0x58, 0xf9, 0x13, 0x58, 0xa1, 0x83, 0xba, 0xeb, 0xef, 0x80, 0x60,
+	0x53, 0x3c, 0x87, 0x6a, 0xb0, 0x18, 0xb4, 0x33, 0x83, 0x51, 0x52, 0x57, 0x2a, 0x01, 0xba, 0x6b,
+	0x10, 0x57, 0xfe, 0x1a, 0x6a, 0x91, 0xef, 0xef, 0xb7, 0x68, 0x92, 0xca, 0x33, 0x69, 0xca, 0x6d,
+	0x58, 0xa2, 0xca, 0x7b, 0xe3, 0x41, 0xa8, 0x5a, 0xef, 0xd6, 0x5c, 0x87, 0x82, 0xcb, 0x8e, 0x7b,
+	0xee, 0x7a, 0x52, 0x0a, 0x63, 0x36, 0xdd, 0x9d, 0x27, 0x94, 0x31, 0x34, 0x94, 0x3a, 0x9f, 0xea,
+	0xee, 0xe5, 0x74, 0x81, 0x46, 0x73, 0x2f, 0xdc, 0x99, 0xfb, 0x4c, 0x34, 0xf7, 0xf2, 0x0f, 0xb0,
+	0xf1, 0x57, 0xca, 0x69, 0x76, 0x77, 0xe2, 0xd9, 0xfd, 0x7f, 0x90, 0xdd, 0xf0, 0x27, 0xec, 0x08,
+	0x1d, 0xda, 0x0f, 0x4f, 0xf6, 0x3b, 0xe1, 0x61, 0x14, 0xd2, 0x94, 0xd6, 0xbe, 0xf2, 0x69, 0xba,
+	0xb5, 0x7f, 0x7b, 0x68, 0x1c, 0xc0, 0x5a, 0xba, 0xde, 0x07, 0x36, 0xf7, 0x57, 0x50, 0x3b, 0xc4,
+	0xa4, 0x1d, 0xac, 0xea, 0x07, 0xdc, 0x4d, 0x67, 0xda, 0xf8, 0x2e, 0xa0, 0x98, 0x6e, 0x6a, 0xdc,
+	0x74, 0x5a, 0x09, 0x91, 0x69, 0xb5, 0x04, 0x8b, 0x87, 0x98, 0xd0, 0x5b, 0x9b, 0x5f, 0x26, 0xf2,
+	0x8f, 0x02, 0x54, 0xa6, 0x18, 0xfd, 0xf8, 0x03, 0x7e, 0x1f, 0xf6, 0xfd, 0x7a, 0x16, 0xf8, 0x15,
+	0x39, 0xb6, 0xcd, 0x1e, 0x5b, 0x26, 0x71, 0x26, 0xfc, 0x72, 0xec, 0xae, 0xef, 0x00, 0x4c, 0x41,
+	0x24, 0x42, 0xf6, 0x15, 0x9e, 0x30, 0x03, 0x1e, 0x2b, 0xf4, 0x91, 0x4e, 0xb1, 0x6b, 0x7d, 0x38,
+	0xe6, 0xe5, 0x96, 0x53, 0xb8, 0xf0, 0x51, 0x66, 0x47, 0xa0, 0x76, 0xf5, 0x30, 0xf9, 0xec, 0x3a,
+	0x74, 0x5d, 0x5e, 0x86, 0xa5, 0xc3, 0x10, 0xc4, 0x8d, 0x7d, 0x03, 0x8a, 0x1e, 0x82, 0x24, 0x28,
+	0x1a, 0xee, 0xde, 0x10, 0xeb, 0xbc, 0xb6, 0x4b, 0x8a, 0x2f, 0xca, 0x97, 0xb0, 0x1c, 0x9a, 0x4b,
+	0x0a, 0x76, 0x6d, 0xcb, 0x74, 0xf1, 0x3f, 0x31, 0x92, 0x7e, 0x16, 0xa0, 0x7c, 0x1a, 0xca, 0xd6,
+	0xbf, 0x72, 0x4c, 0xff, 0x26, 0x40, 0x81, 0x1b, 0xf9, 0x5f, 0xfe, 0x91, 0x20, 0x03, 0xec, 0x1b,
+	0x0e, 0xad, 0x2c, 0x03, 0xbb, 0x34, 0xd0, 0x98, 0x16, 0x19, 0xcb, 0xe4, 0x63, 0x85, 0x0b, 0xb2,
+	0x08, 0xd5, 0x36, 0xbe, 0x09, 0xff, 0x34, 0xac, 0x40, 0x99, 0xdf, 0x05, 0xb9, 0xd8, 0x04, 0xb8,
+	0x7b, 0x94, 0xcc, 0xee, 0xb7, 0x22, 0xe4, 0x5b, 0x23, 0x9b, 0x4c, 0xe4, 0x13, 0x10, 0x83, 0x55,
+	0xb2, 0x67, 0x99, 0x04, 0x9b, 0x04, 0x7d, 0x08, 0x0b, 0x34, 0x50, 0x1a, 0xe6, 0x66, 0x7a, 0x75,
+	0x56, 0x0f, 0xa2, 0x77, 0x30, 0x1e, 0x0e, 0xbb, 0x3a, 0xb9, 0xe4, 0x5d, 0x53, 0xa6, 0xb0, 0xe7,
+	0x91, 0xfc, 0x25, 0x54, 0x22, 0x6f, 0x43, 0xeb, 0x41, 0x88, 0xac, 0x87, 0x1a, 0xe4, 0xad, 0x4b,
+	0xdd, 0xbd, 0xf4, 0x2a, 0x92, 0x0b, 0x68, 0x1d, 0x4a, 0x54, 0x1b, 0xf3, 0x87, 0xd7, 0x4f, 0x20,
+	0x6f, 0xb5, 0x01, 0xa6, 0x69, 0x43, 0x08, 0xaa, 0xa7, 0x9d, 0xe3, 0xfe, 0x49, 0x4b, 0xdb, 0x6f,
+	0x1d, 0x34, 0xfb, 0xc7, 0xaa, 0xf8, 0x08, 0xd5, 0x40, 0xf4, 0x30, 0xb5, 0x73, 0xb2, 0xdb, 0x53,
+	0x3b, 0xed, 0x96, 0x28, 0xa0, 0x3a, 0x20, 0x0f, 0xfd, 0x42, 0xdb, 0x6f, 0x1d, 0xb7, 0xd4, 0x96,
+	0xd6, 0x54, 0xc5, 0xcc, 0x96, 0xe2, 0x17, 0x3d, 0x4f, 0xec, 0x02, 0x94, 0x7a, 0x6a, 0x53, 0x6d,
+	0x69, 0xca, 0x4b, 0xf1, 0x11, 0x92, 0xa0, 0xc6, 0xa5, 0xbd, 0xce, 0x49, 0xb7, 0xb9, 0xa7, 0x1e,
+	0x75, 0xda, 0x5a, 0x4f, 0xd9, 0x13, 0x05, 0xb4, 0x01, 0xab, 0x89, 0x37, 0x6a, 0x53, 0x39, 0x6c,
+	0xa9, 0x62, 0xe6, 0xac, 0xc0, 0xfe, 0x3e, 0x79, 0xef, 0xcf, 0x00, 0x00, 0x00, 0xff, 0xff, 0x15,
+	0x6b, 0x21, 0x9b, 0x4c, 0x11, 0x00, 0x00,
 }

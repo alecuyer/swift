@@ -84,7 +84,7 @@ func check_200(response *http.Response, err error) error {
 }
 
 func populateKV() (err error) {
-	volumes := []pb.NewVolumeInfo{
+	volumes := []pb.RegisterVolumeRequest{
 		{Partition: 9, Type: 0, VolumeIndex: 20, Offset: 8192, State: 0, RepairTool: false},
 		{Partition: 10, Type: 0, VolumeIndex: 35, Offset: 8192, State: 0, RepairTool: false},
 		{Partition: 40, Type: 0, VolumeIndex: 24, Offset: 8192, State: 0, RepairTool: false},
@@ -137,7 +137,7 @@ func populateKV() (err error) {
 		{Partition: 1019, Type: 0, VolumeIndex: 10, Offset: 8192, State: 0, RepairTool: false},
 	}
 
-	objects := []pb.NewObjectInfo{
+	objects := []pb.RegisterObjectRequest{
 		{Name: []byte("85fd12f8961e33cbf7229a94118524fa1515589781.45671.ts"), VolumeIndex: 3, Offset: 8192, NextOffset: 12288, RepairTool: false},
 		{Name: []byte("84afc1659c7e8271951fe370d6eee0f81515590332.51834.ts"), VolumeIndex: 5, Offset: 4096, NextOffset: 8192, RepairTool: false},
 		{Name: []byte("f45bf9000f39092b9de5a74256e3eebe1515590648.06511.ts"), VolumeIndex: 7, Offset: 4096, NextOffset: 8192, RepairTool: false},
@@ -270,7 +270,7 @@ func TestMain(m *testing.M) {
 //   - single object
 //   - first and last elements of the KV
 func TestLoadObjectsByPrefix(t *testing.T) {
-	prefix := &pb.ObjectPrefix{Prefix: []byte("105de5f388ab4b72e56bc93f36ad388a")}
+	prefix := &pb.LoadObjectsByPrefixRequest{Prefix: []byte("105de5f388ab4b72e56bc93f36ad388a")}
 
 	out, err := proto.Marshal(prefix)
 	if err != nil {
@@ -307,7 +307,7 @@ func TestLoadObjectsByPrefix(t *testing.T) {
 func TestListPartitions(t *testing.T) {
 	partPower := uint32(10)
 
-	lpInfo := &pb.ListPartitionsInfo{PartitionBits: partPower}
+	lpInfo := &pb.ListPartitionsRequest{PartitionBits: partPower}
 	out, err := proto.Marshal(lpInfo)
 	if err != nil {
 		t.Error("failed to marshal")
@@ -346,7 +346,7 @@ func TestListSuffix(t *testing.T) {
 	partPower := uint32(10)
 	suffix := []byte("845")
 
-	lsInfo := &pb.ListSuffixInfo{Partition: partition, Suffix: suffix, PartitionBits: partPower}
+	lsInfo := &pb.ListSuffixRequest{Partition: partition, Suffix: suffix, PartitionBits: partPower}
 	out, err := proto.Marshal(lsInfo)
 	if err != nil {
 		t.Error(err)
@@ -452,7 +452,7 @@ func TestState(t *testing.T) {
 func TestRegisterObject(t *testing.T) {
 	// Register new non-existing object
 	name := []byte("33dea50d391ee52a8ead7cb562a9b4e2/1539791765.84449#5#d.data")
-	obj := &pb.NewObjectInfo{Name: name, VolumeIndex: 1, Offset: 4096, NextOffset: 8192, RepairTool: false}
+	obj := &pb.RegisterObjectRequest{Name: name, VolumeIndex: 1, Offset: 4096, NextOffset: 8192, RepairTool: false}
 	out, err := proto.Marshal(obj)
 	if err != nil {
 		t.Fatal(err)
@@ -465,7 +465,7 @@ func TestRegisterObject(t *testing.T) {
 	}
 	response.Body.Close()
 
-	objInfo := &pb.LoadObjectInfo{Name: name, IsQuarantined: false, RepairTool: false}
+	objInfo := &pb.LoadObjectRequest{Name: name, IsQuarantined: false, RepairTool: false}
 	out, err = proto.Marshal(objInfo)
 	if err != nil {
 		t.Fatal(err)
@@ -488,7 +488,7 @@ func TestRegisterObject(t *testing.T) {
 	}
 
 	// Register existing object, which should fail
-	obj = &pb.NewObjectInfo{Name: name, VolumeIndex: 1, Offset: 4096, NextOffset: 8192, RepairTool: false}
+	obj = &pb.RegisterObjectRequest{Name: name, VolumeIndex: 1, Offset: 4096, NextOffset: 8192, RepairTool: false}
 	out, err = proto.Marshal(obj)
 	if err != nil {
 		t.Fatal(err)
@@ -543,7 +543,7 @@ func TestQuarantineObject(t *testing.T) {
 	response.Body.Close()
 
 	// We shouldn't be able to find it
-	objInfo := &pb.LoadObjectInfo{Name: name, IsQuarantined: false, RepairTool: false}
+	objInfo := &pb.LoadObjectRequest{Name: name, IsQuarantined: false, RepairTool: false}
 	out, err = proto.Marshal(objInfo)
 	if err != nil {
 		t.Fatal(err)
@@ -579,7 +579,7 @@ func TestUnquarantineObject(t *testing.T) {
 	response.Body.Close()
 
 	// We should be able to find it
-	objInfo := &pb.LoadObjectInfo{Name: name, IsQuarantined: false, RepairTool: false}
+	objInfo := &pb.LoadObjectRequest{Name: name, IsQuarantined: false, RepairTool: false}
 	out, err = proto.Marshal(objInfo)
 	if err != nil {
 		t.Fatal(err)
@@ -599,7 +599,7 @@ func TestUnquarantineObject(t *testing.T) {
 // This test modifies the DB
 func TestListQuarantinedOHashes(t *testing.T) {
 	// We shouldn't find any quarantined object initially
-	lqInfo := &pb.ListQuarantinedOHashesInfo{PageSize: 100}
+	lqInfo := &pb.ListQuarantinedOHashesRequest{PageSize: 100}
 	out, err := proto.Marshal(lqInfo)
 	if err != nil {
 		t.Fatal(err)
@@ -611,7 +611,7 @@ func TestListQuarantinedOHashes(t *testing.T) {
 		t.Fatalf("failed to list quarantined ohashes: %v", err)
 	}
 
-	r := &pb.QuarantinedObjectNames{}
+	r := &pb.ListQuarantinedOHashesReply{}
 	buf := new(bytes.Buffer)
 	buf.ReadFrom(response.Body)
 	if err = proto.Unmarshal(buf.Bytes(), r); err != nil {
@@ -658,7 +658,7 @@ func TestListQuarantinedOHashes(t *testing.T) {
 	}
 
 	// List quarantined objects
-	lqInfo = &pb.ListQuarantinedOHashesInfo{PageSize: 100}
+	lqInfo = &pb.ListQuarantinedOHashesRequest{PageSize: 100}
 	out, err = proto.Marshal(lqInfo)
 	if err != nil {
 		t.Fatal(err)
@@ -670,7 +670,7 @@ func TestListQuarantinedOHashes(t *testing.T) {
 		t.Fatalf("failed to list quarantined ohashes: %v", err)
 	}
 
-	r = &pb.QuarantinedObjectNames{}
+	r = &pb.ListQuarantinedOHashesReply{}
 	buf.Reset()
 	buf.ReadFrom(response.Body)
 	if err = proto.Unmarshal(buf.Bytes(), r); err != nil {
@@ -694,7 +694,7 @@ func TestListQuarantinedOHashes(t *testing.T) {
 	}
 
 	// List quarantined objects, with a PageSize of 1
-	lqInfo = &pb.ListQuarantinedOHashesInfo{PageSize: 1}
+	lqInfo = &pb.ListQuarantinedOHashesRequest{PageSize: 1}
 	out, err = proto.Marshal(lqInfo)
 	if err != nil {
 		t.Fatal(err)
@@ -706,7 +706,7 @@ func TestListQuarantinedOHashes(t *testing.T) {
 		t.Fatalf("failed to list quarantined ohashes: %v", err)
 	}
 
-	r = &pb.QuarantinedObjectNames{}
+	r = &pb.ListQuarantinedOHashesReply{}
 	buf.Reset()
 	buf.ReadFrom(response.Body)
 	if err = proto.Unmarshal(buf.Bytes(), r); err != nil {
@@ -730,7 +730,7 @@ func TestListQuarantinedOHashes(t *testing.T) {
 	}
 
 	// Get the next two entries
-	lqInfo = &pb.ListQuarantinedOHashesInfo{PageSize: 2, PageToken: r.NextPageToken}
+	lqInfo = &pb.ListQuarantinedOHashesRequest{PageSize: 2, PageToken: r.NextPageToken}
 	out, err = proto.Marshal(lqInfo)
 	if err != nil {
 		t.Fatal(err)
@@ -742,7 +742,7 @@ func TestListQuarantinedOHashes(t *testing.T) {
 		t.Fatalf("failed to list quarantined ohashes: %v", err)
 	}
 
-	r = &pb.QuarantinedObjectNames{}
+	r = &pb.ListQuarantinedOHashesReply{}
 	buf.Reset()
 	buf.ReadFrom(response.Body)
 	if err = proto.Unmarshal(buf.Bytes(), r); err != nil {
@@ -766,7 +766,7 @@ func TestListQuarantinedOHashes(t *testing.T) {
 	}
 
 	// Get all remaining entries
-	lqInfo = &pb.ListQuarantinedOHashesInfo{PageSize: 100, PageToken: r.NextPageToken}
+	lqInfo = &pb.ListQuarantinedOHashesRequest{PageSize: 100, PageToken: r.NextPageToken}
 	out, err = proto.Marshal(lqInfo)
 	if err != nil {
 		t.Fatal(err)
@@ -778,7 +778,7 @@ func TestListQuarantinedOHashes(t *testing.T) {
 		t.Fatalf("failed to list quarantined ohashes: %v", err)
 	}
 
-	r = &pb.QuarantinedObjectNames{}
+	r = &pb.ListQuarantinedOHashesReply{}
 	buf.Reset()
 	buf.ReadFrom(response.Body)
 	if err = proto.Unmarshal(buf.Bytes(), r); err != nil {
@@ -953,7 +953,7 @@ func TestLoadObjectsByVolume(t *testing.T) {
 }
 
 func TestListQuarantinedOHash(t *testing.T) {
-	ohash := &pb.ObjectPrefix{Prefix: []byte("6b08eabf5667557c72dc6570aa1fb845"), RepairTool: false}
+	ohash := &pb.ListQuarantinedOHashRequest{Prefix: []byte("6b08eabf5667557c72dc6570aa1fb845"), RepairTool: false}
 	out, err := proto.Marshal(ohash)
 	if err != nil {
 		t.Fatal(err)
